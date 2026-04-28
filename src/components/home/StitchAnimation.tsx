@@ -249,7 +249,7 @@ export default function StitchAnimation({
                 setActivePanel(null);
               }
             }}
-            className="absolute inset-0 cursor-pointer focus-visible:outline-none z-20"
+            className="absolute inset-0 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-purple-light focus-visible:ring-inset z-20"
             style={{
               clipPath: CLIP_PATHS[index],
               WebkitClipPath: CLIP_PATHS[index],
@@ -277,7 +277,7 @@ export default function StitchAnimation({
             }}
             className={onPanelClick ? "cursor-pointer" : undefined}
           >
-            <StitchPanel data={panel} index={index} />
+            <StitchPanel data={panel} />
           </motion.div>
         ))}
       </div>
@@ -314,7 +314,7 @@ function FoldedSlice({ panel, index, dimmed }: FoldedSliceProps) {
         priority={index === 0}
         sizes="(max-width: 768px) 100vw, 34vw"
         className="object-cover"
-        style={{ objectPosition: `${PANEL_CENTERS[index]} center` }}
+        style={{ objectPosition: `${PANEL_CENTERS[index]} ${index === 1 ? "15%" : "center"}` }}
       />
       {/* Tone overlay so folded tiles read as one composite */}
       <div
@@ -390,6 +390,7 @@ function ExpandedPanel({ panel, index }: ExpandedPanelProps) {
             fill
             sizes="100vw"
             className="object-cover"
+            style={index === 1 ? { objectPosition: "center 15%" } : undefined}
             priority
           />
         </motion.div>

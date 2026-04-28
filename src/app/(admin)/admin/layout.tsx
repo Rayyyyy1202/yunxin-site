@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import AdminAuthGate from "@/components/admin/AdminAuthGate";
 
 export const metadata: Metadata = {
   title: "素材管理 | AIeveR Admin",
@@ -11,8 +12,8 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-[#0d0e10] text-[#fdfbfe]">
-      {children}
+    <div className="min-h-screen bg-bg-primary text-text-primary">
+      <AdminAuthGate>{children}</AdminAuthGate>
     </div>
   );
 }

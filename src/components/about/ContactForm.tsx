@@ -21,6 +21,7 @@ type ContactFormData = z.infer<typeof contactSchema>;
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const {
     register,
@@ -33,14 +34,29 @@ export default function ContactForm() {
 
   const onSubmit = async (data: ContactFormData) => {
     setSubmitting(true);
-    // Simulate API call - replace with actual submission logic
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    // Form data is logged to verify submission - in production, send to API endpoint
-    void data;
-    setSubmitted(true);
-    setSubmitting(false);
-    reset();
-    setTimeout(() => setSubmitted(false), 5000);
+    setSubmitError(null);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        const payload = (await res.json().catch(() => null)) as
+          | { error?: string }
+          | null;
+        throw new Error(payload?.error ?? "提交失败，请稍后重试。");
+      }
+      setSubmitted(true);
+      reset();
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "提交失败，请稍后重试。";
+      setSubmitError(message);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const inputClass =
@@ -131,6 +147,12 @@ export default function ContactForm() {
             <p className={errorClass}>{errors.message.message}</p>
           )}
         </div>
+
+        {submitError && (
+          <p className="text-red-400 text-sm" role="alert">
+            {submitError}
+          </p>
+        )}
 
         <button
           type="submit"

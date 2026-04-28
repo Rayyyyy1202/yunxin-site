@@ -84,3 +84,9 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* Lock scroll while the homepage gateway is showing. */
+.is-gateway-locked,
+.is-gateway-locked body {
+  overflow: hidden;
+}

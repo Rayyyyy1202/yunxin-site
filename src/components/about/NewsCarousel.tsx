@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
+import { useReducedMotion } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import type { NewsItem } from "@/lib/types";
 import { formatDate } from "@/lib/utils";
@@ -20,6 +21,9 @@ export default function NewsCarousel({ items }: NewsCarouselProps) {
   });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+  const [paused, setPaused] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
@@ -30,26 +34,42 @@ export default function NewsCarousel({ items }: NewsCarouselProps) {
 
   useEffect(() => {
     if (!emblaApi) return;
-    const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
-    setScrollSnaps(emblaApi.scrollSnapList());
+    const onSelect = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+      setScrollSnaps(emblaApi.scrollSnapList());
+    };
     emblaApi.on("select", onSelect);
     emblaApi.on("reInit", onSelect);
     onSelect();
+    return () => {
+      emblaApi.off("select", onSelect);
+      emblaApi.off("reInit", onSelect);
+    };
   }, [emblaApi]);
 
-  // Auto-play
   useEffect(() => {
-    if (!emblaApi) return;
+    if (!emblaApi || paused || reducedMotion) return;
     const id = setInterval(() => {
       emblaApi.scrollNext();
     }, 6000);
     return () => clearInterval(id);
-  }, [emblaApi]);
+  }, [emblaApi, paused, reducedMotion]);
 
   if (items.length === 0) return null;
 
   return (
-    <div className="relative">
+    <div
+      className="relative"
+      ref={containerRef}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={(e) => {
+        if (!containerRef.current?.contains(e.relatedTarget as Node)) {
+          setPaused(false);
+        }
+      }}
+    >
       <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
         <div className="flex">
           {items.map((item) => (

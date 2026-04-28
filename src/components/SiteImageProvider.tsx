@@ -26,9 +26,9 @@ export function SiteImageProvider({ children }: { children: ReactNode }) {
   const [manifest, setManifest] = useState<ImageManifest>({});
 
   useEffect(() => {
-    fetch(`${MANIFEST_URL}?t=${Date.now()}`)
-      .then((r) => r.json())
-      .then((data: ImageManifest) => setManifest(data))
+    fetch(MANIFEST_URL, { cache: "no-cache" })
+      .then((r) => (r.ok ? (r.json() as Promise<ImageManifest>) : {}))
+      .then((data) => setManifest(data))
       .catch(() => {
         /* manifest unavailable — use defaults */
       });

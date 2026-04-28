@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Share2, Globe, Mail } from "lucide-react";
+import { Globe, Mail } from "lucide-react";
 import { ArrowRight } from "lucide-react";
 
 export default function Footer() {
@@ -26,9 +26,20 @@ export default function Footer() {
               致力成為全球多維視覺&quot;具身操作·智能視覺&quot;領導者
             </p>
             <div className="flex items-center gap-3 mt-4">
-              <Share2 size={18} className="text-text-secondary hover:text-text-primary cursor-pointer transition-colors" />
-              <Globe size={18} className="text-text-secondary hover:text-text-primary cursor-pointer transition-colors" />
-              <Mail size={18} className="text-text-secondary hover:text-text-primary cursor-pointer transition-colors" />
+              <Link
+                href="/about/contact"
+                aria-label="访问官网联系页"
+                className="text-text-secondary hover:text-text-primary transition-colors"
+              >
+                <Globe size={18} aria-hidden />
+              </Link>
+              <a
+                href="mailto:zcchen@aiever-robotics.com"
+                aria-label="发送邮件到 zcchen@aiever-robotics.com"
+                className="text-text-secondary hover:text-text-primary transition-colors"
+              >
+                <Mail size={18} aria-hidden />
+              </a>
             </div>
           </div>
 
@@ -72,11 +83,6 @@ export default function Footer() {
                   合作伙伴計劃
                 </Link>
               </li>
-              <li>
-                <Link href="#" className="text-text-secondary text-sm hover:text-text-primary transition-colors">
-                  隱私政策
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -93,12 +99,12 @@ export default function Footer() {
                 探索產品
                 <ArrowRight size={14} />
               </Link>
-              <Link
-                href="#"
-                className="flex items-center justify-center bg-purple-primary text-white px-5 py-3 text-sm hover:bg-purple-primary/80 transition-colors"
+              <span
+                aria-disabled="true"
+                className="flex items-center justify-center bg-purple-primary/40 text-white/70 px-5 py-3 text-sm cursor-not-allowed select-none"
               >
-                進入商城
-              </Link>
+                商城 · 敬請期待
+              </span>
               <Link
                 href="/about/contact"
                 className="flex items-center justify-center border border-border-color text-text-primary px-5 py-3 text-sm hover:border-purple-light transition-colors"
@@ -139,18 +145,12 @@ export default function Footer() {
             版權所有© 雲芯機器人有限公司 | 粵ICP備2025445885號-1
           </p>
           <div className="flex items-center gap-8">
-            <Link
-              href="#"
+            <a
+              href="mailto:zcchen@aiever-robotics.com"
               className="text-text-secondary text-xs hover:text-text-primary transition-colors"
             >
-              LEGAL STATEMENT
-            </Link>
-            <Link
-              href="#"
-              className="text-text-secondary text-xs hover:text-text-primary transition-colors"
-            >
-              PRIVACY POLICY
-            </Link>
+              CONTACT
+            </a>
           </div>
         </div>
       </div>

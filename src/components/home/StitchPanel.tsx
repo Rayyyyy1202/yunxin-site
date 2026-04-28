@@ -6,10 +6,9 @@ import { useSiteImage } from "@/components/SiteImageProvider";
 
 interface StitchPanelProps {
   data: StitchPanelData;
-  index: number;
 }
 
-export default function StitchPanel({ data, index: _index }: StitchPanelProps) {
+export default function StitchPanel({ data }: StitchPanelProps) {
   const detailSrc = useSiteImage(data.detailImage);
 
   return (

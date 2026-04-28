@@ -13,9 +13,9 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${MANIFEST_URL}?t=${Date.now()}`)
-      .then((r) => r.json())
-      .then((data: ImageManifest) => {
+    fetch(MANIFEST_URL, { cache: "no-cache" })
+      .then((r) => (r.ok ? (r.json() as Promise<ImageManifest>) : {}))
+      .then((data) => {
         setManifest(data);
         setLoading(false);
       })
@@ -44,7 +44,7 @@ export default function AdminPage() {
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-[#ababad] hover:text-[#fdfbfe] transition-colors text-sm mb-4"
+            className="inline-flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors text-sm mb-4"
           >
             <ArrowLeft size={16} />
             返回官网
@@ -52,8 +52,8 @@ export default function AdminPage() {
           <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
             素材管理
           </h1>
-          <p className="text-[#ababad] mt-2 text-sm">
-            管理网站所有图片素材。悬停图片卡片上传替换，点击"恢复默认"还原。
+          <p className="text-text-secondary mt-2 text-sm">
+            管理网站所有图片素材。悬停图片卡片上传替换，点击&ldquo;恢复默认&rdquo;还原。
           </p>
         </div>
 
@@ -61,8 +61,8 @@ export default function AdminPage() {
         {!loading && (
           <div className="flex gap-6">
             <div className="flex items-center gap-2 text-sm">
-              <ImageIcon size={16} className="text-[#ababad]" />
-              <span className="text-[#ababad]">共 {totalCount} 张</span>
+              <ImageIcon size={16} className="text-text-secondary" />
+              <span className="text-text-secondary">共 {totalCount} 张</span>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <CheckCircle2 size={16} className="text-emerald-400" />
@@ -79,17 +79,17 @@ export default function AdminPage() {
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center h-64 text-[#ababad]">
+        <div className="flex items-center justify-center h-64 text-text-secondary">
           加载中…
         </div>
       ) : (
         <div className="space-y-12">
           {siteImageSections.map((section) => (
             <section key={section.title}>
-              <h2 className="text-lg font-bold text-[#fdfbfe] mb-1">
+              <h2 className="text-lg font-bold text-text-primary mb-1">
                 {section.title}
               </h2>
-              <div className="h-px bg-[#47484a] mb-6" />
+              <div className="h-px bg-border-color mb-6" />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                 {section.slots.map((slot) => (
@@ -111,7 +111,7 @@ export default function AdminPage() {
       )}
 
       {/* Footer */}
-      <div className="mt-16 mb-8 pt-8 border-t border-[#47484a] text-center text-[#ababad] text-xs">
+      <div className="mt-16 mb-8 pt-8 border-t border-border-color text-center text-text-secondary text-xs">
         AIeveR Robotics 素材管理系统 · 仅限内部使用
       </div>
     </div>

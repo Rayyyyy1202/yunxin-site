@@ -42,13 +42,14 @@ export default function HomeContent() {
 
   // Lock body scroll while the gateway is active.
   useEffect(() => {
+    const cls = "is-gateway-locked";
     if (!entered) {
-      document.body.style.overflow = "hidden";
+      document.documentElement.classList.add(cls);
     } else {
-      document.body.style.overflow = "";
+      document.documentElement.classList.remove(cls);
     }
     return () => {
-      document.body.style.overflow = "";
+      document.documentElement.classList.remove(cls);
     };
   }, [entered]);
 
@@ -94,7 +95,7 @@ export default function HomeContent() {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(13,14,16,0.6) 0%, rgba(13,14,16,0.4) 50%, rgba(13,14,16,0.6) 100%)",
+                "linear-gradient(180deg, rgba(13,14,16,0.75) 0%, rgba(13,14,16,0.55) 50%, rgba(13,14,16,0.75) 100%)",
             }}
           />
           <div className="relative z-10">
