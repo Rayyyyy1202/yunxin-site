@@ -1,0 +1,16 @@
+# Exclude admin/merchant management panel from Vercel deployment.
+# Admin relies on a writable filesystem (public/uploads) which Vercel's
+# serverless runtime does not support. Keep the code locally for dev;
+# skip it in production until we migrate to Vercel Blob / object storage.
+src/app/(admin)
+src/app/api/admin
+src/components/admin
+
+# Local design / archive assets (also in .gitignore)
+_design_assets
+Untitled
+Untitled.zip
+官网
+官网.zip
+public/uploads
+public/images.manifest.json
