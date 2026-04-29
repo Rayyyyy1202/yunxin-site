@@ -8,9 +8,12 @@ import { stitchPanels } from "@/data/stitch-panels";
 import { useSiteImage } from "@/components/SiteImageProvider";
 import StitchPanel from "./StitchPanel";
 
-// True geometric centroid of each panel parallelogram (after the
-// edge-clamping in buildClipPath). Keep this in sync with PANEL_RANGES.
-const PANEL_CENTERS = ["15.5%", "50.5%", "85%"];
+// True geometric centroid x (as % of container width) of each panel's
+// clipped trapezoid. Used both for label placement and for shifting
+// each panel's source image so its centre lands inside the panel.
+// Keep in sync with PANEL_RANGES.
+const PANEL_CENTROID_X = [15.5, 50.5, 85] as const;
+const PANEL_CENTERS = PANEL_CENTROID_X.map((x) => `${x}%`);
 
 /**
  * Stitch three-panel showcase.
@@ -301,6 +304,10 @@ interface FoldedSliceProps {
 
 function FoldedSlice({ panel, index, dimmed }: FoldedSliceProps) {
   const src = useSiteImage(panel.detailImage);
+  // Shift the image so its centre aligns with the panel centroid — without
+  // this, panel 0 / panel 2 only show the leftmost / rightmost slice of
+  // their source image and the subject gets cropped away.
+  const shiftXPercent = PANEL_CENTROID_X[index] - 50;
   return (
     <div
       aria-hidden
@@ -311,15 +318,20 @@ function FoldedSlice({ panel, index, dimmed }: FoldedSliceProps) {
         opacity: dimmed ? 0.35 : 1,
       }}
     >
-      <Image
-        src={src}
-        alt=""
-        fill
-        priority={index === 0}
-        sizes="(max-width: 768px) 100vw, 34vw"
-        className="object-cover"
-        style={{ objectPosition: `center ${index === 1 ? "15%" : "center"}` }}
-      />
+      <div
+        className="absolute inset-0"
+        style={{ transform: `translateX(${shiftXPercent}%)` }}
+      >
+        <Image
+          src={src}
+          alt=""
+          fill
+          priority={index === 0}
+          sizes="(max-width: 768px) 100vw, 34vw"
+          className="object-cover"
+          style={{ objectPosition: `center ${index === 1 ? "15%" : "center"}` }}
+        />
+      </div>
       {/* Tone overlay so folded tiles read as one composite */}
       <div
         className="absolute inset-0"
