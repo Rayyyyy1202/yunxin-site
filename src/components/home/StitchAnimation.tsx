@@ -421,11 +421,11 @@ function ExpandedPanel({ panel, index }: ExpandedPanelProps) {
         />
       </motion.div>
 
-      {/* Brand watermark — appears after wipe mostly done */}
+      {/* Brand watermark — comes in shortly after the wipe begins */}
       <motion.div
         initial={{ opacity: 0, y: -6 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: SMOOTH_EASE, delay: 0.85 }}
+        transition={{ duration: 0.35, ease: SMOOTH_EASE, delay: 0.15 }}
         className="absolute top-8 left-8 md:top-10 md:left-10 text-text-primary/90 select-none"
       >
         <div className="text-sm md:text-base font-semibold tracking-wide">
@@ -441,7 +441,7 @@ function ExpandedPanel({ panel, index }: ExpandedPanelProps) {
       <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: SMOOTH_EASE, delay: 0.85 }}
+        transition={{ duration: 0.35, ease: SMOOTH_EASE, delay: 0.15 }}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center"
       >
         <span className="block text-purple-light text-[11px] md:text-xs uppercase tracking-[3px] font-bold">
