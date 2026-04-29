@@ -165,10 +165,10 @@ export default function StitchAnimation({
                     className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 text-center"
                     style={{ left: PANEL_CENTERS[i] }}
                   >
-                    <span className="block text-purple-light text-[10px] uppercase tracking-[3px] font-bold">
+                    <span className="block text-purple-light text-[11px] md:text-xs uppercase tracking-[3px] font-bold">
                       {panel.titleEn}
                     </span>
-                    <h3 className="mt-2 text-text-primary text-2xl md:text-3xl font-bold drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
+                    <h3 className="mt-2 text-text-primary text-3xl md:text-5xl font-bold drop-shadow-[0_4px_18px_rgba(0,0,0,0.55)]">
                       {panel.titleCn}
                     </h3>
                   </div>
