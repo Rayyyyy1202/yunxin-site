@@ -8,9 +8,9 @@ import { stitchPanels } from "@/data/stitch-panels";
 import { useSiteImage } from "@/components/SiteImageProvider";
 import StitchPanel from "./StitchPanel";
 
-// Horizontal centre of each panel region (in %), used to position each
-// source image so its subject sits inside the clipped slice.
-const PANEL_CENTERS = ["16.5%", "50%", "83.5%"];
+// True geometric centroid of each panel parallelogram (after the
+// edge-clamping in buildClipPath). Keep this in sync with PANEL_RANGES.
+const PANEL_CENTERS = ["15.5%", "50.5%", "85%"];
 
 /**
  * Stitch three-panel showcase.
@@ -37,8 +37,12 @@ const PANEL_RANGES: Array<{ bottomStart: number; bottomEnd: number }> = [
 
 function buildClipPath(index: number): string {
   const { bottomStart, bottomEnd } = PANEL_RANGES[index];
-  const topStart = Math.min(100, bottomStart + SLANT);
-  const topEnd = Math.min(100, bottomEnd + SLANT);
+  const isFirst = index === 0;
+  const isLast = index === PANEL_RANGES.length - 1;
+  // Outer edges of the leftmost / rightmost panels must stay flush with the
+  // viewport (no slant), otherwise a black wedge appears in the corner.
+  const topStart = isFirst ? bottomStart : Math.min(100, bottomStart + SLANT);
+  const topEnd = isLast ? bottomEnd : Math.min(100, bottomEnd + SLANT);
   return `polygon(${topStart}% 0%, ${topEnd}% 0%, ${bottomEnd}% 100%, ${bottomStart}% 100%)`;
 }
 
@@ -314,7 +318,7 @@ function FoldedSlice({ panel, index, dimmed }: FoldedSliceProps) {
         priority={index === 0}
         sizes="(max-width: 768px) 100vw, 34vw"
         className="object-cover"
-        style={{ objectPosition: `${PANEL_CENTERS[index]} ${index === 1 ? "15%" : "center"}` }}
+        style={{ objectPosition: `center ${index === 1 ? "15%" : "center"}` }}
       />
       {/* Tone overlay so folded tiles read as one composite */}
       <div
