@@ -7,11 +7,18 @@ export const mainNavigation: NavItem[] = [
   },
   {
     label: "產品中心",
-    href: "/support/docs",
+    href: "/products/depthsight/line",
     children: [
-      { label: "具身3D視覺感測器", href: "/support/docs" },
-      { label: "DepthSight產品線", href: "/support/docs" },
-      { label: "AIR智能軟體引擎", href: "/support/software" },
+      { label: "DepthSight · Line 系列", href: "/products/depthsight/line" },
+      {
+        label: "DepthSight · Advanced 系列",
+        href: "/products/depthsight/advanced",
+      },
+      {
+        label: "DepthSight · Embodied Intelligence 系列",
+        href: "/products/depthsight/embodied-intelligence",
+      },
+      { label: "AIR 智能軟體引擎", href: "/support/software" },
     ],
   },
   {

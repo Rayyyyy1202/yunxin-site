@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/constants";
 import { news } from "@/data/news";
+import { seriesSlugs } from "@/data/series";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -24,5 +25,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...newsRoutes];
+  const seriesRoutes: MetadataRoute.Sitemap = seriesSlugs.map((slug) => ({
+    url: `${SITE_URL}/products/depthsight/${slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }));
+
+  return [...staticRoutes, ...seriesRoutes, ...newsRoutes];
 }

@@ -23,6 +23,70 @@ export interface ImageSection {
 
 export const siteImageSections: ImageSection[] = [
   {
+    title: "DepthSight 系列 — Hero 主圖",
+    slots: [
+      {
+        id: "series-line-hero",
+        label: "Line 系列 · 產品大圖",
+        defaultSrc: "/images/home/product-depthsight.jpg",
+        aspect: "5/4",
+      },
+      {
+        id: "series-advanced-hero",
+        label: "Advanced 系列 · 產品大圖",
+        defaultSrc: "/images/home/product-depthsight.jpg",
+        aspect: "5/4",
+      },
+      {
+        id: "series-ei-hero",
+        label: "Embodied Intelligence 系列 · 產品大圖",
+        defaultSrc: "/images/home/product-embodied.jpg",
+        aspect: "5/4",
+      },
+    ],
+  },
+  {
+    title: "Advanced 系列 — 點雲示例",
+    slots: [
+      {
+        id: "advanced-pc-mini-led",
+        label: "Mini-LED 點雲",
+        defaultSrc: "/images/home/bento-3c.jpg",
+        aspect: "4/3",
+      },
+      {
+        id: "advanced-pc-aluminium",
+        label: "鋁型材點雲",
+        defaultSrc: "/images/home/bento-auto.jpg",
+        aspect: "4/3",
+      },
+      {
+        id: "advanced-pc-battery",
+        label: "新能源電池平面度",
+        defaultSrc: "/images/home/bento-battery.jpg",
+        aspect: "4/3",
+      },
+      {
+        id: "advanced-pc-cnc",
+        label: "CNC 加工件點雲",
+        defaultSrc: "/images/home/bento-inspection.jpg",
+        aspect: "4/3",
+      },
+      {
+        id: "advanced-pc-pcb",
+        label: "PCB 板點雲",
+        defaultSrc: "/images/home/bento-research.jpg",
+        aspect: "4/3",
+      },
+      {
+        id: "advanced-pc-gpu",
+        label: "顯卡點雲",
+        defaultSrc: "/images/home/bento-logistics.jpg",
+        aspect: "4/3",
+      },
+    ],
+  },
+  {
     title: "首页 — Hero",
     slots: [
       {
