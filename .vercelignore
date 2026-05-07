@@ -14,3 +14,7 @@ Untitled.zip
 官网.zip
 public/uploads
 public/images.manifest.json
+
+# Raw Figma asset library — not all of these are referenced by the site yet.
+# Move individual files into public/images/<section>/ as they're adopted.
+public/images/figma
