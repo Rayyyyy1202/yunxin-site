@@ -109,21 +109,27 @@ export default function SeriesHeroSection({ data }: SeriesHeroProps) {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="relative aspect-[4/3] md:aspect-[5/4] w-full"
         >
-          <SiteImg
-            src={data.productImageDefault}
-            alt={data.title}
-            className="absolute inset-0 w-full h-full object-contain drop-shadow-[0_20px_40px_rgba(73,46,141,0.4)]"
-          />
+          {/* Product image — sized to sit on the podium in the bg.
+              Figma reference: ~576×576 (≈45% of hero width) so we keep the
+              rendered image to ~60% of right column width and bottom-anchor
+              it onto the podium platform. */}
+          <div className="absolute inset-0 flex items-end justify-center pb-[12%]">
+            <SiteImg
+              src={data.productImageDefault}
+              alt={data.title}
+              className="w-[60%] max-w-[380px] h-auto object-contain drop-shadow-[0_20px_40px_rgba(73,46,141,0.4)]"
+            />
+          </div>
 
           {/* Stage glow under product */}
           <div
             aria-hidden
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-12 rounded-[50%] blur-2xl"
-            style={{ background: "rgba(141,119,207,0.35)" }}
+            className="absolute bottom-[10%] left-1/2 -translate-x-1/2 w-1/2 h-8 rounded-[50%] blur-2xl"
+            style={{ background: "rgba(141,119,207,0.4)" }}
           />
 
           {/* Side HUD cards */}
-          <div className="absolute top-1/2 -translate-y-1/2 right-0 flex flex-col gap-3 md:gap-4">
+          <div className="absolute top-1/4 right-0 flex flex-col gap-3 md:gap-4">
             {data.sideCards.map((label, i) => (
               <motion.div
                 key={i}
