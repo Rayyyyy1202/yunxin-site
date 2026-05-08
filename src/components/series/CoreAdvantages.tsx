@@ -1,18 +1,23 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Activity,
   Bot,
   Box,
+  CheckCircle2,
   Cloud,
   Cpu,
   Crosshair,
+  Layers,
   LayoutGrid,
+  Package,
   Plug,
   ScanEye,
   ShieldCheck,
   Sparkles,
+  Wrench,
   Zap,
   type LucideIcon,
 } from "lucide-react";
@@ -31,10 +36,15 @@ const ICON_MAP: Record<SeriesIconKey, LucideIcon> = {
   Box,
   Activity,
   LayoutGrid,
+  CheckCircle2,
+  Layers,
+  Wrench,
+  Package,
 };
 
 interface CoreAdvantagesProps {
-  items: SeriesAdvantage[];
+  items?: SeriesAdvantage[];
+  background?: string;
 }
 
 const fadeUp = {
@@ -42,10 +52,10 @@ const fadeUp = {
   show: { opacity: 1, y: 0 },
 };
 
-export default function CoreAdvantages({ items }: CoreAdvantagesProps) {
-  if (items.length === 0) return null;
+export default function CoreAdvantages({ items, background }: CoreAdvantagesProps) {
+  if (!items || items.length === 0) return null;
 
-  // 4 items → 2x2 / 1x4. 5 items → 1x5 / 2-3 stagger. 6 items → 3x2.
+  // 4 → 2x2 / 4-col, 5 → 5-col, 6 → 3-col.
   const columnsClass =
     items.length === 5
       ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-5"
@@ -54,14 +64,22 @@ export default function CoreAdvantages({ items }: CoreAdvantagesProps) {
         : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
 
   return (
-    <section className="relative bg-bg-primary py-20 md:py-28">
-      {/* Ambient line decoration */}
+    <section className="relative bg-bg-primary py-20 md:py-28 overflow-hidden">
+      {background && (
+        <Image
+          src={background}
+          alt=""
+          fill
+          sizes="100vw"
+          className="absolute inset-0 object-cover pointer-events-none opacity-60"
+        />
+      )}
       <div
         aria-hidden
-        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border-subtle to-transparent"
+        className="absolute inset-0 pointer-events-none bg-bg-primary/55"
       />
 
-      <div className="max-w-[1280px] mx-auto px-6 md:px-10">
+      <div className="relative max-w-[1280px] mx-auto px-6 md:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -91,7 +109,7 @@ export default function CoreAdvantages({ items }: CoreAdvantagesProps) {
                 key={`${item.title}-${i}`}
                 variants={fadeUp}
                 transition={{ duration: 0.5 }}
-                className="group relative bg-bg-secondary border border-border-subtle rounded-xl p-6 md:p-7 hover:border-purple-light/40 transition-colors"
+                className="group relative bg-bg-secondary/85 backdrop-blur-sm border border-border-subtle rounded-xl p-5 md:p-6 hover:border-purple-light/40 transition-colors"
               >
                 <div
                   aria-hidden
@@ -103,9 +121,21 @@ export default function CoreAdvantages({ items }: CoreAdvantagesProps) {
                 />
 
                 <div className="relative">
-                  <div className="w-11 h-11 rounded-lg bg-purple-primary/15 border border-purple-primary/30 flex items-center justify-center mb-5 text-purple-light">
-                    <Icon size={22} strokeWidth={1.6} />
-                  </div>
+                  {item.iconImage ? (
+                    <div className="relative w-full aspect-square mb-4 rounded-lg overflow-hidden bg-bg-primary/40">
+                      <Image
+                        src={item.iconImage}
+                        alt=""
+                        fill
+                        sizes="(max-width: 768px) 50vw, 240px"
+                        className="object-contain p-3"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-11 h-11 rounded-lg bg-purple-primary/15 border border-purple-primary/30 flex items-center justify-center mb-5 text-purple-light">
+                      <Icon size={22} strokeWidth={1.6} />
+                    </div>
+                  )}
                   <h3 className="text-text-primary text-base md:text-lg font-semibold mb-2.5 leading-snug">
                     {item.title}
                   </h3>

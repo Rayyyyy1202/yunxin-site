@@ -4,8 +4,13 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getSeries, seriesList, seriesSlugs } from "@/data/series";
 import SeriesHeroSection from "@/components/series/SeriesHero";
+import CoreFeatures from "@/components/series/CoreFeatures";
 import CoreAdvantages from "@/components/series/CoreAdvantages";
-import PointCloudExamples from "@/components/series/PointCloudExamples";
+import TechSpecsTable from "@/components/series/TechSpecsTable";
+import ApplicationCases from "@/components/series/ApplicationCases";
+import FOVCalculator from "@/components/series/FOVCalculator";
+import CaseGallery from "@/components/series/CaseGallery";
+import SeriesCTA from "@/components/series/SeriesCTA";
 
 interface SeriesPageProps {
   params: Promise<{ series: string }>;
@@ -56,8 +61,16 @@ export default async function SeriesPage({ params }: SeriesPageProps) {
       </div>
 
       <SeriesHeroSection data={data.hero} />
-      <CoreAdvantages items={data.coreAdvantages} />
-      <PointCloudExamples items={data.pointCloudExamples} />
+      <CoreFeatures items={data.coreFeatures} />
+      <CoreAdvantages
+        items={data.coreAdvantages}
+        background={data.coreAdvantagesBackground}
+      />
+      <TechSpecsTable data={data.techSpecs} />
+      <ApplicationCases items={data.applicationCases} />
+      <FOVCalculator config={data.fovCalculator} />
+      <CaseGallery items={data.caseGallery} />
+      <SeriesCTA data={data.cta} />
 
       {/* Sibling-series nav */}
       <section className="bg-bg-primary border-t border-border-subtle">

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import SiteImg from "@/components/ui/SiteImg";
@@ -16,20 +17,45 @@ const fadeUp = {
 
 export default function SeriesHeroSection({ data }: SeriesHeroProps) {
   return (
-    <section className="relative isolate overflow-hidden bg-bg-primary pt-24 md:pt-32 pb-16 md:pb-24">
-      {/* Ambient purple glow */}
+    <section className="relative isolate overflow-hidden bg-bg-primary pt-24 md:pt-32 pb-16 md:pb-24 min-h-[640px] md:min-h-[720px]">
+      {/* Layer 1 — full-bleed dark texture (Figma export). */}
+      {data.backgroundDefault && (
+        <Image
+          src={data.backgroundDefault}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="absolute inset-0 object-cover pointer-events-none"
+        />
+      )}
+
+      {/* Layer 2 — purple glow overlay (blended on top of texture). */}
+      {data.overlayDefault && (
+        <Image
+          src={data.overlayDefault}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="absolute inset-0 object-cover pointer-events-none mix-blend-screen opacity-90"
+        />
+      )}
+
+      {/* CSS fallback / additive ambient glow. */}
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 80% 60% at 75% 35%, rgba(73,46,141,0.35) 0%, rgba(13,14,16,0) 60%)",
+            "radial-gradient(ellipse 80% 60% at 75% 35%, rgba(73,46,141,0.25) 0%, rgba(13,14,16,0) 60%)",
         }}
       />
-      {/* Soft grid */}
+
+      {/* Subtle grid */}
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none opacity-20"
+        className="absolute inset-0 pointer-events-none opacity-15"
         style={{
           backgroundImage:
             "linear-gradient(90deg, rgba(141,119,207,0.08) 1px, transparent 1px), linear-gradient(180deg, rgba(141,119,207,0.08) 1px, transparent 1px)",
@@ -116,7 +142,7 @@ export default function SeriesHeroSection({ data }: SeriesHeroProps) {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.45 + i * 0.1 }}
-                className="bg-bg-secondary/85 backdrop-blur-sm border border-border-subtle rounded-md px-3 py-2 max-w-[200px]"
+                className="bg-bg-secondary/70 backdrop-blur-sm border border-purple-light/25 rounded-md px-3 py-2 max-w-[200px]"
               >
                 <span className="block text-purple-light text-[9px] uppercase tracking-[2px] font-semibold mb-0.5">
                   HUD · {String(i + 1).padStart(2, "0")}

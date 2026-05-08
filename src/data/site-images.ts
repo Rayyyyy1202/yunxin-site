@@ -23,67 +23,31 @@ export interface ImageSection {
 
 export const siteImageSections: ImageSection[] = [
   {
-    title: "DepthSight 系列 — Hero 主圖",
+    title: "Line 系列 · DepthSight",
     slots: [
-      {
-        id: "series-line-hero",
-        label: "Line 系列 · 產品大圖",
-        defaultSrc: "/images/home/product-depthsight.jpg",
-        aspect: "5/4",
-      },
-      {
-        id: "series-advanced-hero",
-        label: "Advanced 系列 · 產品大圖",
-        defaultSrc: "/images/home/product-depthsight.jpg",
-        aspect: "5/4",
-      },
-      {
-        id: "series-ei-hero",
-        label: "Embodied Intelligence 系列 · 產品大圖",
-        defaultSrc: "/images/home/product-embodied.jpg",
-        aspect: "5/4",
-      },
+      { id: "series-line-hero", label: "Hero 產品大圖", defaultSrc: "/images/series/line/hero-product.png", aspect: "5/4" },
+      { id: "series-line-case-pcb", label: "應用案例 · PCB 板點雲", defaultSrc: "", aspect: "4/3" },
+      { id: "series-line-gallery-battery-cap", label: "案例集 · 鋰電池蓋板", defaultSrc: "", aspect: "4/3" },
+      { id: "series-line-gallery-battery-housing", label: "案例集 · 電池盒下箱體", defaultSrc: "", aspect: "4/3" },
+      { id: "series-line-gallery-display", label: "案例集 · 顯示屏背板", defaultSrc: "", aspect: "4/3" },
     ],
   },
   {
-    title: "Advanced 系列 — 點雲示例",
+    title: "Advanced 系列 · DepthSight",
     slots: [
-      {
-        id: "advanced-pc-mini-led",
-        label: "Mini-LED 點雲",
-        defaultSrc: "/images/home/bento-3c.jpg",
-        aspect: "4/3",
-      },
-      {
-        id: "advanced-pc-aluminium",
-        label: "鋁型材點雲",
-        defaultSrc: "/images/home/bento-auto.jpg",
-        aspect: "4/3",
-      },
-      {
-        id: "advanced-pc-battery",
-        label: "新能源電池平面度",
-        defaultSrc: "/images/home/bento-battery.jpg",
-        aspect: "4/3",
-      },
-      {
-        id: "advanced-pc-cnc",
-        label: "CNC 加工件點雲",
-        defaultSrc: "/images/home/bento-inspection.jpg",
-        aspect: "4/3",
-      },
-      {
-        id: "advanced-pc-pcb",
-        label: "PCB 板點雲",
-        defaultSrc: "/images/home/bento-research.jpg",
-        aspect: "4/3",
-      },
-      {
-        id: "advanced-pc-gpu",
-        label: "顯卡點雲",
-        defaultSrc: "/images/home/bento-logistics.jpg",
-        aspect: "4/3",
-      },
+      { id: "series-advanced-hero", label: "Hero 產品大圖", defaultSrc: "/images/series/advanced/hero-product.png", aspect: "5/4" },
+      { id: "series-advanced-case-battery-cap", label: "應用案例 · 鋰電池蓋板", defaultSrc: "", aspect: "4/3" },
+      { id: "series-advanced-case-battery-housing", label: "應用案例 · 電池盒下箱體", defaultSrc: "", aspect: "4/3" },
+      { id: "series-advanced-case-display", label: "應用案例 · 顯示屏背板", defaultSrc: "", aspect: "4/3" },
+      { id: "series-advanced-gallery-battery-cap", label: "案例集 · 鋰電池蓋板", defaultSrc: "", aspect: "4/3" },
+      { id: "series-advanced-gallery-battery-housing", label: "案例集 · 電池盒下箱體", defaultSrc: "", aspect: "4/3" },
+      { id: "series-advanced-gallery-display", label: "案例集 · 顯示屏背板", defaultSrc: "", aspect: "4/3" },
+    ],
+  },
+  {
+    title: "Embodied Intelligence 系列 · DepthSight",
+    slots: [
+      { id: "series-ei-hero", label: "Hero 產品大圖", defaultSrc: "/images/series/ei/hero-product.png", aspect: "5/4" },
     ],
   },
   {
