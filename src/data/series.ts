@@ -44,10 +44,8 @@ export interface SeriesHero {
   sideCards: string[];
   productImageSlot: string;
   productImageDefault: string;
-  /** Bottom layer — full-bleed dark texture. */
+  /** Full-bleed dark stage backdrop image. */
   backgroundDefault?: string;
-  /** Top layer — purple glow, blended on top of texture. */
-  overlayDefault?: string;
 }
 
 /** Shared 4-card "core features" block (same copy on every series). */
@@ -182,7 +180,6 @@ const lineSeries: SeriesData = {
     productImageSlot: "series-line-hero",
     productImageDefault: "/images/series/line/hero-product.png",
     backgroundDefault: "/images/series/line/hero-bg.png",
-    overlayDefault: "/images/series/line/hero-overlay.png",
   },
   coreFeatures: sharedCoreFeatures,
   coreAdvantages: [
@@ -299,7 +296,6 @@ const advancedSeries: SeriesData = {
     productImageSlot: "series-advanced-hero",
     productImageDefault: "/images/series/advanced/hero-product.png",
     backgroundDefault: "/images/series/advanced/hero-bg.png",
-    overlayDefault: "/images/series/advanced/hero-overlay.png",
   },
   coreFeatures: sharedCoreFeatures,
   coreAdvantages: [
@@ -418,7 +414,6 @@ const eiSeries: SeriesData = {
     productImageSlot: "series-ei-hero",
     productImageDefault: "/images/series/ei/hero-product.png",
     backgroundDefault: "/images/series/ei/hero-bg.png",
-    overlayDefault: "/images/series/ei/hero-overlay.png",
   },
   coreFeatures: sharedCoreFeatures,
   coreAdvantages: [

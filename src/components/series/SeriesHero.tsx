@@ -18,7 +18,7 @@ const fadeUp = {
 export default function SeriesHeroSection({ data }: SeriesHeroProps) {
   return (
     <section className="relative isolate overflow-hidden bg-bg-primary pt-24 md:pt-32 pb-16 md:pb-24 min-h-[640px] md:min-h-[720px]">
-      {/* Layer 1 — full-bleed dark texture (Figma export). */}
+      {/* Full-bleed dark stage backdrop. */}
       {data.backgroundDefault && (
         <Image
           src={data.backgroundDefault}
@@ -27,18 +27,6 @@ export default function SeriesHeroSection({ data }: SeriesHeroProps) {
           priority
           sizes="100vw"
           className="absolute inset-0 object-cover pointer-events-none"
-        />
-      )}
-
-      {/* Layer 2 — purple glow overlay (blended on top of texture). */}
-      {data.overlayDefault && (
-        <Image
-          src={data.overlayDefault}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="absolute inset-0 object-cover pointer-events-none mix-blend-screen opacity-90"
         />
       )}
 
