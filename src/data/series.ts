@@ -69,11 +69,21 @@ export interface TechSpecsTable {
   rows: { label: string; values: string[] }[];
 }
 
+/**
+ * One scenario in 「典型物體測量場景與點雲示例」. The section shows the
+ * currently selected scenario as a center pill with prev/next arrows,
+ * then renders two side-by-side panels:
+ *   left  — 測量場景 (scene photo)
+ *   right — 點雲示例 (point-cloud render)
+ */
 export interface ApplicationCase {
-  title: string;
-  caption?: string;
-  imageSlot: string;
-  defaultSrc: string;
+  label: string;
+  /** Left panel — 測量場景 photo. */
+  scenarioImageSlot: string;
+  scenarioImageDefault: string;
+  /** Right panel — 點雲示例 render. */
+  pointCloudImageSlot: string;
+  pointCloudImageDefault: string;
 }
 
 export interface FOVCalculatorConfig {
@@ -241,10 +251,11 @@ const lineSeries: SeriesData = {
   },
   applicationCases: [
     {
-      title: "PCB 板點雲（缺陷檢測）",
-      caption: "",
-      imageSlot: "series-line-case-pcb",
-      defaultSrc: "",
+      label: "PCB 板點雲（缺陷檢測）",
+      scenarioImageSlot: "series-line-scenario-pcb",
+      scenarioImageDefault: "",
+      pointCloudImageSlot: "series-line-pointcloud-pcb",
+      pointCloudImageDefault: "",
     },
   ],
   fovCalculator: {
@@ -326,9 +337,11 @@ const advancedSeries: SeriesData = {
   },
   applicationCases: [
     {
-      title: "PCB 板點雲（缺陷檢測）",
-      imageSlot: "series-advanced-case-pcb",
-      defaultSrc: "",
+      label: "PCB 板點雲（缺陷檢測）",
+      scenarioImageSlot: "series-advanced-scenario-pcb",
+      scenarioImageDefault: "",
+      pointCloudImageSlot: "series-advanced-pointcloud-pcb",
+      pointCloudImageDefault: "",
     },
   ],
   fovCalculator: {

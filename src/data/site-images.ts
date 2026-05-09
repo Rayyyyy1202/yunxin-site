@@ -26,7 +26,8 @@ export const siteImageSections: ImageSection[] = [
     title: "Line 系列 · DepthSight",
     slots: [
       { id: "series-line-hero", label: "Hero 產品大圖", defaultSrc: "/images/series/line/hero-product.png", aspect: "5/4" },
-      { id: "series-line-case-pcb", label: "典型測量場景 · PCB 板點雲（缺陷檢測）", defaultSrc: "", aspect: "4/3" },
+      { id: "series-line-scenario-pcb", label: "PCB 板 · 測量場景照片", defaultSrc: "", aspect: "4/3" },
+      { id: "series-line-pointcloud-pcb", label: "PCB 板 · 點雲示例", defaultSrc: "", aspect: "4/3" },
       { id: "series-line-gallery-battery-cap", label: "案例集 · 鋰電池蓋板", defaultSrc: "", aspect: "4/3" },
       { id: "series-line-gallery-battery-housing", label: "案例集 · 電池盒下箱體", defaultSrc: "", aspect: "4/3" },
       { id: "series-line-gallery-display", label: "案例集 · 顯示屏背板", defaultSrc: "", aspect: "4/3" },
@@ -36,7 +37,8 @@ export const siteImageSections: ImageSection[] = [
     title: "Advanced 系列 · DepthSight",
     slots: [
       { id: "series-advanced-hero", label: "Hero 產品大圖", defaultSrc: "/images/series/advanced/hero-product.png", aspect: "5/4" },
-      { id: "series-advanced-case-pcb", label: "典型測量場景 · PCB 板點雲（缺陷檢測）", defaultSrc: "", aspect: "4/3" },
+      { id: "series-advanced-scenario-pcb", label: "PCB 板 · 測量場景照片", defaultSrc: "", aspect: "4/3" },
+      { id: "series-advanced-pointcloud-pcb", label: "PCB 板 · 點雲示例", defaultSrc: "", aspect: "4/3" },
       { id: "series-advanced-gallery-battery-cap", label: "案例集 · 鋰電池蓋板", defaultSrc: "", aspect: "4/3" },
       { id: "series-advanced-gallery-battery-housing", label: "案例集 · 電池盒下箱體", defaultSrc: "", aspect: "4/3" },
       { id: "series-advanced-gallery-display", label: "案例集 · 顯示屏背板", defaultSrc: "", aspect: "4/3" },
