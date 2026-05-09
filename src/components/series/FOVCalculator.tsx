@@ -52,13 +52,14 @@ export default function FOVCalculator({ config }: FOVCalculatorProps) {
         </motion.div>
 
         {/* Tab bar */}
-        <div className="mb-6 flex items-center gap-1 border-b border-border-subtle">
+        <div role="tablist" className="mb-6 flex items-center gap-1 border-b border-border-subtle">
           {TABS.map((t) => {
             const isActive = active === t.id;
             return (
               <button
                 key={t.id}
                 type="button"
+                role="tab"
                 onClick={() => setActive(t.id)}
                 className={cn(
                   "relative px-5 py-3 text-sm font-medium transition-colors",
