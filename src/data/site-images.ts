@@ -26,7 +26,7 @@ export const siteImageSections: ImageSection[] = [
     title: "Line 系列 · DepthSight",
     slots: [
       { id: "series-line-hero", label: "Hero 產品大圖", defaultSrc: "/images/series/line/hero-product.png", aspect: "5/4" },
-      { id: "series-line-case-pcb", label: "應用案例 · PCB 板點雲", defaultSrc: "", aspect: "4/3" },
+      { id: "series-line-case-pcb", label: "典型測量場景 · PCB 板點雲（缺陷檢測）", defaultSrc: "", aspect: "4/3" },
       { id: "series-line-gallery-battery-cap", label: "案例集 · 鋰電池蓋板", defaultSrc: "", aspect: "4/3" },
       { id: "series-line-gallery-battery-housing", label: "案例集 · 電池盒下箱體", defaultSrc: "", aspect: "4/3" },
       { id: "series-line-gallery-display", label: "案例集 · 顯示屏背板", defaultSrc: "", aspect: "4/3" },
@@ -36,9 +36,7 @@ export const siteImageSections: ImageSection[] = [
     title: "Advanced 系列 · DepthSight",
     slots: [
       { id: "series-advanced-hero", label: "Hero 產品大圖", defaultSrc: "/images/series/advanced/hero-product.png", aspect: "5/4" },
-      { id: "series-advanced-case-battery-cap", label: "應用案例 · 鋰電池蓋板", defaultSrc: "", aspect: "4/3" },
-      { id: "series-advanced-case-battery-housing", label: "應用案例 · 電池盒下箱體", defaultSrc: "", aspect: "4/3" },
-      { id: "series-advanced-case-display", label: "應用案例 · 顯示屏背板", defaultSrc: "", aspect: "4/3" },
+      { id: "series-advanced-case-pcb", label: "典型測量場景 · PCB 板點雲（缺陷檢測）", defaultSrc: "", aspect: "4/3" },
       { id: "series-advanced-gallery-battery-cap", label: "案例集 · 鋰電池蓋板", defaultSrc: "", aspect: "4/3" },
       { id: "series-advanced-gallery-battery-housing", label: "案例集 · 電池盒下箱體", defaultSrc: "", aspect: "4/3" },
       { id: "series-advanced-gallery-display", label: "案例集 · 顯示屏背板", defaultSrc: "", aspect: "4/3" },

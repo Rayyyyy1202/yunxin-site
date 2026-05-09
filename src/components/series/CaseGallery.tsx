@@ -28,10 +28,10 @@ export default function CaseGallery({ items }: CaseGalleryProps) {
           className="mb-12 md:mb-16 flex items-end gap-4 flex-wrap"
         >
           <h2 className="text-text-primary text-2xl md:text-3xl font-bold">
-            典型案例
+            應用案例
           </h2>
           <span className="text-purple-light text-xs md:text-sm uppercase tracking-[3px] font-semibold pb-1">
-            / Case Gallery
+            / Application Cases
           </span>
         </motion.div>
 

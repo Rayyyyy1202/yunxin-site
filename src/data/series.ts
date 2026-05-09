@@ -326,18 +326,8 @@ const advancedSeries: SeriesData = {
   },
   applicationCases: [
     {
-      title: "新能源汽車 — 鋰電池蓋板測量",
-      imageSlot: "series-advanced-case-battery-cap",
-      defaultSrc: "",
-    },
-    {
-      title: "新能源汽車 — 電池盒下箱體檢測",
-      imageSlot: "series-advanced-case-battery-housing",
-      defaultSrc: "",
-    },
-    {
-      title: "新能源汽車 — 顯示屏背板測量",
-      imageSlot: "series-advanced-case-display",
+      title: "PCB 板點雲（缺陷檢測）",
+      imageSlot: "series-advanced-case-pcb",
       defaultSrc: "",
     },
   ],
