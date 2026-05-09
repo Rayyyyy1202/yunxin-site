@@ -46,10 +46,10 @@ export default function ApplicationCases({ items }: ApplicationCasesProps) {
         >
           <div className="flex items-end gap-4 flex-wrap">
             <h2 className="text-text-primary text-2xl md:text-3xl font-bold">
-              應用案例
+              典型物體測量場景與點雲示例
             </h2>
             <span className="text-purple-light text-xs md:text-sm uppercase tracking-[3px] font-semibold pb-1">
-              / Application Cases
+              / Typical Measurement & Point Cloud
             </span>
           </div>
           {showCarouselNav && (

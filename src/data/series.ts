@@ -181,7 +181,8 @@ const lineSeries: SeriesData = {
     productImageDefault: "/images/series/line/hero-product.png",
     backgroundDefault: "/images/series/line/hero-bg.png",
   },
-  coreFeatures: sharedCoreFeatures,
+  // coreFeatures intentionally omitted — Line 系列 在 Figma 中不展示「核心特性」
+  // 4-card 共享段，直接进入「核心優勢」+ 技術參數 + 典型測量場景。
   coreAdvantages: [
     {
       icon: "Zap",
