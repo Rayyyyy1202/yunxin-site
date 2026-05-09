@@ -280,7 +280,6 @@ const lineSeries: SeriesData = {
 /*  Advanced 系列                                                       */
 /* ------------------------------------------------------------------ */
 
-// TODO: Advanced 系列 4 张优势卡 3/4 在 Figma 仍是占位文案，待设计补全后替换。
 const advancedSeries: SeriesData = {
   slug: "advanced",
   metaTitle: "Advanced 系列 | DepthSight 產品線",
@@ -298,33 +297,9 @@ const advancedSeries: SeriesData = {
     productImageDefault: "/images/series/advanced/hero-product.png",
     backgroundDefault: "/images/series/advanced/hero-bg.png",
   },
-  coreFeatures: sharedCoreFeatures,
-  coreAdvantages: [
-    {
-      icon: "Cpu",
-      title: "工業級高精度 3D 結構光",
-      description:
-        "自研結構光引擎輸出 500 萬點高解析點雲，亞微米級精度直擊工業精密檢測需求。",
-    },
-    {
-      icon: "Bot",
-      title: "具身操作智能 3D 視覺引導相機",
-      description:
-        "為機械臂提供穩定高速的引導視覺，覆蓋抓取、上下料、裝配等典型操作場景。",
-    },
-    {
-      icon: "Cloud",
-      title: "算法持續進化",
-      description:
-        "雲端模型訓練 + OTA 更新，相機可隨自研演算法迭代不斷提升精度與適應性。",
-    },
-    {
-      icon: "ShieldCheck",
-      title: "多重冗餘安全",
-      description:
-        "硬件級冗餘設計 + 自診斷機制，保證 7×24 工業產線連續穩定運行。",
-    },
-  ],
+  // Advanced 系列在 Figma 中只有「核心優勢」一段（即 sharedCoreFeatures 那 4 张
+  // 「无懼強光 / 複雜材質 / 全場景覆蓋 / 即裝即用」卡），不再单独区分核心特性。
+  coreAdvantages: sharedCoreFeatures,
   coreAdvantagesBackground: "/images/series/advanced/section-bg.png",
   techSpecs: {
     models: [
