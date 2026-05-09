@@ -394,7 +394,8 @@ const eiSeries: SeriesData = {
     productImageDefault: "/images/series/ei/hero-product.png",
     backgroundDefault: "/images/series/ei/hero-bg.png",
   },
-  coreFeatures: sharedCoreFeatures,
+  // coreFeatures intentionally omitted — EI 页面不展示「核心特性」共享段，
+  // 直接进入 5 卡的「核心優勢」。
   coreAdvantages: [
     {
       icon: "Crosshair",
