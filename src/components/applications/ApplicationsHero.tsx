@@ -1,5 +1,4 @@
 import Image from "next/image";
-import TopicSidebarNav from "./TopicSidebarNav";
 
 interface ApplicationsHeroProps {
   /** 大标题（白色 → 紫色渐变）。 */
@@ -12,8 +11,6 @@ interface ApplicationsHeroProps {
   productImage?: string;
   /** 详情页右下角产品型号，例 "DS-L10140"。 */
   productLabel?: string;
-  /** Sidebar 当前高亮 topic slug。 */
-  activeTopicSlug: string;
 }
 
 export default function ApplicationsHero({
@@ -22,7 +19,6 @@ export default function ApplicationsHero({
   background,
   productImage,
   productLabel,
-  activeTopicSlug,
 }: ApplicationsHeroProps) {
   return (
     <section className="relative isolate overflow-hidden bg-bg-secondary pt-24 md:pt-32 pb-16 md:pb-20 min-h-[420px] md:min-h-[460px]">
@@ -84,9 +80,6 @@ export default function ApplicationsHero({
           </div>
         )}
       </div>
-
-      {/* Floating sidebar nav (Figma "TopNavBar Shell" right block) */}
-      <TopicSidebarNav activeSlug={activeTopicSlug} />
     </section>
   );
 }

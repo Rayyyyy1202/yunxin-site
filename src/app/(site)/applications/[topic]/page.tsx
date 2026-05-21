@@ -55,7 +55,6 @@ export default async function TopicPage({ params }: TopicPageProps) {
         title={data.title}
         eyebrow={data.eyebrow}
         background={data.heroBackground}
-        activeTopicSlug={data.slug}
       />
 
       <section className="bg-bg-secondary py-12 md:py-20">

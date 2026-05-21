@@ -2,7 +2,7 @@
  * Application Cases / 行業中心 — 2 张主题索引 + 3 张案例详情。
  *
  * 由 Figma 设计稿提取（fileKey ZYyUze1aay4WXY1j7Fiz75）：
- *   - Group 24  → 高精度3D檢測與測量（INDEX）
+ *   - Group 215 → 高精度3D檢測與測量（INDEX）
  *   - Group 19  → 鋰電池蓋板測量（DETAIL）
  *   - Frame 47  → 柔性機器人視覺引導（INDEX）
  *   - Group 26  → 打磨機器人視覺引導及軌跡規劃（DETAIL）
@@ -14,6 +14,18 @@
 export type ApplicationTopicSlug =
   | "precision-3d-detection"
   | "flexible-robot-vision";
+
+export const applicationIndustryFilters = [
+  "汽車製造",
+  "新能源電池",
+  "3C電子",
+  "物流倉儲",
+  "冶金/重工",
+  "科研教育",
+] as const;
+
+export type ApplicationIndustry =
+  (typeof applicationIndustryFilters)[number];
 
 /** 一段 bullet 列表，详情页"難點 / 方案 / 性能"区块使用。 */
 export interface CaseDetailSection {
@@ -27,6 +39,8 @@ export interface CaseDetailSection {
 /** 一张详情页 — Figma Group 19/26/22。 */
 export interface AppCaseDetail {
   slug: string;
+  /** 行业分类标签，供后续筛选或内容归类使用。 */
+  industries: ApplicationIndustry[];
   /** Topic Index 卡片 + Detail Hero 标题。 */
   title: string;
   /** Detail Hero 右侧产品型号（如 "DS-L10140"）。可空。 */
@@ -46,7 +60,7 @@ export interface AppCaseDetail {
   };
 }
 
-/** 一张主题索引 — Figma Group 24 / Frame 47。 */
+/** 一张主题索引 — Figma Group 215 / Frame 47。 */
 export interface AppTopic {
   slug: ApplicationTopicSlug;
   title: string;
@@ -67,9 +81,8 @@ export interface AppTopic {
 /**
  * Topic 1 — 高精度3D檢測與測量
  *
- * Figma Group 24 占位时 5 张卡片都是"新能源汽車，電池盒下箱體檢測"；
- * 这里依旧排 5 张：第一张是真实案例 li-battery-cover-measurement（链
- * 接 Group 19 详情），其余 4 张沿用 Figma 占位文案，按钮先指向首个真实案例。
+ * Figma Group 215 对应高精度 3D 检测主题页；正文卡片使用 Frame 27
+ * 同款列表样式。重复的"新能源汽車，電池盒下箱體檢測"占位只保留一张。
  */
 const PRECISION_3D_DETECTION: AppTopic = {
   slug: "precision-3d-detection",
@@ -82,6 +95,7 @@ const PRECISION_3D_DETECTION: AppTopic = {
   cases: [
     {
       slug: "li-battery-cover-measurement",
+      industries: ["新能源電池", "汽車製造"],
       title: "新能源汽車，鋰電池蓋板測量",
       productLabel: "DS-L10140",
       productImage:
@@ -114,36 +128,10 @@ const PRECISION_3D_DETECTION: AppTopic = {
         },
       ],
     },
-    /* —— 下面 4 张沿用 Figma 占位（標題/描述/圖一致），尚未对应独立详情页 —— */
+    /* —— Figma 占位卡片，尚未对应独立详情页 —— */
     {
       slug: "battery-box-lower-shell",
-      title: "新能源汽車，電池盒下箱體檢測",
-      productLabel: "DS-L10400",
-      cardImage: "/applications/precision-3d-detection/case-battery-box.png",
-      cardDescription:
-        "3D線鐳射 DS-L10400 提供高精度箱體 3D 點雲，視覺軟體提供精準 3D 測量與 AI 檢測。三台線鐳射環狀分佈，同步拍攝，高精度融合拼接，快速掃描箱體四壁。輸出孔、螺母螺栓位置度、箱體皮安裝面平面度、焊點焊道質量。",
-      sections: [],
-    },
-    {
-      slug: "battery-box-lower-shell-2",
-      title: "新能源汽車，電池盒下箱體檢測",
-      productLabel: "DS-L10400",
-      cardImage: "/applications/precision-3d-detection/case-battery-box.png",
-      cardDescription:
-        "3D線鐳射 DS-L10400 提供高精度箱體 3D 點雲，視覺軟體提供精準 3D 測量與 AI 檢測。三台線鐳射環狀分佈，同步拍攝，高精度融合拼接，快速掃描箱體四壁。輸出孔、螺母螺栓位置度、箱體皮安裝面平面度、焊點焊道質量。",
-      sections: [],
-    },
-    {
-      slug: "battery-box-lower-shell-3",
-      title: "新能源汽車，電池盒下箱體檢測",
-      productLabel: "DS-L10400",
-      cardImage: "/applications/precision-3d-detection/case-battery-box.png",
-      cardDescription:
-        "3D線鐳射 DS-L10400 提供高精度箱體 3D 點雲，視覺軟體提供精準 3D 測量與 AI 檢測。三台線鐳射環狀分佈，同步拍攝，高精度融合拼接，快速掃描箱體四壁。輸出孔、螺母螺栓位置度、箱體皮安裝面平面度、焊點焊道質量。",
-      sections: [],
-    },
-    {
-      slug: "battery-box-lower-shell-4",
+      industries: ["新能源電池", "汽車製造"],
       title: "新能源汽車，電池盒下箱體檢測",
       productLabel: "DS-L10400",
       cardImage: "/applications/precision-3d-detection/case-battery-box.png",
@@ -172,6 +160,7 @@ const FLEXIBLE_ROBOT_VISION: AppTopic = {
   cases: [
     {
       slug: "polishing-trajectory",
+      industries: ["汽車製造", "冶金/重工"],
       title: "打磨機器人視覺引導及軌跡規劃",
       productLabel: "DS-L10140",
       productImage:
@@ -208,9 +197,15 @@ const FLEXIBLE_ROBOT_VISION: AppTopic = {
           bullets: ["成像與視覺定位精度：0.1mm", "提升打磨效率：70%"],
         },
       ],
+      trailer: {
+        title: "打磨工件實拍圖",
+        image:
+          "/applications/flexible-robot-vision/robot-pick-and-place/diversity-grid.png",
+      },
     },
     {
       slug: "robot-pick-and-place",
+      industries: ["物流倉儲"],
       title: "機器人抓取上下料",
       productLabel: "DS-A10700",
       productImage:
@@ -246,6 +241,7 @@ const FLEXIBLE_ROBOT_VISION: AppTopic = {
     },
     {
       slug: "fabric-cutting",
+      industries: [],
       title: "視覺引導智能衣料裁剪",
       productLabel: "DS-L10400",
       cardImage: "/applications/flexible-robot-vision/case-fabric-cutting.png",
@@ -255,6 +251,7 @@ const FLEXIBLE_ROBOT_VISION: AppTopic = {
     },
     {
       slug: "battery-box-gluing",
+      industries: ["新能源電池", "汽車製造"],
       title: "新能源車電池盒智能塗膠引導",
       productLabel: "A10400",
       cardImage: "/applications/flexible-robot-vision/case-gluing.png",

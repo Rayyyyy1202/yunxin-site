@@ -21,8 +21,8 @@ export default function CaseDetailLayout({ data }: CaseDetailLayoutProps) {
         ))}
 
         {data.trailer && (
-          <div className="bg-bg-card rounded-2xl border border-border-subtle p-6 md:p-10">
-            <h2 className="text-2xl md:text-3xl font-medium tracking-tight uppercase bg-clip-text text-transparent bg-gradient-to-r from-[#7b66ff] to-[#492e8d] mb-6 md:mb-8">
+          <div className="border border-border-subtle bg-[#16171a] p-4 md:p-6">
+            <h2 className="mb-5 text-base md:text-xl font-semibold tracking-wide text-purple-light">
               {data.trailer.title}
             </h2>
             <div className="relative w-full max-w-[640px] mx-auto aspect-[640/219]">
@@ -48,13 +48,13 @@ interface SectionProps {
 function Section({ data }: SectionProps) {
   return (
     <article
-      className="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-4 md:gap-10 items-start"
+      className="border border-border-subtle bg-[#16171a] px-5 py-5 md:px-7 md:py-6"
     >
-      <h2 className="text-text-primary text-2xl md:text-3xl font-medium tracking-tight leading-snug">
+      <h2 className="mb-3 text-text-primary text-base md:text-xl font-semibold tracking-wide leading-snug">
         {data.heading}
       </h2>
 
-      <div className="text-text-secondary text-base md:text-xl leading-[1.7] tracking-wide">
+      <div className="text-text-secondary text-sm md:text-base leading-[1.75] tracking-wide">
         {data.paragraph && <p>{data.paragraph}</p>}
         {data.bullets && data.bullets.length > 0 && (
           <ul className="list-disc ms-6 space-y-2">

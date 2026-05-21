@@ -4,7 +4,7 @@ import { ChevronLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import ApplicationsHero from "@/components/applications/ApplicationsHero";
 import CaseDetailLayout from "@/components/applications/CaseDetailLayout";
-import { allCaseParams, getCase } from "@/data/applications";
+import { allCaseParams, caseHasDetail, getCase } from "@/data/applications";
 
 interface CasePageProps {
   params: Promise<{ topic: string; case: string }>;
@@ -19,7 +19,7 @@ export async function generateMetadata({
 }: CasePageProps): Promise<Metadata> {
   const { topic, case: caseSlug } = await params;
   const found = getCase(topic, caseSlug);
-  if (!found) return { title: "案例未找到" };
+  if (!found || !caseHasDetail(found.case)) return { title: "案例未找到" };
   return {
     title: `${found.case.title} — ${found.topic.title}`,
     description: found.case.cardDescription,
@@ -29,7 +29,7 @@ export async function generateMetadata({
 export default async function CaseDetailPage({ params }: CasePageProps) {
   const { topic, case: caseSlug } = await params;
   const found = getCase(topic, caseSlug);
-  if (!found) notFound();
+  if (!found || !caseHasDetail(found.case)) notFound();
 
   const { topic: topicData, case: caseData } = found;
 
@@ -66,7 +66,6 @@ export default async function CaseDetailPage({ params }: CasePageProps) {
         background={topicData.heroBackground}
         productImage={caseData.productImage}
         productLabel={caseData.productLabel}
-        activeTopicSlug={topicData.slug}
       />
 
       <CaseDetailLayout data={caseData} />
