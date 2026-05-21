@@ -13,26 +13,39 @@ export default function SeriesCTA({ data }: SeriesCTAProps) {
   if (!data) return null;
 
   return (
-    <section className="relative isolate overflow-hidden bg-bg-primary py-24 md:py-32">
+    <section className="relative isolate flex min-h-[450px] items-center overflow-hidden bg-[#0D0E10] py-20 md:py-0">
       {data.backgroundDefault && (
         <Image
           src={data.backgroundDefault}
           alt=""
           fill
           sizes="100vw"
-          className="absolute inset-0 object-cover pointer-events-none opacity-50"
+          className="absolute inset-0 object-cover pointer-events-none opacity-70"
+          priority={false}
         />
       )}
       <div
         aria-hidden
-        className="absolute inset-0 bg-bg-primary/55 pointer-events-none"
+        className="absolute inset-0 bg-[#0D0E10]/45 pointer-events-none"
       />
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none bg-[linear-gradient(90deg,rgba(13,14,16,0.72)_0%,rgba(13,14,16,0.34)_48%,rgba(13,14,16,0.58)_100%)]"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-px bg-cyan-400/45 pointer-events-none"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 h-px bg-cyan-400/30 pointer-events-none"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none backdrop-blur-[1px]"
         style={{
           background:
-            "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(73,46,141,0.4) 0%, transparent 70%)",
+            "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(73,46,141,0.26) 0%, transparent 72%)",
         }}
       />
 

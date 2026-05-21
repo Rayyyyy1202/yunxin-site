@@ -45,6 +45,17 @@ export const siteImageSections: ImageSection[] = [
     ],
   },
   {
+    title: "Standard 系列 · DepthSight",
+    slots: [
+      { id: "series-standard-hero", label: "Hero 產品大圖", defaultSrc: "/images/series/standard/hero-product.png", aspect: "5/4" },
+      { id: "series-standard-scenario-pcb", label: "PCB 板 · 測量場景照片", defaultSrc: "/images/series/standard/measurement-scene-pcb.png", aspect: "4/3" },
+      { id: "series-standard-pointcloud-pcb", label: "PCB 板 · 點雲示例", defaultSrc: "/images/series/standard/pointcloud-pcb.png", aspect: "4/3" },
+      { id: "series-standard-gallery-battery-cap", label: "案例集 · 鋰電池蓋板", defaultSrc: "/images/series/standard/case-battery-cap.png", aspect: "4/3" },
+      { id: "series-standard-gallery-battery-housing", label: "案例集 · 電池盒下箱體", defaultSrc: "/images/series/standard/case-battery-housing.png", aspect: "4/3" },
+      { id: "series-standard-gallery-display", label: "案例集 · 顯示屏背板", defaultSrc: "/images/series/standard/case-display-backplane.png", aspect: "4/3" },
+    ],
+  },
+  {
     title: "Embodied Intelligence 系列 · DepthSight",
     slots: [
       { id: "series-ei-hero", label: "Hero 產品大圖", defaultSrc: "/images/series/ei/hero-product.png", aspect: "5/4" },

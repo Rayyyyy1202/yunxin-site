@@ -6,7 +6,7 @@
  * 每个系列页的 sub-section 都是可选字段（undefined / 空数组）；对应组件
  * 在数据为空时直接 return null，所以可以一边补全数据一边逐步上线。
  *
- * EI 系列在 Figma 中只画了 Hero + Core Features + Core Advantages 三段，
+ * EI 系列当前接入 Hero + Core Advantages + 共享 CTA；
  * 其余 section 字段保留 undefined，页面上自然不渲染。
  */
 
@@ -29,7 +29,11 @@ export type SeriesIconKey =
   | "Wrench"
   | "Package";
 
-export type SeriesSlug = "line" | "advanced" | "embodied-intelligence";
+export type SeriesSlug =
+  | "line"
+  | "advanced"
+  | "standard"
+  | "embodied-intelligence";
 
 /* ------------------------------------------------------------------ */
 /*  Section-level types                                                */
@@ -168,6 +172,7 @@ const sharedCTA: SeriesCTA = {
     "我們的專家團隊已準備好為您量身定制工業智能解決方案。聯繫我們，獲取全方位的技術諮詢與報價建議。",
   primaryCta: { label: "獲取報價/諮詢", href: CONTACT_HREF },
   secondaryCta: { label: "預約線下演示", href: CONTACT_HREF },
+  backgroundDefault: "/images/series/shared/cta-overlay-border-blur.png",
 };
 
 /* ------------------------------------------------------------------ */
@@ -370,7 +375,117 @@ const advancedSeries: SeriesData = {
       defaultSrc: "",
     },
   ],
-  cta: { ...sharedCTA, backgroundDefault: "/images/series/advanced/cta-bg.png" },
+  cta: sharedCTA,
+};
+
+/* ------------------------------------------------------------------ */
+/*  Standard 系列                                                       */
+/* ------------------------------------------------------------------ */
+
+const standardSeries: SeriesData = {
+  slug: "standard",
+  metaTitle: "Standard 系列 | DepthSight 產品線",
+  metaDescription:
+    "AIeveR Robotics DepthSight Standard 系列：專為追求高性價比、輕量化部署的客戶打造的標竿 3D 視覺感測產品。",
+  hero: {
+    topLabel: TOP_LABEL,
+    title: "Standard 系列",
+    description:
+      "專為追求高性價比、輕量化部署的客戶打造的標竿產品。",
+    primaryCta: { label: "立即諮詢", href: CONTACT_HREF },
+    secondaryCta: { label: "獲取產品資料", href: DOWNLOADS_HREF },
+    sideCards: ["高性價比", "輕量化部署"],
+    productImageSlot: "series-standard-hero",
+    productImageDefault: "/images/series/standard/hero-product.png",
+    backgroundDefault: "/images/series/standard/hero-bg.png",
+  },
+  coreAdvantages: [
+    {
+      icon: "CheckCircle2",
+      title: "極致性價比",
+      description:
+        "保證工業級 3D 成像，大幅降低自動化升級的初始投入。",
+    },
+    {
+      icon: "Package",
+      title: "輕巧易安裝",
+      description:
+        "超緊湊機身，輕鬆適配狹小工位，毋須複雜的工裝改造。",
+    },
+    {
+      icon: "Plug",
+      title: "高效速落地",
+      description:
+        "兼容主流開發環境，整合門檻低，加速項目交付。",
+    },
+    {
+      icon: "LayoutGrid",
+      title: "靈活多場景",
+      description:
+        "完美契合小批量、多場景的自動化改造需求。",
+    },
+  ],
+  coreAdvantagesBackground: "/images/series/ei/advantages-bg.png",
+  techSpecs: {
+    models: [
+      { id: "nano-plus", label: "Nano Plus" },
+      { id: "dp", label: "DP" },
+      { id: "s", label: "S" },
+      { id: "m", label: "M" },
+      { id: "l", label: "L" },
+    ],
+    rows: [
+      { label: "推薦工作距離（mm）", values: ["380~1000", "1100-3500", "250-600", "500-1000", "1000-2000"] },
+      { label: "解析度（MP）", values: ["1280x1024", "1280x1024", "1928x1208", "1928x1208", "1928x1208"] },
+      { label: "近視野（FOV）(mm)", values: ["300x250@380mm", "1050x1000@1100mm", "180x110@250mm", "400x290@500mm", "830x580@1000mm"] },
+      { label: "遠視野（FOV）(mm)", values: ["650x640@1000mm", "3200x3100@3500mm", "420x260@600mm", "880x560@1000mm", "1800x1140@2000mm"] },
+      { label: "XY方向解析度（mm）", values: ["0.33@500mm", "1.2@1800", "0.091-0.23", "0.25-0.5", "0.5-1.0"] },
+      { label: "是否配RGB相機", values: ["是", "是", "可選", "可選", "可選"] },
+      { label: "典型採集時間（s）", values: ["0.7~1.1", "0.7~1.1", "1.0", "1.0", "1.0"] },
+      { label: "Z向單點重複精度", values: ["0.05mm@500", "1.8mm@1800mm", "0.06mm@400mm", "0.08mm@700mm", "0.2mm@1600mm"] },
+      { label: "尺寸（mm）", values: ["165x115x49", "250x115x49", "156x102x58", "314x106x52", "444x106x52"] },
+      { label: "重量", values: ["1.03kg", "1.45kg", "1.40kg", "1.80kg", "2.40kg"] },
+      { label: "光源", values: ["藍光Laser", "藍光Laser", "藍光LED", "藍光LED", "藍光LED"] },
+      { label: "數據介面", values: ["GigE", "GigE", "GigE", "GigE", "GigE"] },
+      { label: "外殼防護等級", values: ["IP65", "IP65", "IP65", "IP65", "IP65"] },
+    ],
+  },
+  applicationCases: [
+    {
+      label: "PCB板點雲（缺陷檢測）",
+      scenarioImageSlot: "series-standard-scenario-pcb",
+      scenarioImageDefault: "/images/series/standard/measurement-scene-pcb.png",
+      pointCloudImageSlot: "series-standard-pointcloud-pcb",
+      pointCloudImageDefault: "/images/series/standard/pointcloud-pcb.png",
+    },
+  ],
+  fovCalculator: {
+    defaultModel: "S",
+    modelOptions: ["Nano Plus", "DP", "S", "M", "L"],
+    parameters: [
+      { label: "產品型號" },
+      { label: "Distance", placeholder: "16", unit: "mm" },
+      { label: "工作距離", placeholder: "500", unit: "mm" },
+    ],
+  },
+  caseGallery: [
+    {
+      title: "新能源汽車，鋰電池蓋板測量",
+      imageSlot: "series-standard-gallery-battery-cap",
+      defaultSrc: "/images/series/standard/case-battery-cap.png",
+    },
+    {
+      title: "新能源汽車，電池盒下箱體檢測",
+      imageSlot: "series-standard-gallery-battery-housing",
+      defaultSrc: "/images/series/standard/case-battery-housing.png",
+    },
+    {
+      title: "新能源汽車，顯示屏背板測量",
+      imageSlot: "series-standard-gallery-display",
+      defaultSrc: "/images/series/standard/case-display-backplane.png",
+    },
+  ],
+  cta: sharedCTA,
 };
 
 /* ------------------------------------------------------------------ */
@@ -430,13 +545,19 @@ const eiSeries: SeriesData = {
     },
   ],
   coreAdvantagesBackground: "/images/series/ei/advantages-bg.png",
-  // techSpecs / applicationCases / fovCalculator / caseGallery / cta intentionally
+  cta: sharedCTA,
+  // techSpecs / applicationCases / fovCalculator / caseGallery intentionally
   // omitted — Figma 没有这些子 section，组件读到 undefined 后自动不渲染。
 };
 
 /* ------------------------------------------------------------------ */
 
-export const seriesList: SeriesData[] = [lineSeries, advancedSeries, eiSeries];
+export const seriesList: SeriesData[] = [
+  lineSeries,
+  advancedSeries,
+  standardSeries,
+  eiSeries,
+];
 
 export const seriesSlugs: SeriesSlug[] = seriesList.map((s) => s.slug);
 

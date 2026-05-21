@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getSeries, seriesList, seriesSlugs } from "@/data/series";
 import SeriesHeroSection from "@/components/series/SeriesHero";
@@ -10,6 +9,7 @@ import TechSpecsTable from "@/components/series/TechSpecsTable";
 import ApplicationCases from "@/components/series/ApplicationCases";
 import FOVCalculator from "@/components/series/FOVCalculator";
 import CaseGallery from "@/components/series/CaseGallery";
+import SeriesSiblingNav from "@/components/series/SeriesSiblingNav";
 import SeriesCTA from "@/components/series/SeriesCTA";
 
 interface SeriesPageProps {
@@ -70,50 +70,8 @@ export default async function SeriesPage({ params }: SeriesPageProps) {
       <ApplicationCases items={data.applicationCases} />
       <FOVCalculator config={data.fovCalculator} />
       <CaseGallery items={data.caseGallery} />
+      <SeriesSiblingNav prev={prev} next={next} />
       <SeriesCTA data={data.cta} />
-
-      {/* Sibling-series nav */}
-      <section className="bg-bg-primary border-t border-border-subtle">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-10 py-10 flex flex-col md:flex-row gap-6 md:items-center md:justify-between">
-          {prev ? (
-            <Link
-              href={`/products/depthsight/${prev.slug}`}
-              className="group flex items-center gap-3 text-text-secondary hover:text-text-primary transition-colors"
-            >
-              <ChevronLeft size={18} className="transition-transform group-hover:-translate-x-1" />
-              <span>
-                <span className="block text-[10px] uppercase tracking-[3px] text-purple-light mb-0.5">
-                  上一個系列
-                </span>
-                <span className="text-sm md:text-base font-medium">
-                  {prev.hero.title}
-                </span>
-              </span>
-            </Link>
-          ) : (
-            <span aria-hidden />
-          )}
-
-          {next ? (
-            <Link
-              href={`/products/depthsight/${next.slug}`}
-              className="group flex items-center gap-3 text-text-secondary hover:text-text-primary transition-colors md:text-right"
-            >
-              <span>
-                <span className="block text-[10px] uppercase tracking-[3px] text-purple-light mb-0.5">
-                  下一個系列
-                </span>
-                <span className="text-sm md:text-base font-medium">
-                  {next.hero.title}
-                </span>
-              </span>
-              <ChevronRight size={18} className="transition-transform group-hover:translate-x-1" />
-            </Link>
-          ) : (
-            <span aria-hidden />
-          )}
-        </div>
-      </section>
     </>
   );
 }
