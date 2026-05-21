@@ -30,7 +30,7 @@ export const products: ProductItem[] = [
     subtitle: "—— 智能視覺平臺",
     description: "讓機器\"看懂\"並\"做到\"",
     image: "/images/home/product-air.jpg",
-    href: "/support/software",
+    href: "/products/air-vision-engine",
   },
 ];
 
