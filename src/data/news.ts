@@ -2,6 +2,21 @@ import type { NewsItem } from "@/lib/types";
 
 export const news: NewsItem[] = [
   {
+    slug: "aiever-company-introduction",
+    title:
+      "雲芯機械人是香港特區政府 RAISe+ 資助項目，亦為香港科學園科創培育計劃",
+    summary:
+      "雲芯機器人有限公司於香港成立，為 Inno HK 香港物流機器人中心的孵化企業，專注機器人通用具身操作智能技術及產品研製。",
+    date: "2026-05-21",
+    category: "公司新聞",
+    coverImage: "/images/about/news-hero.png",
+    content: `
+雲芯機器人有限公司（AIeveR Robotics Limited）於香港成立，為 Inno HK 香港物流機器人中心的孵化企業。公司的核心業務為機器人通用具身操作智能技術及產品的研製、生產和銷售。公司的產品已在智能製造、智慧物流、智慧建造、智慧城市、智慧農業等行業開始落地並作小規模應用。
+
+公司擁有強大的研發團隊，匯聚了來自香港中文大學、浙江大學、哈爾濱工業大學、武漢大學、電子科技大學等知名教授及博士精英人才，在 AI、機械視覺、運動控制等領域積累了深厚經驗。公司在自研底層技術及核心部件上建立了穩固的技術壁壘。同時，公司亦獲得強力的政府及資本支持。雲芯機器人是香港特區政府 RAISe+ 資助項目，亦為香港科學園科創培育計劃成員，並已完成由聯想創投領投的天使輪融資。
+    `.trim(),
+  },
+  {
     slug: "aiever-series-a-funding",
     title: "AIeveR 完成数亿元 A 轮融资，加速具身智能商业化落地",
     summary:

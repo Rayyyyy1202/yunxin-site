@@ -344,6 +344,12 @@ export const siteImageSections: ImageSection[] = [
     title: "关于我们 — 新闻",
     slots: [
       {
+        id: "news-hero",
+        label: "新闻动态页首屏",
+        defaultSrc: "/images/about/news-hero.png",
+        aspect: "16/7",
+      },
+      {
         id: "news-funding",
         label: "A轮融资",
         defaultSrc: "/images/about/news-funding.jpg",

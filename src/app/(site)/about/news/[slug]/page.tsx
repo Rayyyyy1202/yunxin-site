@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, Calendar, Tag } from "lucide-react";
+import { ArrowLeft, Calendar, ChevronLeft, ChevronRight, Tag } from "lucide-react";
+import SiteImg from "@/components/ui/SiteImg";
 import { news, getNewsBySlug } from "@/data/news";
 import { formatDate } from "@/lib/utils";
-import SiteImg from "@/components/ui/SiteImg";
 
 interface NewsDetailPageProps {
   params: Promise<{ slug: string }>;
 }
+
+const HERO_IMAGE = "/images/about/news-hero.png";
 
 export function generateStaticParams() {
   return news.map((item) => ({ slug: item.slug }));
@@ -42,150 +44,155 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
       : null;
 
   return (
-    <>
-      {/* Hero */}
-      <section className="relative pt-32 md:pt-40 pb-12 md:pb-16">
-        {/* Background cover */}
-        <div className="absolute inset-0 overflow-hidden">
-          <SiteImg
-            src={item.coverImage}
-            alt=""
-            aria-hidden
-            className="absolute inset-0 w-full h-full object-cover opacity-30"
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(13,14,16,0.5) 0%, rgba(13,14,16,1) 100%)",
-            }}
-          />
-        </div>
+    <div className="overflow-hidden bg-[#010008]">
+      <section
+        className="relative min-h-[548px] overflow-hidden bg-bg-primary pt-16 md:pt-20"
+        data-node-id="4601:2698"
+        data-name="image 77"
+      >
+        <SiteImg
+          src={HERO_IMAGE}
+          alt=""
+          fetchPriority="high"
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(1,0,8,0.86)_0%,rgba(1,0,8,0.58)_44%,rgba(1,0,8,0.12)_100%)]" />
 
-        <div className="relative max-w-3xl mx-auto px-6 md:px-10">
-          <Link
-            href="/about/news"
-            className="inline-flex items-center gap-2 text-text-secondary hover:text-purple-light text-sm mb-8 transition-colors"
-          >
-            <ArrowLeft size={16} />
-            返回新闻列表
-          </Link>
-
-          <div className="flex items-center gap-4 mb-6 flex-wrap">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-purple-primary/20 border border-purple-primary/40 rounded-full text-purple-light text-xs uppercase tracking-wider">
-              <Tag size={12} />
-              {item.category}
-            </span>
-            <span className="inline-flex items-center gap-1.5 text-text-secondary text-xs">
-              <Calendar size={12} />
-              {formatDate(item.date)}
-            </span>
+        <div className="relative z-10 mx-auto flex min-h-[calc(548px-4rem)] max-w-[1280px] items-center px-6 md:min-h-[calc(548px-5rem)] md:px-10">
+          <div className="max-w-[604px] py-24">
+            <h1 className="text-5xl font-bold leading-none text-white md:text-[82px]">
+              新聞動態
+            </h1>
+            <p className="mt-10 max-w-[606px] text-base leading-8 text-white/85 md:text-xl md:leading-9">
+              聚焦具身智能與工業視覺技術前沿，
+              <br className="hidden md:block" />
+              了解公司最新進展、產品發佈與行業洞察。
+            </p>
+            <Link
+              href="/about/news"
+              className="mt-8 inline-flex items-center gap-3 bg-purple-primary/70 px-8 py-4 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-purple-primary"
+            >
+              返回新聞列表
+              <ArrowLeft size={16} aria-hidden />
+            </Link>
           </div>
-
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary leading-tight mb-6">
-            {item.title}
-          </h1>
-
-          <p className="text-lg text-text-secondary leading-relaxed">
-            {item.summary}
-          </p>
         </div>
       </section>
 
-      {/* Cover image */}
-      <section className="max-w-4xl mx-auto px-6 md:px-10 mb-12 md:mb-16">
-        <div className="relative aspect-[16/9] rounded-2xl overflow-hidden border border-border-subtle bg-bg-card">
-          <SiteImg
-            src={item.coverImage}
-            alt={item.title}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        </div>
-      </section>
+      <section
+        className="bg-[#010008] py-10"
+        data-node-id="4601:2806"
+        data-name="Frame 241"
+      >
+        <article className="mx-auto max-w-[1280px] px-6 md:px-10">
+          <div className="relative min-h-[655px] overflow-hidden border border-border-subtle/40 bg-[#080a18] px-6 py-10 md:px-10 md:py-10">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_20%,rgba(73,46,141,0.2),transparent_42%)]" />
+            <div className="relative">
+              <div className="mb-8 flex flex-wrap items-center gap-4 text-xs text-text-secondary">
+                <span className="inline-flex items-center gap-1.5 border border-purple-light/30 bg-purple-primary/15 px-3 py-1 text-purple-light">
+                  <Tag size={12} aria-hidden />
+                  {item.category}
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Calendar size={12} aria-hidden />
+                  {formatDate(item.date)}
+                </span>
+              </div>
 
-      {/* Content */}
-      <section className="max-w-3xl mx-auto px-6 md:px-10 pb-20">
-        <article className="prose-news text-text-secondary leading-relaxed space-y-5 text-base md:text-lg">
-          {item.content.split("\n\n").map((paragraph, idx) => {
-            const trimmed = paragraph.trim();
-            if (!trimmed) return null;
+              <h1 className="max-w-[1120px] text-2xl font-semibold leading-snug text-white md:text-3xl">
+                {item.title}
+              </h1>
 
-            // Heading
-            if (/^\d+\.\s/.test(trimmed) || trimmed.startsWith("- ")) {
-              const lines = trimmed
-                .split("\n")
-                .map((l) => l.trim())
-                .filter(Boolean);
-              const isOrdered = /^\d+\.\s/.test(lines[0]);
-              return isOrdered ? (
-                <ol
-                  key={idx}
-                  className="list-decimal list-outside pl-6 space-y-2 marker:text-purple-light"
-                >
-                  {lines.map((line, i) => (
-                    <li key={i}>{renderInline(line.replace(/^\d+\.\s*/, ""))}</li>
-                  ))}
-                </ol>
-              ) : (
-                <ul
-                  key={idx}
-                  className="list-disc list-outside pl-6 space-y-2 marker:text-purple-light"
-                >
-                  {lines.map((line, i) => (
-                    <li key={i}>{renderInline(line.replace(/^-\s*/, ""))}</li>
-                  ))}
-                </ul>
-              );
-            }
-
-            return (
-              <p key={idx} className="text-text-secondary">
-                {renderInline(trimmed)}
-              </p>
-            );
-          })}
+              <div className="mt-12 max-w-[1120px] space-y-5 text-base leading-8 text-white/78 md:mt-80">
+                {renderContent(item.content)}
+              </div>
+            </div>
+          </div>
         </article>
       </section>
 
-      {/* Prev / Next */}
-      <section className="max-w-4xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-border-subtle pt-10">
-          {prev ? (
-            <Link
-              href={`/about/news/${prev.slug}`}
-              className="group p-6 border border-border-subtle rounded-xl hover:border-purple-primary/40 transition-colors"
-            >
-              <div className="flex items-center gap-2 text-text-secondary text-xs uppercase tracking-wider mb-3">
-                <ArrowLeft size={14} />
-                上一篇
-              </div>
-              <h3 className="text-text-primary font-bold group-hover:text-purple-light transition-colors line-clamp-2">
-                {prev.title}
-              </h3>
-            </Link>
-          ) : (
-            <div />
-          )}
-          {next ? (
-            <Link
-              href={`/about/news/${next.slug}`}
-              className="group p-6 border border-border-subtle rounded-xl hover:border-purple-primary/40 transition-colors md:text-right"
-            >
-              <div className="flex items-center gap-2 text-text-secondary text-xs uppercase tracking-wider mb-3 md:justify-end">
-                下一篇
-                <ArrowRight size={14} />
-              </div>
-              <h3 className="text-text-primary font-bold group-hover:text-purple-light transition-colors line-clamp-2">
-                {next.title}
-              </h3>
-            </Link>
-          ) : (
-            <div />
-          )}
+      <section
+        className="bg-[#010008] py-10"
+        data-node-id="4601:2654"
+        data-name="Group 239"
+      >
+        <div className="mx-auto flex max-w-[1280px] justify-center px-6 md:px-10">
+          <div className="flex items-center gap-4">
+            {prev ? (
+              <Link
+                href={`/about/news/${prev.slug}`}
+                aria-label="上一篇"
+                className="flex h-12 w-12 items-center justify-center border border-border-subtle text-text-primary transition-colors hover:border-purple-light hover:text-purple-light"
+              >
+                <ChevronLeft size={18} aria-hidden />
+              </Link>
+            ) : (
+              <span
+                aria-disabled="true"
+                aria-label="沒有上一篇"
+                className="flex h-12 w-12 cursor-not-allowed items-center justify-center border border-border-subtle text-text-primary opacity-35"
+              >
+                <ChevronLeft size={18} aria-hidden />
+              </span>
+            )}
+            {next ? (
+              <Link
+                href={`/about/news/${next.slug}`}
+                aria-label="下一篇"
+                className="flex h-12 w-12 items-center justify-center border border-border-subtle text-text-primary transition-colors hover:border-purple-light hover:text-purple-light"
+              >
+                <ChevronRight size={18} aria-hidden />
+              </Link>
+            ) : (
+              <span
+                aria-disabled="true"
+                aria-label="沒有下一篇"
+                className="flex h-12 w-12 cursor-not-allowed items-center justify-center border border-border-subtle text-text-primary opacity-35"
+              >
+                <ChevronRight size={18} aria-hidden />
+              </span>
+            )}
+          </div>
         </div>
       </section>
-    </>
+    </div>
   );
+}
+
+function renderContent(content: string) {
+  return content.split("\n\n").map((paragraph, idx) => {
+    const trimmed = paragraph.trim();
+    if (!trimmed) return null;
+
+    if (/^\d+\.\s/.test(trimmed) || trimmed.startsWith("- ")) {
+      const lines = trimmed
+        .split("\n")
+        .map((line) => line.trim())
+        .filter(Boolean);
+      const isOrdered = /^\d+\.\s/.test(lines[0]);
+      return isOrdered ? (
+        <ol
+          key={idx}
+          className="list-decimal list-outside space-y-2 pl-6 marker:text-purple-light"
+        >
+          {lines.map((line, i) => (
+            <li key={i}>{renderInline(line.replace(/^\d+\.\s*/, ""))}</li>
+          ))}
+        </ol>
+      ) : (
+        <ul
+          key={idx}
+          className="list-disc list-outside space-y-2 pl-6 marker:text-purple-light"
+        >
+          {lines.map((line, i) => (
+            <li key={i}>{renderInline(line.replace(/^-\s*/, ""))}</li>
+          ))}
+        </ul>
+      );
+    }
+
+    return <p key={idx}>{renderInline(trimmed)}</p>;
+  });
 }
 
 function renderInline(text: string): React.ReactNode {
