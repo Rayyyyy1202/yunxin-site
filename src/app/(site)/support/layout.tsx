@@ -11,7 +11,7 @@ export default function SupportLayout({
 
   return (
     <>
-      <SubNav items={subItems} />
+      <SubNav items={subItems} hideOnRootPath="/support" />
       {children}
     </>
   );
