@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Inter, Noto_Sans_SC } from "next/font/google";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
+import { DEFAULT_LOCALE, isLocale } from "@/lib/i18n";
 import MotionProvider from "@/components/MotionProvider";
 import "./globals.css";
 
@@ -57,14 +59,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headerStore = await headers();
+  const requestedLocale = headerStore.get("x-yunxin-locale") ?? undefined;
+  const locale = isLocale(requestedLocale) ? requestedLocale : DEFAULT_LOCALE;
+
   return (
     <html
-      lang="zh-CN"
+      lang={locale}
       className={`${inter.variable} ${notoSansSC.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-bg-primary text-text-primary">
