@@ -2,12 +2,21 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import SiteImg from "@/components/ui/SiteImg";
 import type { SeriesHero } from "@/data/series";
 
+interface SeriesHeroSlide {
+  id: string;
+  label: string;
+  thumb?: string;
+}
+
 interface SeriesHeroProps {
   data: SeriesHero;
+  modelSlides?: SeriesHeroSlide[];
 }
 
 const fadeUp = {
@@ -15,7 +24,54 @@ const fadeUp = {
   show: { opacity: 1, y: 0 },
 };
 
-export default function SeriesHeroSection({ data }: SeriesHeroProps) {
+export default function SeriesHeroSection({
+  data,
+  modelSlides,
+}: SeriesHeroProps) {
+  const slides = useMemo(() => {
+    const modelThumbs =
+      modelSlides
+        ?.filter((slide) => Boolean(slide.thumb))
+        .map((slide) => ({
+          id: slide.id,
+          label: slide.label,
+          src: slide.thumb as string,
+        })) ?? [];
+
+    if (modelThumbs.length > 0) return modelThumbs;
+    return [
+      {
+        id: "hero-product",
+        label: data.title,
+        src: data.productImageDefault,
+      },
+    ];
+  }, [data.productImageDefault, data.title, modelSlides]);
+
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const hasCarousel = slides.length > 1;
+  const safeActiveIndex = activeIndex % slides.length;
+  const activeSlide = slides[safeActiveIndex] ?? slides[0];
+
+  useEffect(() => {
+    if (!hasCarousel || isPaused) return;
+
+    const timer = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % slides.length);
+    }, 3600);
+
+    return () => window.clearInterval(timer);
+  }, [hasCarousel, isPaused, slides.length]);
+
+  const showPrev = () => {
+    setActiveIndex((current) => (current - 1 + slides.length) % slides.length);
+  };
+
+  const showNext = () => {
+    setActiveIndex((current) => (current + 1) % slides.length);
+  };
+
   return (
     <section className="relative isolate overflow-hidden bg-bg-primary pt-24 md:pt-32 pb-16 md:pb-24 min-h-[640px] md:min-h-[720px]">
       {/* Full-bleed dark stage backdrop. */}
@@ -102,23 +158,38 @@ export default function SeriesHeroSection({ data }: SeriesHeroProps) {
           </motion.div>
         </motion.div>
 
-        {/* Right — product image + side HUD cards */}
+        {/* Right — product image carousel + side HUD cards */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="relative aspect-[4/3] md:aspect-[5/4] w-full"
+          className="relative aspect-[4/3] w-full md:aspect-[5/4]"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocusCapture={() => setIsPaused(true)}
+          onBlurCapture={() => setIsPaused(false)}
         >
           {/* Product image — sized to sit on the podium in the bg.
               Figma reference: ~576×576 (≈45% of hero width) so we keep the
               rendered image to ~60% of right column width and bottom-anchor
               it onto the podium platform. */}
-          <div className="absolute inset-0 flex items-end justify-center pb-[12%]">
-            <SiteImg
-              src={data.productImageDefault}
-              alt={data.title}
-              className="w-[60%] max-w-[380px] h-auto object-contain drop-shadow-[0_20px_40px_rgba(73,46,141,0.4)]"
-            />
+          <div className="absolute inset-0 flex items-end justify-center pb-[18%] md:pb-[16%]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeSlide.id}
+                initial={{ opacity: 0, x: 24, scale: 0.96 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -24, scale: 0.96 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                className="flex w-[62%] max-w-[380px] justify-center"
+              >
+                <SiteImg
+                  src={activeSlide.src}
+                  alt={`${activeSlide.label} 產品圖`}
+                  className="h-auto w-full object-contain drop-shadow-[0_20px_40px_rgba(73,46,141,0.4)]"
+                />
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Stage glow under product */}
@@ -128,8 +199,64 @@ export default function SeriesHeroSection({ data }: SeriesHeroProps) {
             style={{ background: "rgba(141,119,207,0.4)" }}
           />
 
+          {hasCarousel && (
+            <div
+              className="absolute bottom-[2%] left-1/2 z-10 flex w-full max-w-[440px] -translate-x-1/2 flex-col items-center gap-3 px-4 md:bottom-[4%]"
+              data-series-hero-carousel={slides.length}
+            >
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  aria-label="上一個型號"
+                  onClick={showPrev}
+                  className="inline-flex size-9 items-center justify-center rounded-full border border-purple-light/35 bg-bg-primary/70 text-text-primary backdrop-blur-sm transition-colors hover:border-purple-light hover:text-purple-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-light"
+                >
+                  <ChevronLeft aria-hidden size={18} />
+                </button>
+
+                <div
+                  className="flex min-w-[120px] items-center justify-center rounded-full border border-purple-light/25 bg-bg-secondary/70 px-4 py-2 text-center text-[11px] font-bold uppercase tracking-[2px] text-purple-light backdrop-blur-sm"
+                  data-series-hero-active-label
+                >
+                  {activeSlide.label}
+                </div>
+
+                <button
+                  type="button"
+                  aria-label="下一個型號"
+                  onClick={showNext}
+                  className="inline-flex size-9 items-center justify-center rounded-full border border-purple-light/35 bg-bg-primary/70 text-text-primary backdrop-blur-sm transition-colors hover:border-purple-light hover:text-purple-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-light"
+                >
+                  <ChevronRight aria-hidden size={18} />
+                </button>
+              </div>
+
+              <div
+                className="flex max-w-full flex-wrap justify-center gap-2"
+                aria-label="型號輪播選擇"
+              >
+                {slides.map((slide, index) => (
+                  <button
+                    key={slide.id}
+                    type="button"
+                    aria-label={`切換到 ${slide.label}`}
+                    aria-current={
+                      index === safeActiveIndex ? "true" : undefined
+                    }
+                    onClick={() => setActiveIndex(index)}
+                    className={`h-1.5 rounded-full transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-light ${
+                      index === safeActiveIndex
+                        ? "w-8 bg-purple-light"
+                        : "w-3 bg-text-secondary/40 hover:bg-purple-light/70"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Side HUD cards */}
-          <div className="absolute top-1/4 right-0 flex flex-col gap-3 md:gap-4">
+          <div className="absolute right-0 top-1/4 hidden flex-col gap-3 md:flex md:gap-4">
             {data.sideCards.map((label, i) => (
               <motion.div
                 key={i}

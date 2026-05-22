@@ -231,10 +231,10 @@ const lineSeries: SeriesData = {
   coreAdvantagesBackground: "/images/series/line/advantages-bg.png",
   techSpecs: {
     models: [
-      { id: "L10050", label: "L10050" },
-      { id: "L10140", label: "L10140" },
-      { id: "L10400", label: "L10400" },
-      { id: "L11600", label: "L11600" },
+      { id: "L10050", label: "L10050", thumb: "/images/series/line/specs/l10050.png" },
+      { id: "L10140", label: "L10140", thumb: "/images/series/line/specs/l10140.png" },
+      { id: "L10400", label: "L10400", thumb: "/images/series/line/specs/l10400.png" },
+      { id: "L11600", label: "L11600", thumb: "/images/series/line/specs/l11600.png" },
     ],
     rows: [
       { label: "輪廓點數", values: ["3200", "3200", "3200", "3200"] },
@@ -319,11 +319,11 @@ const advancedSeries: SeriesData = {
   coreAdvantagesBackground: "/images/series/advanced/section-bg.png",
   techSpecs: {
     models: [
-      { id: "A10400", label: "A10400" },
-      { id: "A10700", label: "A10700" },
-      { id: "A11100", label: "A11100" },
-      { id: "A11600", label: "A11600" },
-      { id: "A12500", label: "A12500" },
+      { id: "A10400", label: "A10400", thumb: "/images/series/advanced/specs/a10400.png" },
+      { id: "A10700", label: "A10700", thumb: "/images/series/advanced/specs/a10700.png" },
+      { id: "A11100", label: "A11100", thumb: "/images/series/advanced/specs/a11100.png" },
+      { id: "A11600", label: "A11600", thumb: "/images/series/advanced/specs/a11600.png" },
+      { id: "A12500", label: "A12500", thumb: "/images/series/advanced/specs/a12500.png" },
     ],
     rows: [
       { label: "推薦工作距離 (mm)", values: ["250~650", "500~1000", "······", "1000~2000", "2000~3000"] },
@@ -428,11 +428,11 @@ const standardSeries: SeriesData = {
   coreAdvantagesBackground: "/images/series/ei/advantages-bg.png",
   techSpecs: {
     models: [
-      { id: "nano-plus", label: "Nano Plus" },
-      { id: "dp", label: "DP" },
-      { id: "s", label: "S" },
-      { id: "m", label: "M" },
-      { id: "l", label: "L" },
+      { id: "nano-plus", label: "Nano Plus", thumb: "/images/series/standard/specs/nano-plus.png" },
+      { id: "dp", label: "DP", thumb: "/images/series/standard/specs/dp.png" },
+      { id: "s", label: "S", thumb: "/images/series/standard/specs/s.png" },
+      { id: "m", label: "M", thumb: "/images/series/standard/specs/m.png" },
+      { id: "l", label: "L", thumb: "/images/series/standard/specs/l.png" },
     ],
     rows: [
       { label: "推薦工作距離（mm）", values: ["380~1000", "1100-3500", "250-600", "500-1000", "1000-2000"] },
@@ -494,57 +494,55 @@ const standardSeries: SeriesData = {
 
 const eiSeries: SeriesData = {
   slug: "embodied-intelligence",
-  metaTitle: "Embodied Intelligence 系列 | DepthSight 產品線",
+  metaTitle: "Nano | Embodied Intelligence 產品線",
   metaDescription:
-    "AIeveR Robotics DepthSight Embodied Intelligence 系列：融合 3D 深度與 AI 技術，為具身智能機械人提供精準、穩定、實時的核心視覺。",
+    "AIeveR Robotics Nano：單雙融合面陣結構光 3D 相機，融合 3D 深度與 AI 技術，為具身智能機械人提供核心視覺支撐。",
   hero: {
-    topLabel: TOP_LABEL,
-    title: "Embodied Intelligence 系列",
+    topLabel: "EMBODIED INTELLIGENCE · 具身智能3D視覺感測器產品線",
+    title: "單雙融合面陣結構光3D相機",
     description:
       "融合 3D 深度與 AI 技術，精準感知環境與物件，為具身智能機械人提供核心視覺支撐。",
     primaryCta: { label: "立即諮詢", href: CONTACT_HREF },
     secondaryCta: { label: "獲取產品資料", href: DOWNLOADS_HREF },
-    sideCards: ["精準感知環境與物件", "為具身智能提供核心視覺"],
+    sideCards: ["精準感知環境與物件", "提供核心視覺支撐"],
     productImageSlot: "series-ei-hero",
-    productImageDefault: "/images/series/ei/hero-product.png",
-    backgroundDefault: "/images/series/ei/hero-bg.png",
+    productImageDefault: "/images/series/ei/group11-product.png",
+    backgroundDefault: "/images/series/ei/group11-hero-bg.png",
   },
   // coreFeatures intentionally omitted — EI 页面不展示「核心特性」共享段，
   // 直接进入 5 卡的「核心優勢」。
   coreAdvantages: [
     {
       icon: "Crosshair",
-      iconImage: "/images/series/ei/advantage-1.png",
+      iconImage: "/images/series/ei/advantage-nano-precision.png",
       title: "極致高精",
-      description: "感知數據精準無誤，支撐機械人完成毫米級精度的抓取與裝配。",
-    },
-    {
-      icon: "Activity",
-      iconImage: "/images/series/ei/advantage-2.png",
-      title: "極速實時",
-      description: "毫秒級響應捕捉，實時輸出深度與語義信息，跟得上機械人決策節拍。",
+      description: "感知數據精準無誤。",
     },
     {
       icon: "ShieldCheck",
-      iconImage: "/images/series/ei/advantage-3.png",
+      iconImage: "/images/series/ei/advantage-nano-stability.png",
       title: "持久穩定",
-      description: "支援長期無故障運行，硬件級冗餘設計保障工業現場穩定性。",
+      description: "支援長期無故障運行。",
     },
     {
       icon: "Box",
-      iconImage: "/images/series/ei/advantage-4.png",
+      iconImage: "/images/series/ei/advantage-nano-compact.png",
       title: "緊湊易用",
-      description: "結構小巧，輕鬆整合至各類智能體，即裝即用無需大幅改造。",
+      description: "結構小巧，輕鬆整合至各類智能體。",
+    },
+    {
+      icon: "Activity",
+      iconImage: "/images/series/ei/advantage-nano-realtime.png",
+      title: "極速實時",
+      description: "實現毫秒級響應捕捉。",
     },
     {
       icon: "LayoutGrid",
-      iconImage: "/images/series/ei/advantage-5.png",
+      iconImage: "/images/series/ei/advantage-nano-adaptive.png",
       title: "全場景適應",
-      description:
-        "無懼透明、強反光及複雜光照環境，穩定輸出可靠的點雲與識別結果。",
+      description: "無懼透明及複雜環境，穩定輸出可靠數據。",
     },
   ],
-  coreAdvantagesBackground: "/images/series/ei/advantages-bg.png",
   cta: sharedCTA,
   // techSpecs / applicationCases / fovCalculator / caseGallery intentionally
   // omitted — Figma 没有这些子 section，组件读到 undefined 后自动不渲染。

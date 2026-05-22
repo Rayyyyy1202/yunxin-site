@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import SiteImg from "@/components/ui/SiteImg";
 import type { TechSpecsTable as TechSpecsTableType } from "@/data/series";
 
 interface TechSpecsTableProps {
@@ -9,6 +10,8 @@ interface TechSpecsTableProps {
 
 export default function TechSpecsTable({ data }: TechSpecsTableProps) {
   if (!data) return null;
+
+  const hasModelThumbs = data.models.some((model) => Boolean(model.thumb));
 
   return (
     <section className="relative bg-bg-secondary py-20 md:py-28">
@@ -35,22 +38,40 @@ export default function TechSpecsTable({ data }: TechSpecsTableProps) {
           transition={{ duration: 0.5 }}
           className="overflow-x-auto rounded-xl border border-border-subtle bg-bg-primary/40 backdrop-blur-sm"
         >
-          <table className="w-full min-w-[760px] text-sm">
+          <table className="w-full min-w-[900px] text-sm md:min-w-[1080px]">
             <thead>
               <tr className="border-b border-border-subtle">
                 <th
                   scope="col"
-                  className="sticky left-0 z-10 bg-bg-primary text-left text-text-secondary text-xs uppercase tracking-[2px] font-semibold px-5 py-4 w-[220px] md:w-[260px]"
+                  className="sticky left-0 z-20 w-[180px] bg-bg-primary px-5 py-4 text-left text-xs font-semibold uppercase tracking-[2px] text-text-secondary md:w-[220px]"
                 >
-                  參數
+                  {hasModelThumbs ? "型號" : "參數"}
                 </th>
                 {data.models.map((m) => (
                   <th
                     key={m.id}
                     scope="col"
-                    className="text-purple-light text-xs md:text-sm uppercase tracking-[2px] font-bold px-5 py-4 whitespace-nowrap"
+                    className="min-w-[144px] px-4 py-5 text-center align-bottom text-xs font-bold uppercase tracking-[2px] text-purple-light md:min-w-[170px] md:px-5 md:py-6 md:text-sm"
                   >
-                    {m.label}
+                    <div
+                      className={
+                        hasModelThumbs
+                          ? "flex min-h-[120px] flex-col items-center justify-end gap-3 md:min-h-[150px]"
+                          : ""
+                      }
+                    >
+                      {m.thumb ? (
+                        <SiteImg
+                          src={m.thumb}
+                          alt={`${m.label} 產品圖`}
+                          className="h-[84px] w-[112px] max-w-none object-contain md:h-[120px] md:w-[150px]"
+                          loading="lazy"
+                        />
+                      ) : hasModelThumbs ? (
+                        <span className="block h-[84px] w-[112px] md:h-[120px] md:w-[150px]" />
+                      ) : null}
+                      <span className="whitespace-nowrap">{m.label}</span>
+                    </div>
                   </th>
                 ))}
               </tr>

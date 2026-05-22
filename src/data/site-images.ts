@@ -26,6 +26,10 @@ export const siteImageSections: ImageSection[] = [
     title: "Line 系列 · DepthSight",
     slots: [
       { id: "series-line-hero", label: "Hero 產品大圖", defaultSrc: "/images/series/line/hero-product.png", aspect: "5/4" },
+      { id: "series-line-spec-l10050", label: "技術參數 · L10050 型號圖", defaultSrc: "/images/series/line/specs/l10050.png", aspect: "1/1" },
+      { id: "series-line-spec-l10140", label: "技術參數 · L10140 型號圖", defaultSrc: "/images/series/line/specs/l10140.png", aspect: "1/1" },
+      { id: "series-line-spec-l10400", label: "技術參數 · L10400 型號圖", defaultSrc: "/images/series/line/specs/l10400.png", aspect: "1/1" },
+      { id: "series-line-spec-l11600", label: "技術參數 · L11600 型號圖", defaultSrc: "/images/series/line/specs/l11600.png", aspect: "1/1" },
       { id: "series-line-scenario-pcb", label: "PCB 板 · 測量場景照片", defaultSrc: "", aspect: "4/3" },
       { id: "series-line-pointcloud-pcb", label: "PCB 板 · 點雲示例", defaultSrc: "", aspect: "4/3" },
       { id: "series-line-gallery-battery-cap", label: "案例集 · 鋰電池蓋板", defaultSrc: "", aspect: "4/3" },
@@ -37,6 +41,11 @@ export const siteImageSections: ImageSection[] = [
     title: "Advanced 系列 · DepthSight",
     slots: [
       { id: "series-advanced-hero", label: "Hero 產品大圖", defaultSrc: "/images/series/advanced/hero-product.png", aspect: "5/4" },
+      { id: "series-advanced-spec-a10400", label: "技術參數 · A10400 型號圖", defaultSrc: "/images/series/advanced/specs/a10400.png", aspect: "1/1" },
+      { id: "series-advanced-spec-a10700", label: "技術參數 · A10700 型號圖", defaultSrc: "/images/series/advanced/specs/a10700.png", aspect: "1/1" },
+      { id: "series-advanced-spec-a11100", label: "技術參數 · A11100 型號圖", defaultSrc: "/images/series/advanced/specs/a11100.png", aspect: "1/1" },
+      { id: "series-advanced-spec-a11600", label: "技術參數 · A11600 型號圖", defaultSrc: "/images/series/advanced/specs/a11600.png", aspect: "1/1" },
+      { id: "series-advanced-spec-a12500", label: "技術參數 · A12500 型號圖", defaultSrc: "/images/series/advanced/specs/a12500.png", aspect: "1/1" },
       { id: "series-advanced-scenario-pcb", label: "PCB 板 · 測量場景照片", defaultSrc: "", aspect: "4/3" },
       { id: "series-advanced-pointcloud-pcb", label: "PCB 板 · 點雲示例", defaultSrc: "", aspect: "4/3" },
       { id: "series-advanced-gallery-battery-cap", label: "案例集 · 鋰電池蓋板", defaultSrc: "", aspect: "4/3" },
@@ -48,6 +57,11 @@ export const siteImageSections: ImageSection[] = [
     title: "Standard 系列 · DepthSight",
     slots: [
       { id: "series-standard-hero", label: "Hero 產品大圖", defaultSrc: "/images/series/standard/hero-product.png", aspect: "5/4" },
+      { id: "series-standard-spec-nano-plus", label: "技術參數 · Nano Plus 型號圖", defaultSrc: "/images/series/standard/specs/nano-plus.png", aspect: "1/1" },
+      { id: "series-standard-spec-dp", label: "技術參數 · DP 型號圖", defaultSrc: "/images/series/standard/specs/dp.png", aspect: "1/1" },
+      { id: "series-standard-spec-s", label: "技術參數 · S 型號圖", defaultSrc: "/images/series/standard/specs/s.png", aspect: "1/1" },
+      { id: "series-standard-spec-m", label: "技術參數 · M 型號圖", defaultSrc: "/images/series/standard/specs/m.png", aspect: "1/1" },
+      { id: "series-standard-spec-l", label: "技術參數 · L 型號圖", defaultSrc: "/images/series/standard/specs/l.png", aspect: "1/1" },
       { id: "series-standard-scenario-pcb", label: "PCB 板 · 測量場景照片", defaultSrc: "/images/series/standard/measurement-scene-pcb.png", aspect: "4/3" },
       { id: "series-standard-pointcloud-pcb", label: "PCB 板 · 點雲示例", defaultSrc: "/images/series/standard/pointcloud-pcb.png", aspect: "4/3" },
       { id: "series-standard-gallery-battery-cap", label: "案例集 · 鋰電池蓋板", defaultSrc: "/images/series/standard/case-battery-cap.png", aspect: "4/3" },
@@ -58,7 +72,7 @@ export const siteImageSections: ImageSection[] = [
   {
     title: "Embodied Intelligence 系列 · DepthSight",
     slots: [
-      { id: "series-ei-hero", label: "Hero 產品大圖", defaultSrc: "/images/series/ei/hero-product.png", aspect: "5/4" },
+      { id: "series-ei-hero", label: "Hero 產品大圖", defaultSrc: "/images/series/ei/group11-product.png", aspect: "16/9" },
     ],
   },
   {

@@ -11,6 +11,7 @@ import FOVCalculator from "@/components/series/FOVCalculator";
 import CaseGallery from "@/components/series/CaseGallery";
 import SeriesSiblingNav from "@/components/series/SeriesSiblingNav";
 import SeriesCTA from "@/components/series/SeriesCTA";
+import EmbodiedIntelligencePage from "@/components/series/EmbodiedIntelligencePage";
 
 interface SeriesPageProps {
   params: Promise<{ series: string }>;
@@ -45,6 +46,10 @@ export default async function SeriesPage({ params }: SeriesPageProps) {
       ? seriesList[currentIndex + 1]
       : null;
 
+  if (data.slug === "embodied-intelligence") {
+    return <EmbodiedIntelligencePage data={data} prev={prev} next={next} />;
+  }
+
   return (
     <>
       {/* Breadcrumb */}
@@ -60,7 +65,7 @@ export default async function SeriesPage({ params }: SeriesPageProps) {
         </div>
       </div>
 
-      <SeriesHeroSection data={data.hero} />
+      <SeriesHeroSection data={data.hero} modelSlides={data.techSpecs?.models} />
       <CoreFeatures items={data.coreFeatures} />
       <CoreAdvantages
         items={data.coreAdvantages}
