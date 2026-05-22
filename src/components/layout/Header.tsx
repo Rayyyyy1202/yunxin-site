@@ -85,9 +85,18 @@ export default function Header({ locale }: HeaderProps) {
                       <div className="grid min-h-[175px] w-[956px] max-w-[calc(100vw-80px)] grid-cols-[1.24fr_1.24fr_1fr_1fr] gap-10 bg-[#5f5f61] px-7 py-8 shadow-2xl">
                         {item.megaMenu.map((group) => (
                           <div key={group.label} className="min-w-0">
-                            <p className="mb-6 whitespace-nowrap text-[13px] font-bold leading-tight text-text-primary">
-                              {group.label}
-                            </p>
+                            {group.href ? (
+                              <Link
+                                href={group.href}
+                                className="mb-6 block whitespace-nowrap text-[13px] font-bold leading-tight text-text-primary transition-colors hover:text-purple-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-light"
+                              >
+                                {group.label}
+                              </Link>
+                            ) : (
+                              <p className="mb-6 whitespace-nowrap text-[13px] font-bold leading-tight text-text-primary">
+                                {group.label}
+                              </p>
+                            )}
                             <div className="space-y-5">
                               {group.items.map((megaItem) =>
                                 megaItem.href && !megaItem.disabled ? (

@@ -329,6 +329,7 @@ const navigationBase: NavItem[] = [
       },
       {
         label: "AIR智能軟體引擎",
+        href: "/products/air-intelligent-software-engine",
         items: [
           { label: "AIR Vision Engine", href: "/products/air-vision-engine" },
           { label: "AIR Calibrator Engine", href: "/products/air-calibrator-engine" },
@@ -396,6 +397,7 @@ function localizeNavHref(locale: Locale, item: NavItem): NavItem {
     })),
     megaMenu: item.megaMenu?.map((group) => ({
       ...group,
+      href: toLocalizedPath(locale, group.href) ?? group.href,
       items: group.items.map((child) => ({
         ...child,
         href: toLocalizedPath(locale, child.href) ?? child.href,

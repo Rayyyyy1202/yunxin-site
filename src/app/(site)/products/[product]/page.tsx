@@ -4,8 +4,11 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2, CircuitBoard, Layers3 } from "lucide-react";
 import { notFound } from "next/navigation";
 import AirCalibratorEnginePage from "@/components/products/AirCalibratorEnginePage";
+import AirIntelligentSoftwareEnginePage from "@/components/products/AirIntelligentSoftwareEnginePage";
 import AirPickingStationPage from "@/components/products/AirPickingStationPage";
 import AirPlannerEnginePage from "@/components/products/AirPlannerEnginePage";
+import RobotScanStationPage from "@/components/products/RobotScanStationPage";
+import { AirVisionProStationPage } from "@/components/products/StandardWorkstationPages";
 import SeriesCTA from "@/components/series/SeriesCTA";
 import {
   getProductPage,
@@ -39,6 +42,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   if (!data) notFound();
 
+  if (data.slug === "air-intelligent-software-engine") {
+    return <AirIntelligentSoftwareEnginePage />;
+  }
+
   if (data.slug === "air-calibrator-engine") {
     return <AirCalibratorEnginePage />;
   }
@@ -49,6 +56,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   if (data.slug === "air-picking-station") {
     return <AirPickingStationPage />;
+  }
+
+  if (data.slug === "robot-scan-station") {
+    return <RobotScanStationPage />;
+  }
+
+  if (data.slug === "air-vision-pro-station") {
+    return <AirVisionProStationPage />;
   }
 
   const currentIndex = productPages.findIndex((page) => page.slug === data.slug);

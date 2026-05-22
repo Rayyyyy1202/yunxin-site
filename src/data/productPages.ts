@@ -1,4 +1,5 @@
 export type ProductPageSlug =
+  | "air-intelligent-software-engine"
   | "air-calibrator-engine"
   | "air-planner-engine"
   | "air-picking-station"
@@ -33,6 +34,24 @@ export interface ProductPageData {
 }
 
 export const productPages: ProductPageData[] = [
+  {
+    slug: "air-intelligent-software-engine",
+    title: "AIR智能軟體引擎",
+    metaTitle: "AIR智能軟體引擎 | AIeveR Robotics",
+    metaDescription:
+      "AIR智能軟體引擎是面向高階複雜場景的 3D 視覺與機械人感知方案，整合 AIR Vision、AIR Planner、AIR Calibrator 與 RobotScan。",
+    eyebrow: "AIR 智能軟體引擎",
+    subtitle: "面向高階複雜場景的 3D 視覺與機械人感知方案",
+    description:
+      "從系統硬件、成像到演算法源頭，全面優化系統精度，全端技術自主可控。",
+    heroImage: "/images/products/air-intelligent-software-engine/hero-bg.png",
+    heroImageAlt: "AIR智能軟體引擎 3D 視覺與機械人感知方案",
+    tags: ["AIR Vision", "AIR Planner", "AIR Calibrator", "RobotScan"],
+    features: [],
+    workflow: [],
+    specs: [],
+    applications: [],
+  },
   {
     slug: "air-calibrator-engine",
     title: "AIR Calibrator Engine",

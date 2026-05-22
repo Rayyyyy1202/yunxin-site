@@ -78,9 +78,19 @@ export default function MobileNav({ isOpen, locale, onClose }: MobileNavProps) {
                       {item.megaMenu
                         ? item.megaMenu.map((group) => (
                             <div key={group.label} className="py-3 pl-4 pr-2">
-                              <p className="mb-3 text-xs font-semibold leading-relaxed text-text-primary">
-                                {group.label}
-                              </p>
+                              {group.href ? (
+                                <Link
+                                  href={group.href}
+                                  onClick={onClose}
+                                  className="mb-3 block text-xs font-semibold leading-relaxed text-text-primary transition-colors hover:text-purple-light"
+                                >
+                                  {group.label}
+                                </Link>
+                              ) : (
+                                <p className="mb-3 text-xs font-semibold leading-relaxed text-text-primary">
+                                  {group.label}
+                                </p>
+                              )}
                               <div className="space-y-2">
                                 {group.items.map((megaItem) =>
                                   megaItem.href && !megaItem.disabled ? (

@@ -8,6 +8,7 @@ export interface NavItem {
 
 export interface NavMenuGroup {
   label: string;
+  href?: string;
   items: NavMenuLink[];
 }
 
