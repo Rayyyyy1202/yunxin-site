@@ -15,6 +15,7 @@ import {
   Package,
   RotateCcw,
   ShieldCheck,
+  SlidersHorizontal,
 } from "lucide-react";
 import {
   resourceCenterCategories,
@@ -102,7 +103,7 @@ export default function ResourceCenterPage() {
           sizes="100vw"
           className="absolute inset-0 object-cover object-center"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,7,12,0.82)_0%,rgba(5,7,12,0.58)_42%,rgba(5,7,12,0.12)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,7,12,0.62)_0%,rgba(5,7,12,0.34)_42%,rgba(5,7,12,0.04)_100%)]" />
 
         <div
           className="relative z-10 mx-auto flex min-h-[calc(527px-4rem)] max-w-[1280px] items-center px-6 md:min-h-[calc(527px-5rem)] md:px-10"
@@ -136,13 +137,14 @@ export default function ResourceCenterPage() {
       >
         <div className="mx-auto max-w-[1280px] px-6 md:px-10">
           <div className="grid gap-10 lg:grid-cols-[288px_minmax(0,1fr)]">
-            <aside className="border border-border-subtle bg-bg-secondary/45 p-8 lg:sticky lg:top-28 lg:self-start">
-              <h2 className="text-2xl font-semibold text-text-primary">
+            <aside className="flex min-h-[350px] flex-col border border-[#2776ba] bg-[#090d17]/95 px-8 py-9 shadow-[0_18px_45px_rgba(0,0,0,0.38)] lg:sticky lg:top-28 lg:h-[350px] lg:self-start">
+              <h2 className="flex items-center gap-3 text-2xl font-semibold text-purple-light">
+                <SlidersHorizontal size={24} strokeWidth={2.4} aria-hidden />
                 系統篩選
               </h2>
 
               <div className="mt-7">
-                <p className="text-sm font-medium text-text-primary">
+                <p className="border-l-2 border-purple-light pl-3 text-sm font-medium tracking-wide text-text-primary">
                   文件類型
                 </p>
                 <div className="mt-4 space-y-4">
@@ -152,7 +154,7 @@ export default function ResourceCenterPage() {
                     return (
                       <label
                         key={category}
-                        className="flex cursor-pointer items-center gap-3 text-sm text-text-secondary transition-colors hover:text-text-primary"
+                        className="flex cursor-pointer items-center gap-4 text-sm text-text-secondary transition-colors hover:text-text-primary"
                       >
                         <input
                           type="checkbox"
@@ -166,7 +168,7 @@ export default function ResourceCenterPage() {
                             "flex h-4 w-4 shrink-0 items-center justify-center border transition-colors",
                             selected
                               ? "border-purple-light bg-purple-primary text-white"
-                              : "border-border-color bg-transparent",
+                              : "border-purple-primary bg-transparent",
                           )}
                         >
                           {selected && <Check size={12} strokeWidth={3} />}
@@ -184,7 +186,7 @@ export default function ResourceCenterPage() {
               <button
                 type="button"
                 onClick={resetFilters}
-                className="mt-8 inline-flex w-full items-center justify-center gap-2 border border-border-subtle px-4 py-2.5 text-sm text-text-secondary transition-colors hover:border-purple-light hover:text-text-primary"
+                className="mt-auto inline-flex w-full items-center justify-center gap-2 border border-purple-primary px-4 py-2.5 text-sm font-semibold text-purple-light transition-colors hover:bg-purple-primary hover:text-white"
               >
                 <RotateCcw size={14} aria-hidden />
                 重置篩選

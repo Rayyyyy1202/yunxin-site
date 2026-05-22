@@ -361,19 +361,13 @@ const navigationBase: NavItem[] = [
       },
       {
         label: "高柔性主動式3D工作站",
-        disabled: true,
+        href: "/applications/high-flexibility-active-3d-workstation",
       },
     ],
   },
   {
     label: "資源中心",
     href: "/support",
-    children: [
-      { label: "技術文檔", href: "/support/docs" },
-      { label: "技術指南", href: "/support/guides" },
-      { label: "下載中心", href: "/support/downloads" },
-      { label: "產品軟體", href: "/support/software" },
-    ],
   },
   {
     label: "關於AIeveR",

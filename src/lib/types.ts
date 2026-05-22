@@ -63,6 +63,12 @@ export interface CareerDetail {
   bonuses: string[];
   process: string[];
   applyHref: string;
+  consultHref?: string;
+  qrImage?: string;
+  detailSections?: {
+    title: string;
+    content: string;
+  }[];
 }
 
 export interface DocumentItem {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
@@ -11,11 +12,7 @@ export default function ProductShowcase() {
   const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
-    <section
-      ref={ref}
-      id="products"
-      className="relative bg-bg-primary py-20 md:py-28"
-    >
+    <section ref={ref} id="products" className="relative bg-bg-primary py-20 md:py-28">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10">
         {/* Section heading */}
         <motion.div
@@ -38,7 +35,7 @@ export default function ProductShowcase() {
         </motion.div>
 
         {/* Product cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {products.map((product, index) => (
             <motion.div
               key={product.number}
@@ -48,54 +45,44 @@ export default function ProductShowcase() {
             >
               <Link
                 href={product.href}
-                className="group relative flex flex-col h-full bg-bg-secondary border border-border-subtle rounded-2xl overflow-hidden hover:border-purple-primary/40 transition-colors"
+                className="group relative flex min-h-[500px] flex-col overflow-hidden rounded-[32px] border border-border-subtle bg-[#111117] shadow-[0_32px_80px_rgba(0,0,0,0.3)] transition-colors hover:border-purple-primary/50 md:min-h-[575px]"
               >
-                {/* Image area */}
-                <div className="relative aspect-[16/10] bg-bg-card overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                <div
+                  aria-hidden
+                  className="absolute inset-0 opacity-70"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse at 50% 30%, rgba(141,119,207,0.25), transparent 44%), linear-gradient(180deg, rgba(73,46,141,0.1), rgba(13,14,16,0.9))",
+                  }}
+                />
+                <div className="relative flex h-[330px] items-center justify-center overflow-hidden px-8 pt-10 md:h-[350px]">
+                  <Image
                     src={product.image}
                     alt={product.title}
-                    className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
-                    onError={(e) => {
-                      e.currentTarget.style.display = "none";
-                    }}
+                    width={520}
+                    height={420}
+                    sizes="(max-width: 768px) 90vw, 30vw"
+                    className="max-h-[280px] w-auto object-contain drop-shadow-[0_24px_42px_rgba(0,0,0,0.45)] transition-transform duration-700 group-hover:scale-105"
                   />
-                  {/* Purple tint overlay */}
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, rgba(73,46,141,0.35) 0%, rgba(13,14,16,0.55) 100%)",
-                    }}
-                  />
-
-                  {/* Number badge */}
-                  <div className="absolute top-5 left-5 flex items-center gap-3">
-                    <span className="text-purple-light font-mono text-sm tracking-widest">
-                      {product.number}
-                    </span>
-                    <span className="h-px w-10 bg-purple-light/40" />
-                  </div>
-
-                  {/* Arrow */}
-                  <div className="absolute top-5 right-5 w-9 h-9 rounded-full bg-bg-primary/60 border border-border-subtle text-text-primary flex items-center justify-center group-hover:bg-purple-primary group-hover:border-purple-primary group-hover:rotate-45 transition-all backdrop-blur-sm">
-                    <ArrowUpRight size={16} />
-                  </div>
                 </div>
 
-                {/* Content */}
-                <div className="flex flex-col flex-1 p-6 md:p-7">
-                  <h3 className="text-text-primary font-bold text-xl md:text-2xl leading-snug mb-1 group-hover:text-purple-light transition-colors">
+                <div className="relative flex flex-1 flex-col justify-end p-8">
+                  <div className="absolute right-8 top-8 flex size-10 items-center justify-center rounded-full border border-border-subtle bg-bg-primary/45 text-text-primary backdrop-blur transition-all group-hover:rotate-45 group-hover:border-purple-primary group-hover:bg-purple-primary">
+                    <ArrowUpRight size={16} />
+                  </div>
+                  <span className="mb-4 font-mono text-sm tracking-[4px] text-purple-light">
+                    {product.number}
+                  </span>
+                  <h3 className="text-2xl font-bold leading-tight text-text-primary transition-colors group-hover:text-purple-light">
                     {product.title}
                   </h3>
-                  <span className="text-text-secondary text-sm mb-4">
+                  <span className="mt-2 text-xl font-semibold text-text-primary">
                     {product.subtitle}
                   </span>
-                  <p className="text-text-secondary/70 text-sm leading-relaxed flex-1">
+                  <p className="mt-4 text-sm leading-relaxed text-text-secondary">
                     {product.description}
                   </p>
-                  <span className="text-purple-light text-sm mt-4 inline-flex items-center gap-1">
+                  <span className="mt-8 inline-flex w-max items-center gap-2 border-b border-purple-primary pb-1 text-xs uppercase tracking-[1.2px] text-purple-light">
                     了解更多 <ArrowUpRight size={14} />
                   </span>
                 </div>

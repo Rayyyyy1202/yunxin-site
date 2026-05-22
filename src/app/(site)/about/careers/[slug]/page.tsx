@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CareerDetailPage from "@/components/about/CareerDetailPage";
-import {
-  careerDetailSlugs,
-  getCareerDetail,
-} from "@/data/careers";
+import { careerDetailSlugs, getCareerDetail } from "@/data/careers";
 
 interface CareerPageProps {
   params: Promise<{ slug: string }>;

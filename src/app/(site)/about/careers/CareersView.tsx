@@ -1,159 +1,133 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BrainCircuit, Handshake, Sparkles } from "lucide-react";
-import CareerCard from "@/components/about/CareerCard";
+import { ArrowRight } from "lucide-react";
 import { careers } from "@/data/careers";
 
-const principles = [
-  {
-    title: "把前沿技術做成真實產品",
-    description:
-      "我們關注 3D 視覺、具身智能與機器人操作在產線中的可用性，讓研發成果進入客戶現場。",
-    icon: BrainCircuit,
-  },
-  {
-    title: "與高密度團隊一起成長",
-    description:
-      "你會直接與算法、硬件、軟件、產品和交付團隊協作，快速理解複雜系統的完整鏈路。",
-    icon: Sparkles,
-  },
-  {
-    title: "面向全球智能製造場景",
-    description:
-      "從新能源、汽車到 3C 與物流，團隊正在把 AIeveR 的視覺智能能力推向更多行業。",
-    icon: Handshake,
-  },
-];
+const categories = ["產品類", "全部職位"];
 
 export default function CareersView() {
-  const featured = careers.find((career) => career.featured);
-
   return (
-    <div className="overflow-hidden bg-bg-primary">
-      <section className="relative isolate min-h-[560px] overflow-hidden border-b border-border-subtle pt-28 md:pt-36">
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-30 bg-[radial-gradient(ellipse_80%_60%_at_72%_16%,rgba(123,102,255,0.26),transparent_60%),linear-gradient(135deg,#050509_0%,#11101d_48%,#050509_100%)]"
-        />
-        <div
-          aria-hidden
-          className="absolute left-1/2 top-16 -z-20 h-[560px] w-[560px] -translate-x-1/2 rounded-full border border-purple-light/20 bg-purple-primary/10 blur-3xl"
-        />
-        <div className="mx-auto grid max-w-[1280px] gap-12 px-6 pb-20 md:px-10 lg:grid-cols-[0.95fr_0.85fr] lg:items-end">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[5px] text-purple-light">
-              Join AIeveR
-            </p>
-            <h1 className="mt-6 max-w-[720px] text-4xl font-bold leading-tight text-text-primary md:text-6xl">
-              加入我們，讓具身智能走進真實產線
+    <div className="overflow-hidden bg-[#050509] text-white">
+      <section className="bg-[#050509] pt-16 md:pt-20">
+        <div className="relative mx-auto h-[403px] max-w-[1280px] overflow-hidden">
+          <Image
+            src="/images/about/careers/careers-hero-bg.png"
+            alt=""
+            fill
+            priority
+            sizes="(max-width: 1280px) 100vw, 1280px"
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-black/5 to-black/0" />
+          <div className="absolute left-6 top-20 max-w-[620px] md:left-[72px] md:top-[96px]">
+            <h1 className="text-5xl font-bold tracking-[0.04em] text-white md:text-[72px] md:leading-none">
+              加入我們
             </h1>
-            <p className="mt-7 max-w-[640px] text-base leading-8 text-text-secondary md:text-lg">
-              與 AIeveR Robotics 一起，把多維視覺、機器人操作與工業 AI
-              產品化，服務新能源、汽車、3C、物流等高價值製造場景。
+            <p className="mt-6 whitespace-pre-line text-2xl font-semibold leading-relaxed tracking-[0.08em] text-white/88 md:text-[34px]">
+              {"與我們一起\n探索具身智能的無限可能"}
             </p>
-            <div className="mt-10 flex flex-wrap gap-4">
+            <div className="mt-9 flex flex-wrap gap-4">
               <Link
                 href="#open-positions"
-                className="inline-flex items-center justify-center gap-2 rounded-sm bg-purple-primary px-7 py-3.5 text-sm font-semibold tracking-wider text-white transition-colors hover:bg-purple-primary/85"
+                className="inline-flex min-w-[154px] items-center justify-center gap-2 bg-purple-primary px-7 py-3.5 text-sm font-semibold tracking-[0.08em] text-white transition-colors hover:bg-purple-primary/85"
               >
-                查看職位
+                探索職位
                 <ArrowRight size={16} />
               </Link>
               <Link
                 href="/about/contact"
-                className="inline-flex items-center justify-center rounded-sm border border-border-color px-7 py-3.5 text-sm font-semibold tracking-wider text-text-primary transition-colors hover:border-purple-light hover:text-purple-light"
+                className="inline-flex min-w-[154px] items-center justify-center border border-purple-light/45 bg-black/18 px-7 py-3.5 text-sm font-semibold tracking-[0.08em] text-white transition-colors hover:border-purple-light hover:text-purple-light"
               >
-                聯繫我們
+                立即咨詢
               </Link>
             </div>
-          </div>
-
-          {featured && (
-            <Link
-              href={featured.href ?? "/about/careers"}
-              className="group block overflow-hidden rounded-xl border border-purple-light/30 bg-[#0b0d18]/82 p-6 shadow-[0_0_40px_rgba(73,46,141,0.22)] backdrop-blur-sm transition-colors hover:border-purple-light/60"
-            >
-              <p className="text-xs font-bold uppercase tracking-[4px] text-purple-light">
-                Featured Role
-              </p>
-              <h2 className="mt-5 text-3xl font-bold text-white">
-                {featured.title}
-              </h2>
-              <p className="mt-4 text-sm leading-7 text-white/68">
-                {featured.summary}
-              </p>
-              <div className="mt-7 flex items-center justify-between border-t border-white/10 pt-5">
-                <span className="text-sm text-white/62">
-                  {featured.location} · {featured.type}
-                </span>
-                <span className="inline-flex items-center gap-2 text-sm font-semibold text-purple-light">
-                  了解職位
-                  <ArrowRight
-                    size={15}
-                    className="transition-transform group-hover:translate-x-1"
-                  />
-                </span>
-              </div>
-            </Link>
-          )}
-        </div>
-      </section>
-
-      <section className="bg-[#07080e] py-16 md:py-24">
-        <div className="mx-auto max-w-[1280px] px-6 md:px-10">
-          <div className="mb-12 max-w-[760px]">
-            <p className="text-xs font-bold uppercase tracking-[4px] text-purple-light">
-              Why AIeveR
-            </p>
-            <h2 className="mt-4 text-3xl font-bold text-text-primary md:text-5xl">
-              在高速迭代中做難而有用的事
-            </h2>
-          </div>
-          <div className="grid gap-5 md:grid-cols-3">
-            {principles.map((item) => {
-              const Icon = item.icon;
-              return (
-                <article
-                  key={item.title}
-                  className="rounded-xl border border-border-subtle bg-bg-secondary/60 p-6"
-                >
-                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-lg border border-purple-light/30 bg-purple-primary/15 text-purple-light">
-                    <Icon size={24} strokeWidth={1.7} />
-                  </div>
-                  <h3 className="text-xl font-semibold text-text-primary">
-                    {item.title}
-                  </h3>
-                  <p className="mt-4 text-sm leading-7 text-text-secondary">
-                    {item.description}
-                  </p>
-                </article>
-              );
-            })}
           </div>
         </div>
       </section>
 
       <section
         id="open-positions"
-        className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 md:py-24"
+        className="relative mx-auto min-h-[667px] max-w-[1280px] overflow-hidden bg-[#050509] px-6 py-16 md:px-10 md:py-20"
       >
-        <div className="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[4px] text-purple-light">
-              Open Positions
-            </p>
-            <h2 className="mt-4 text-3xl font-bold text-text-primary md:text-5xl">
-              招聘職位
-            </h2>
-          </div>
-          <p className="max-w-[520px] text-sm leading-7 text-text-secondary">
-            真實招聘鏈接仍等待資料方提供；已確認的市場產品經理職位先接入站內詳情頁。
-          </p>
-        </div>
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-10 h-px w-[78%] -translate-x-1/2 bg-gradient-to-r from-transparent via-purple-light/45 to-transparent"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-20 h-[180px] w-[72%] -translate-x-1/2 rounded-full bg-purple-primary/10 blur-3xl"
+        />
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {careers.map((career, index) => (
-            <CareerCard key={career.id} career={career} index={index} />
-          ))}
+        <div className="relative z-10 mx-auto max-w-[1120px]">
+          <div className="flex flex-col items-center">
+            <p className="text-center text-3xl font-bold tracking-[0.08em] text-white md:text-[42px]">
+              熱招職位
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              {categories.map((category) => (
+                <span
+                  key={category}
+                  className={`inline-flex h-11 min-w-[120px] items-center justify-center border px-8 text-sm font-semibold tracking-[0.1em] ${
+                    category === "全部職位"
+                      ? "border-purple-primary bg-purple-primary text-white"
+                      : "border-purple-light/38 bg-white/[0.03] text-white/74"
+                  }`}
+                >
+                  {category}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-12 overflow-hidden border-y border-purple-light/24">
+            {careers.map((career) => (
+              <article
+                key={career.id}
+                className="grid gap-4 border-b border-purple-light/18 px-0 py-5 last:border-b-0 md:grid-cols-[minmax(0,1fr)_160px_120px_150px] md:items-center md:gap-8 md:py-0"
+              >
+                <div className="flex min-h-[58px] items-center gap-4">
+                  <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-purple-light shadow-[0_0_18px_rgba(146,114,255,0.7)]" />
+                  <h2 className="text-lg font-semibold tracking-[0.05em] text-white md:text-xl">
+                    {career.title}
+                  </h2>
+                </div>
+                <p className="pl-6 text-sm text-white/64 md:pl-0">
+                  {career.location}
+                </p>
+                <p className="pl-6 text-sm text-white/64 md:pl-0">
+                  {career.type}
+                </p>
+                <div className="pl-6 md:pl-0 md:text-right">
+                  {career.href ? (
+                    <Link
+                      href={career.href}
+                      className="inline-flex items-center gap-2 text-sm font-semibold tracking-[0.08em] text-purple-light transition-colors hover:text-white"
+                    >
+                      查看詳情
+                      <ArrowRight size={15} />
+                    </Link>
+                  ) : (
+                    <span
+                      aria-disabled="true"
+                      className="inline-flex cursor-not-allowed items-center text-sm font-semibold tracking-[0.08em] text-white/32"
+                    >
+                      資料待補
+                    </span>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-12 flex justify-center">
+            <button
+              type="button"
+              disabled
+              className="h-12 min-w-[178px] cursor-not-allowed border border-purple-light/55 bg-white/[0.02] px-10 text-sm font-semibold tracking-[0.12em] text-purple-light/70"
+            >
+              查看更多職位
+            </button>
+          </div>
         </div>
       </section>
     </div>

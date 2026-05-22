@@ -31,6 +31,26 @@ export const documents: DocumentItem[] = [
     updatedAt: "2026-05-15",
   },
   {
+    id: "cert-depthsight-a-ce",
+    title: "DepthSight-A CE 認證證書",
+    category: "認證證書",
+    description:
+      "DepthSight-A 系列 CE 認證證書，用於客戶合規審核、投標資料和項目交付歸檔。",
+    fileUrl: "/resources/certifications/depthsight-a-ce-certification.pdf",
+    fileSize: "2.12 MB",
+    updatedAt: "2026-05-22",
+  },
+  {
+    id: "cert-depthsight-a-fcc",
+    title: "DepthSight-A FCC 認證證書",
+    category: "認證證書",
+    description:
+      "DepthSight-A 系列 FCC 認證證書，用於海外項目資料提交與合規核對。",
+    fileUrl: "/resources/certifications/depthsight-a-fcc-certification.pdf",
+    fileSize: "2.09 MB",
+    updatedAt: "2026-05-22",
+  },
+  {
     id: "cert-ds-l10140-accuracy",
     title: "DS-L10140 精度認證",
     category: "認證證書",

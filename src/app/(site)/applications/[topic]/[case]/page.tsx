@@ -32,11 +32,15 @@ export default async function CaseDetailPage({ params }: CasePageProps) {
   if (!found || !caseHasDetail(found.case)) notFound();
 
   const { topic: topicData, case: caseData } = found;
+  const heroBackground =
+    caseData.detailHeroBackground ??
+    topicData.detailHeroBackground ??
+    topicData.heroBackground;
 
   return (
     <>
       {/* Breadcrumb */}
-      <div className="bg-bg-primary border-b border-border-subtle">
+      <div hidden className="bg-bg-primary border-b border-border-subtle">
         <div className="max-w-[1280px] mx-auto px-6 md:px-10 py-4 flex items-center gap-2 text-xs text-text-secondary">
           <Link href="/" className="hover:text-text-primary transition-colors">
             首頁
@@ -63,9 +67,10 @@ export default async function CaseDetailPage({ params }: CasePageProps) {
       <ApplicationsHero
         title={caseData.title}
         eyebrow={topicData.eyebrow}
-        background={topicData.heroBackground}
+        background={heroBackground}
         productImage={caseData.productImage}
         productLabel={caseData.productLabel}
+        variant="detail"
       />
 
       <CaseDetailLayout data={caseData} />
