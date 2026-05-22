@@ -103,9 +103,35 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                 {item.title}
               </h1>
 
-              <div className="mt-12 max-w-[1120px] space-y-5 text-base leading-8 text-white/78 md:mt-80">
+              <div className="relative mt-10 aspect-[16/7] max-w-[1120px] overflow-hidden border border-border-subtle/40 bg-bg-secondary">
+                <SiteImg
+                  src={item.coverImage}
+                  alt=""
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(1,0,8,0.62)_100%)]" />
+              </div>
+
+              <div className="mt-10 max-w-[1120px] space-y-5 text-base leading-8 text-white/78">
                 {renderContent(item.content)}
               </div>
+
+              {item.galleryImages && item.galleryImages.length > 1 && (
+                <div className="mt-12 grid gap-4 md:grid-cols-2">
+                  {item.galleryImages.slice(1).map((image) => (
+                    <div
+                      key={image}
+                      className="relative aspect-[16/10] overflow-hidden border border-border-subtle/40 bg-bg-secondary"
+                    >
+                      <SiteImg
+                        src={image}
+                        alt=""
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </article>

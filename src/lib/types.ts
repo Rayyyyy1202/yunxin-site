@@ -25,6 +25,7 @@ export interface NewsItem {
   date: string;
   category: string;
   coverImage: string;
+  galleryImages?: string[];
   content: string;
 }
 

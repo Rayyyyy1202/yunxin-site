@@ -76,9 +76,12 @@ export default function NewsView() {
                 className="group grid min-h-[173px] overflow-hidden bg-[#0a0b1a] transition-colors hover:bg-[#101227] md:grid-cols-[356px_minmax(0,1fr)]"
               >
                 <div className="relative min-h-[150px] bg-[#080a18] md:min-h-[173px]">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(141,119,207,0.24),transparent_58%)]" />
-                  <div className="absolute inset-x-8 top-1/2 h-px bg-purple-light/35" />
-                  <div className="absolute left-8 top-1/2 h-12 w-px -translate-y-1/2 bg-purple-light/40" />
+                  <SiteImg
+                    src={item.coverImage}
+                    alt=""
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,10,24,0.15),rgba(8,10,24,0.46))]" />
                 </div>
 
                 <div className="relative flex min-w-0 flex-col px-6 py-6 md:px-8">
