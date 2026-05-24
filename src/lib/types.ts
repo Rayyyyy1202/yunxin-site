@@ -91,4 +91,6 @@ export interface StitchPanelData {
   statusLabel: string;
   /** Full-bleed detail image shown when panel is active */
   detailImage: string;
+  /** Optional full-bleed video shown when the desktop gateway panel is active */
+  detailVideo?: string;
 }

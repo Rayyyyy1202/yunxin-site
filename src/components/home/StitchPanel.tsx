@@ -19,7 +19,7 @@ export default function StitchPanel({ data }: StitchPanelProps) {
     >
       {/* Photo crop */}
       <div
-        className="relative aspect-[4/3] bg-cover bg-center"
+        className="relative aspect-video bg-cover bg-center"
         style={{ backgroundImage: `url(${detailSrc})` }}
       >
         {/* Darken overlay for text contrast */}

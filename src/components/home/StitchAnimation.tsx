@@ -8,33 +8,17 @@ import { stitchPanels } from "@/data/stitch-panels";
 import { useSiteImage } from "@/components/SiteImageProvider";
 import StitchPanel from "./StitchPanel";
 
-// True geometric centroid x (as % of container width) of each panel's
-// clipped trapezoid. Used both for label placement and for shifting
-// each panel's source image so its centre lands inside the panel.
-// Keep in sync with PANEL_RANGES.
-const PANEL_CENTROID_X = [15.5, 50.5, 85] as const;
+// Keep centroid values aligned with PANEL_RANGES so labels and shifted images
+// land in the visual centre of each slanted slice.
+const PANEL_CENTROID_X = [17, 51.5, 84.5] as const;
 const PANEL_CENTERS = PANEL_CENTROID_X.map((x) => `${x}%`);
+const PANEL_OBJECT_POSITIONS = ["center 40%", "center 34%", "center 42%"] as const;
+const FOLDED_IMAGE_SHIFT_X = [0, 0, 4] as const;
 
-/**
- * Stitch three-panel showcase.
- *
- * Two modes:
- *   • **gateway** (prop `gateway={true}`): full-viewport landing page. Hover
- *     previews panels with directional wipes; clicking any panel triggers
- *     `onPanelClick` to enter the main site.
- *   • **inline** (default): normal section inside the page scroll.
- *
- * Based on Figma design ZYyUze1aay4WXY1j7Fiz75 nodes 222:292, Body-1/2/3.
- */
-
-const SLANT = 8;
-
-// Panel ranges are calibrated to the baked-in cuts in embodied-showcase.jpg.
-// Measured cut positions (see /tmp/img-analyze): cut 1 at ~x=27% bottom /
-// ~x=35% top; cut 2 at ~x=66% bottom / ~x=74% top — both share ~8% slant.
+const SLANT = 6.5;
 const PANEL_RANGES: Array<{ bottomStart: number; bottomEnd: number }> = [
-  { bottomStart: 0, bottomEnd: 27 },
-  { bottomStart: 27, bottomEnd: 66 },
+  { bottomStart: 0, bottomEnd: 31 },
+  { bottomStart: 31, bottomEnd: 66 },
   { bottomStart: 66, bottomEnd: 100 },
 ];
 
@@ -42,23 +26,18 @@ function buildClipPath(index: number): string {
   const { bottomStart, bottomEnd } = PANEL_RANGES[index];
   const isFirst = index === 0;
   const isLast = index === PANEL_RANGES.length - 1;
-  // Outer edges of the leftmost / rightmost panels must stay flush with the
-  // viewport (no slant), otherwise a black wedge appears in the corner.
   const topStart = isFirst ? bottomStart : Math.min(100, bottomStart + SLANT);
   const topEnd = isLast ? bottomEnd : Math.min(100, bottomEnd + SLANT);
+
   return `polygon(${topStart}% 0%, ${topEnd}% 0%, ${bottomEnd}% 100%, ${bottomStart}% 100%)`;
 }
 
-// Pre-compute static clip paths (one per panel, never changes)
 const CLIP_PATHS = PANEL_RANGES.map((_, i) => buildClipPath(i));
-
 const accentTeal = "#3ce0d0";
 const SMOOTH_EASE = [0.22, 1, 0.36, 1] as const;
 
 interface StitchAnimationProps {
-  /** Full-viewport landing mode. */
   gateway?: boolean;
-  /** Called when the user clicks a panel (gateway mode). */
   onPanelClick?: () => void;
 }
 
@@ -70,40 +49,42 @@ export default function StitchAnimation({
   const [activationToken, setActivationToken] = useState(0);
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.15 });
+  const visible = gateway || isInView;
 
   const activate = (index: number) => {
     setActivationToken((t) => t + 1);
     setActivePanel(index);
   };
 
-  // In gateway mode the section fills the entire viewport, so it's
-  // always "in view" — skip the IntersectionObserver gate.
-  const visible = gateway || isInView;
-
   return (
     <section
       ref={ref}
       id="explore"
       className={cn(
-        "relative bg-bg-primary overflow-hidden",
-        gateway && "h-full flex flex-col",
+        "relative overflow-hidden bg-bg-primary",
+        gateway && "flex h-full flex-col",
       )}
     >
-      {/* Stage (desktop) */}
       <motion.div
         initial={visible ? false : { opacity: 0 }}
         animate={visible ? { opacity: 1 } : {}}
         transition={{ duration: 0.8, delay: visible ? 0 : 0.25 }}
         className={cn(
-          "hidden md:block relative overflow-hidden",
+          "hidden overflow-hidden md:block",
           gateway
-            ? "flex-1 w-full"
-            : "w-full aspect-[5/4] max-h-[860px]",
+            ? "absolute left-1/2 top-0 -translate-x-1/2"
+            : "relative mx-auto w-full aspect-video max-h-[860px]",
         )}
+        style={
+          gateway
+            ? {
+                width: "max(100vw, 177.777vh)",
+                height: "max(56.25vw, 100vh)",
+              }
+            : undefined
+        }
         onMouseLeave={() => setActivePanel(null)}
       >
-        {/* Base composite — three panels clipped into slanted slices.
-            Ambient Ken Burns wraps all three for subtle life. */}
         <motion.div
           animate={{ scale: [1, 1.03, 1] }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
@@ -119,17 +100,15 @@ export default function StitchAnimation({
           ))}
         </motion.div>
 
-        {/* Edge vignette */}
         <div
           aria-hidden
-          className="absolute inset-0 pointer-events-none"
+          className="pointer-events-none absolute inset-0"
           style={{
             background:
               "radial-gradient(ellipse at center, rgba(13,14,16,0) 60%, rgba(13,14,16,0.45) 100%)",
           }}
         />
 
-        {/* Folded-state overlays */}
         <AnimatePresence>
           {activePanel === null && (
             <motion.div
@@ -138,26 +117,23 @@ export default function StitchAnimation({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.7, ease: SMOOTH_EASE }}
-              className="absolute inset-0 pointer-events-none"
+              className="pointer-events-none absolute inset-0"
             >
-              {/* Brand watermark */}
-              <div className="absolute top-8 left-8 md:top-10 md:left-10 text-text-primary/90 select-none">
-                <div className="text-sm md:text-base font-semibold tracking-wide">
+              <div className="absolute left-8 top-8 select-none text-text-primary/90 md:left-10 md:top-10">
+                <div className="text-sm font-semibold tracking-wide md:text-base">
                   AIeveR Robotics Limited
                 </div>
-                <div className="text-[10px] md:text-xs text-text-secondary tracking-[6px] mt-0.5">
-                  雲 芯 機 器 人 有 限 公 司
+                <div className="mt-0.5 text-[10px] tracking-[6px] text-text-secondary md:text-xs">
+                  雲芯機器人有限公司
                 </div>
               </div>
 
-              {/* EXPLORE INTELLIGENCE caption */}
-              <div className="absolute bottom-10 md:bottom-14 left-0 right-0 flex justify-center">
-                <span className="text-text-secondary text-[10px] md:text-xs uppercase tracking-[10px] md:tracking-[14px] font-light">
+              <div className="absolute bottom-10 left-0 right-0 flex justify-center md:bottom-14">
+                <span className="text-[10px] font-light uppercase tracking-[10px] text-text-secondary md:text-xs md:tracking-[14px]">
                   E X P L O R E &nbsp; I N T E L L I G E N C E
                 </span>
               </div>
 
-              {/* Per-panel titles — centred on each slanted slice. */}
               <div className="absolute inset-0">
                 {stitchPanels.map((panel, i) => (
                   <div
@@ -165,28 +141,28 @@ export default function StitchAnimation({
                     className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 text-center"
                     style={{ left: PANEL_CENTERS[i] }}
                   >
-                    <span className="block text-purple-light text-[11px] md:text-xs uppercase tracking-[3px] font-bold">
+                    <span className="block text-[11px] font-bold uppercase tracking-[3px] text-purple-light md:text-xs">
                       {panel.titleEn}
                     </span>
-                    <h3 className="mt-2 text-text-primary text-3xl md:text-5xl font-bold drop-shadow-[0_4px_18px_rgba(0,0,0,0.55)]">
+                    <h3 className="mt-2 whitespace-nowrap text-3xl font-bold text-text-primary drop-shadow-[0_4px_18px_rgba(0,0,0,0.55)] md:text-5xl">
                       {panel.titleCn}
                     </h3>
                   </div>
                 ))}
               </div>
 
-              {/* Scan line effect */}
-              <div className="absolute inset-0 overflow-hidden opacity-[0.07] pointer-events-none">
+              <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-[0.07]">
                 <div
-                  className="absolute inset-x-0 h-[2px] animate-scan-line"
-                  style={{ background: `linear-gradient(90deg, transparent, ${accentTeal}, transparent)` }}
+                  className="animate-scan-line absolute inset-x-0 h-[2px]"
+                  style={{
+                    background: `linear-gradient(90deg, transparent, ${accentTeal}, transparent)`,
+                  }}
                 />
               </div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Expanded detail overlay */}
         <AnimatePresence mode="popLayout">
           {activePanel !== null && (
             <ExpandedPanel
@@ -197,15 +173,11 @@ export default function StitchAnimation({
           )}
         </AnimatePresence>
 
-        {/* Panel boundary divider lines — SVG with non-uniform scaling so the
-            diagonal stays locked to the clip-path cut regardless of container
-            aspect ratio. The viewBox uses the same 0–100 % space as the panel
-            polygons so the two definitions cannot drift apart. */}
         <svg
           aria-hidden
           preserveAspectRatio="none"
           viewBox="0 0 100 100"
-          className="absolute inset-0 w-full h-full pointer-events-none z-[5]"
+          className="pointer-events-none absolute inset-0 z-[5] h-full w-full"
         >
           <defs>
             <linearGradient id="stitch-divider-fade" x1="0" y1="0" x2="0" y2="1">
@@ -218,6 +190,7 @@ export default function StitchAnimation({
           {[1, 2].map((i) => {
             const bottomX = PANEL_RANGES[i].bottomStart;
             const topX = bottomX + SLANT;
+
             return (
               <line
                 key={i}
@@ -234,16 +207,11 @@ export default function StitchAnimation({
           })}
         </svg>
 
-        {/* Hover + click zones */}
         {stitchPanels.map((panel, index) => (
           <button
             type="button"
             key={panel.id}
-            aria-label={
-              gateway
-                ? `进入 ${panel.titleCn}`
-                : `预览 ${panel.titleCn}`
-            }
+            aria-label={gateway ? `進入 ${panel.titleCn}` : `預覽 ${panel.titleCn}`}
             onMouseEnter={() => activate(index)}
             onFocus={() => activate(index)}
             onClick={(e) => {
@@ -256,7 +224,7 @@ export default function StitchAnimation({
                 setActivePanel(null);
               }
             }}
-            className="absolute inset-0 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-purple-light focus-visible:ring-inset z-20"
+            className="absolute inset-0 z-20 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-light"
             style={{
               clipPath: CLIP_PATHS[index],
               WebkitClipPath: CLIP_PATHS[index],
@@ -265,10 +233,9 @@ export default function StitchAnimation({
         ))}
       </motion.div>
 
-      {/* Mobile stacked cards */}
       <div
         className={cn(
-          "md:hidden flex flex-col gap-4 px-6",
+          "flex w-full flex-col gap-4 px-6 md:hidden",
           gateway ? "flex-1 justify-center py-6" : "pb-16",
         )}
       >
@@ -292,10 +259,6 @@ export default function StitchAnimation({
   );
 }
 
-/* ------------------------------------------------------------------ */
-/*  FoldedSlice — one source image clipped into its panel polygon      */
-/* ------------------------------------------------------------------ */
-
 interface FoldedSliceProps {
   panel: (typeof stitchPanels)[number];
   index: number;
@@ -304,10 +267,8 @@ interface FoldedSliceProps {
 
 function FoldedSlice({ panel, index, dimmed }: FoldedSliceProps) {
   const src = useSiteImage(panel.detailImage);
-  // Shift the image so its centre aligns with the panel centroid — without
-  // this, panel 0 / panel 2 only show the leftmost / rightmost slice of
-  // their source image and the subject gets cropped away.
-  const shiftXPercent = PANEL_CENTROID_X[index] - 50;
+  const shiftXPercent = PANEL_CENTROID_X[index] - 50 + FOLDED_IMAGE_SHIFT_X[index];
+
   return (
     <div
       aria-hidden
@@ -327,49 +288,36 @@ function FoldedSlice({ panel, index, dimmed }: FoldedSliceProps) {
           alt=""
           fill
           priority={index === 0}
-          sizes="(max-width: 768px) 100vw, 34vw"
+          sizes="100vw"
           className="object-cover"
-          style={{ objectPosition: `center ${index === 1 ? "15%" : "center"}` }}
+          style={{ objectPosition: PANEL_OBJECT_POSITIONS[index] }}
         />
       </div>
-      {/* Tone overlay so folded tiles read as one composite */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(13,14,16,0.15) 0%, rgba(13,14,16,0.05) 45%, rgba(13,14,16,0.6) 100%)",
+            "linear-gradient(180deg, rgba(13,14,16,0.12) 0%, rgba(13,14,16,0.04) 45%, rgba(13,14,16,0.6) 100%)",
         }}
       />
     </div>
   );
 }
 
-/* ------------------------------------------------------------------ */
-/*  ExpandedPanel (directional wipe)                                   */
-/* ------------------------------------------------------------------ */
-
 interface ExpandedPanelProps {
   panel: (typeof stitchPanels)[number];
   index: number;
 }
 
-// Wipe start: zero-width slanted line matching panel SLANT angle
 const WIPE_START_CLIP_PATHS: readonly string[] = [
-  // Panel 0 (具身感知): collapsed slant line at left edge
   `polygon(${SLANT}% 0%, ${SLANT}% 0%, 0% 100%, 0% 100%)`,
-  // Panel 1 (具身操作): collapsed slant line at center
   `polygon(${50 + SLANT}% 0%, ${50 + SLANT}% 0%, 50% 100%, 50% 100%)`,
-  // Panel 2 (具身移动): collapsed slant line at right edge
   `polygon(${100 + SLANT}% 0%, ${100 + SLANT}% 0%, 100% 100%, 100% 100%)`,
 ];
 
-// Wipe end: full coverage with slanted edges (overflow clips naturally)
 const WIPE_END_CLIP_PATHS: readonly string[] = [
-  // Panel 0: left→right, leading edge overshoots right with slant
   `polygon(0% 0%, ${100 + SLANT}% 0%, 100% 100%, 0% 100%)`,
-  // Panel 1: center→out, both edges expand symmetrically
   `polygon(0% 0%, ${100 + SLANT + SLANT}% 0%, ${100 + SLANT}% 100%, -${SLANT}% 100%)`,
-  // Panel 2: right→left, leading edge overshoots left with slant
   `polygon(0% 0%, ${100 + SLANT}% 0%, 100% 100%, -${SLANT}% 100%)`,
 ];
 
@@ -377,6 +325,7 @@ function ExpandedPanel({ panel, index }: ExpandedPanelProps) {
   const startClip = WIPE_START_CLIP_PATHS[index] ?? WIPE_END_CLIP_PATHS[0];
   const endClip = WIPE_END_CLIP_PATHS[index] ?? WIPE_END_CLIP_PATHS[0];
   const detailSrc = useSiteImage(panel.detailImage);
+  const detailVideoSrc = panel.detailVideo;
 
   return (
     <motion.div
@@ -384,9 +333,8 @@ function ExpandedPanel({ panel, index }: ExpandedPanelProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 0.98 }}
       transition={{ duration: 0.6, ease: SMOOTH_EASE }}
-      className="absolute inset-0 z-10 pointer-events-none"
+      className="pointer-events-none absolute inset-0 z-10"
     >
-      {/* Directional wipe */}
       <motion.div
         initial={{ clipPath: startClip }}
         animate={{ clipPath: endClip }}
@@ -400,15 +348,31 @@ function ExpandedPanel({ panel, index }: ExpandedPanelProps) {
           transition={{ duration: 1.6, ease: SMOOTH_EASE }}
           className="absolute inset-0"
         >
-          <Image
-            src={detailSrc}
-            alt={panel.titleCn}
-            fill
-            sizes="100vw"
-            className="object-cover"
-            style={index === 1 ? { objectPosition: "center 15%" } : undefined}
-            priority
-          />
+          {detailVideoSrc ? (
+            <video
+              aria-label={panel.titleCn}
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster={detailSrc}
+              preload="auto"
+              className="h-full w-full object-cover"
+              style={{ objectPosition: PANEL_OBJECT_POSITIONS[index] }}
+            >
+              <source src={detailVideoSrc} type="video/mp4" />
+            </video>
+          ) : (
+            <Image
+              src={detailSrc}
+              alt={panel.titleCn}
+              fill
+              sizes="100vw"
+              className="object-cover"
+              style={{ objectPosition: PANEL_OBJECT_POSITIONS[index] }}
+              priority
+            />
+          )}
         </motion.div>
 
         <div
@@ -421,45 +385,41 @@ function ExpandedPanel({ panel, index }: ExpandedPanelProps) {
         />
       </motion.div>
 
-      {/* Brand watermark — comes in shortly after the wipe begins */}
       <motion.div
         initial={{ opacity: 0, y: -6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, ease: SMOOTH_EASE, delay: 0.15 }}
-        className="absolute top-8 left-8 md:top-10 md:left-10 text-text-primary/90 select-none"
+        className="absolute left-8 top-8 select-none text-text-primary/90 md:left-10 md:top-10"
       >
-        <div className="text-sm md:text-base font-semibold tracking-wide">
+        <div className="text-sm font-semibold tracking-wide md:text-base">
           AIeveR Robotics Limited
         </div>
-        <div className="text-[10px] md:text-xs text-text-secondary tracking-[6px] mt-0.5">
-          雲 芯 機 器 人 有 限 公 司
+        <div className="mt-0.5 text-[10px] tracking-[6px] text-text-secondary md:text-xs">
+          雲芯機器人有限公司
         </div>
       </motion.div>
 
-      {/* Active-panel title — matches the folded-state label so the text
-          inside the animation stays consistent with what surrounds it. */}
       <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, ease: SMOOTH_EASE, delay: 0.15 }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center"
       >
-        <span className="block text-purple-light text-[11px] md:text-xs uppercase tracking-[3px] font-bold">
+        <span className="block text-[11px] font-bold uppercase tracking-[3px] text-purple-light md:text-xs">
           {panel.titleEn}
         </span>
-        <h3 className="mt-2 text-text-primary text-3xl md:text-5xl font-bold drop-shadow-[0_4px_18px_rgba(0,0,0,0.55)]">
+        <h3 className="mt-2 whitespace-nowrap text-3xl font-bold text-text-primary drop-shadow-[0_4px_18px_rgba(0,0,0,0.55)] md:text-5xl">
           {panel.titleCn}
         </h3>
       </motion.div>
 
-      {/* EXPLORE INTELLIGENCE caption */}
       <motion.div
         initial={{ opacity: 0, letterSpacing: "6px" }}
         animate={{ opacity: 1, letterSpacing: "14px" }}
         transition={{ duration: 1, ease: SMOOTH_EASE, delay: 1 }}
-        className="absolute bottom-10 md:bottom-14 left-0 right-0 flex justify-center"
+        className="absolute bottom-10 left-0 right-0 flex justify-center md:bottom-14"
       >
-        <span className="text-text-secondary text-[10px] md:text-xs uppercase font-light">
+        <span className="text-[10px] font-light uppercase text-text-secondary md:text-xs">
           EXPLORE &nbsp; INTELLIGENCE
         </span>
       </motion.div>
