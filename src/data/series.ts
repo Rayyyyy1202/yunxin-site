@@ -509,8 +509,8 @@ const eiSeries: SeriesData = {
     productImageDefault: "/images/series/ei/group11-product.png",
     backgroundDefault: "/images/series/ei/group11-hero-bg.png",
   },
-  // coreFeatures intentionally omitted — EI 页面不展示「核心特性」共享段，
-  // 直接进入 5 卡的「核心優勢」。
+  // coreFeatures intentionally omitted — Nano first uses the Group 11 hero,
+  // then the Figma image 92 core-advantages artwork.
   coreAdvantages: [
     {
       icon: "Crosshair",
@@ -543,9 +543,11 @@ const eiSeries: SeriesData = {
       description: "無懼透明及複雜環境，穩定輸出可靠數據。",
     },
   ],
+  techSpecs: standardSeries.techSpecs,
+  applicationCases: standardSeries.applicationCases,
+  fovCalculator: standardSeries.fovCalculator,
+  caseGallery: standardSeries.caseGallery,
   cta: sharedCTA,
-  // techSpecs / applicationCases / fovCalculator / caseGallery intentionally
-  // omitted — Figma 没有这些子 section，组件读到 undefined 后自动不渲染。
 };
 
 /* ------------------------------------------------------------------ */
