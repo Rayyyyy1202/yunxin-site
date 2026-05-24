@@ -22,7 +22,7 @@ export default function ApplicationCases({ items }: ApplicationCasesProps) {
   const next = () => setIndex((i) => (i + 1) % items.length);
 
   return (
-    <section className="relative bg-bg-primary py-20 md:py-28">
+    <section id="measurement-scenarios" className="relative bg-bg-primary py-20 md:py-28">
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -84,11 +84,13 @@ export default function ApplicationCases({ items }: ApplicationCasesProps) {
             label="測量場景"
             src={current.scenarioImageDefault}
             alt={`${current.label} 測量場景`}
+            fit="cover"
           />
           <Panel
             label="點雲示例"
             src={current.pointCloudImageDefault}
             alt={`${current.label} 點雲示例`}
+            fit="contain"
           />
         </motion.div>
 
@@ -116,16 +118,19 @@ interface PanelProps {
   label: string;
   src: string;
   alt: string;
+  fit: "cover" | "contain";
 }
 
-function Panel({ label, src, alt }: PanelProps) {
+function Panel({ label, src, alt, fit }: PanelProps) {
   return (
     <figure className="relative aspect-[4/3] rounded-xl overflow-hidden border border-border-subtle bg-bg-card">
       {src ? (
         <SiteImg
           src={src}
           alt={alt}
-          className="absolute inset-0 w-full h-full object-cover"
+          className={`absolute inset-0 w-full h-full ${
+            fit === "contain" ? "object-contain bg-bg-primary p-3" : "object-cover"
+          }`}
         />
       ) : (
         <div className="absolute inset-0 flex items-center justify-center text-text-secondary">

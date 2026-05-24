@@ -175,6 +175,65 @@ const sharedCTA: SeriesCTA = {
   backgroundDefault: "/images/series/shared/cta-overlay-border-blur.png",
 };
 
+const measurementScenarios: ApplicationCase[] = [
+  {
+    label: "BGA 焊點檢測",
+    scenarioImageSlot: "measurement-scenario-bga-solder-joint-scene",
+    scenarioImageDefault: "/images/series/measurement-scenarios/bga-solder-joint/measurement-scene.png",
+    pointCloudImageSlot: "measurement-scenario-bga-solder-joint-point-cloud",
+    pointCloudImageDefault: "/images/series/measurement-scenarios/bga-solder-joint/point-cloud.png",
+  },
+  {
+    label: "CNC 工件高度測量",
+    scenarioImageSlot: "measurement-scenario-cnc-height-scene",
+    scenarioImageDefault: "/images/series/measurement-scenarios/cnc-height/measurement-scene.png",
+    pointCloudImageSlot: "measurement-scenario-cnc-height-point-cloud",
+    pointCloudImageDefault: "/images/series/measurement-scenarios/cnc-height/point-cloud.png",
+  },
+  {
+    label: "PCB 板平整度測量",
+    scenarioImageSlot: "measurement-scenario-pcb-flatness-scene",
+    scenarioImageDefault: "/images/series/measurement-scenarios/pcb-flatness/measurement-scene.png",
+    pointCloudImageSlot: "measurement-scenario-pcb-flatness-point-cloud",
+    pointCloudImageDefault: "/images/series/measurement-scenarios/pcb-flatness/point-cloud.png",
+  },
+  {
+    label: "手機邊框輪廓測量",
+    scenarioImageSlot: "measurement-scenario-phone-frame-profile-scene",
+    scenarioImageDefault: "/images/series/measurement-scenarios/phone-frame-profile/measurement-scene.png",
+    pointCloudImageSlot: "measurement-scenario-phone-frame-profile-point-cloud",
+    pointCloudImageDefault: "/images/series/measurement-scenarios/phone-frame-profile/point-cloud.png",
+  },
+  {
+    label: "新能源電池尺寸測量",
+    scenarioImageSlot: "measurement-scenario-battery-size-scene",
+    scenarioImageDefault: "/images/series/measurement-scenarios/battery-size/measurement-scene.png",
+    pointCloudImageSlot: "measurement-scenario-battery-size-point-cloud",
+    pointCloudImageDefault: "/images/series/measurement-scenarios/battery-size/point-cloud.png",
+  },
+  {
+    label: "新能源電池平面度測量",
+    scenarioImageSlot: "measurement-scenario-battery-flatness-scene",
+    scenarioImageDefault: "/images/series/measurement-scenarios/battery-flatness/measurement-scene.png",
+    pointCloudImageSlot: "measurement-scenario-battery-flatness-point-cloud",
+    pointCloudImageDefault: "/images/series/measurement-scenarios/battery-flatness/point-cloud.png",
+  },
+  {
+    label: "鑄造件孔洞位置度檢測",
+    scenarioImageSlot: "measurement-scenario-casting-hole-position-scene",
+    scenarioImageDefault: "/images/series/measurement-scenarios/casting-hole-position/measurement-scene.png",
+    pointCloudImageSlot: "measurement-scenario-casting-hole-position-point-cloud",
+    pointCloudImageDefault: "/images/series/measurement-scenarios/casting-hole-position/point-cloud.png",
+  },
+  {
+    label: "顯示屏背板平整度測量",
+    scenarioImageSlot: "measurement-scenario-display-backplate-flatness-scene",
+    scenarioImageDefault: "/images/series/measurement-scenarios/display-backplate-flatness/measurement-scene.png",
+    pointCloudImageSlot: "measurement-scenario-display-backplate-flatness-point-cloud",
+    pointCloudImageDefault: "/images/series/measurement-scenarios/display-backplate-flatness/point-cloud.png",
+  },
+];
+
 /* ------------------------------------------------------------------ */
 /*  Line 系列                                                           */
 /* ------------------------------------------------------------------ */
@@ -254,15 +313,7 @@ const lineSeries: SeriesData = {
       { label: "外殼防護等級", values: ["IP67", "IP67", "IP67", "IP67"] },
     ],
   },
-  applicationCases: [
-    {
-      label: "PCB 板點雲（缺陷檢測）",
-      scenarioImageSlot: "series-line-scenario-pcb",
-      scenarioImageDefault: "",
-      pointCloudImageSlot: "series-line-pointcloud-pcb",
-      pointCloudImageDefault: "",
-    },
-  ],
+  applicationCases: measurementScenarios,
   fovCalculator: {
     defaultModel: "L10400",
     modelOptions: ["L10050", "L10140", "L10400", "L11600"],
@@ -340,15 +391,7 @@ const advancedSeries: SeriesData = {
       { label: "外殼防護等級", values: ["IP67", "IP67", "······", "IP67", "IP67"] },
     ],
   },
-  applicationCases: [
-    {
-      label: "PCB 板點雲（缺陷檢測）",
-      scenarioImageSlot: "series-advanced-scenario-pcb",
-      scenarioImageDefault: "",
-      pointCloudImageSlot: "series-advanced-pointcloud-pcb",
-      pointCloudImageDefault: "",
-    },
-  ],
+  applicationCases: measurementScenarios,
   fovCalculator: {
     defaultModel: "A10400",
     modelOptions: ["A10400", "A10700", "A11100", "A11600", "A12500"],
@@ -450,15 +493,7 @@ const standardSeries: SeriesData = {
       { label: "外殼防護等級", values: ["IP65", "IP65", "IP65", "IP65", "IP65"] },
     ],
   },
-  applicationCases: [
-    {
-      label: "PCB板點雲（缺陷檢測）",
-      scenarioImageSlot: "series-standard-scenario-pcb",
-      scenarioImageDefault: "/images/series/standard/measurement-scene-pcb.png",
-      pointCloudImageSlot: "series-standard-pointcloud-pcb",
-      pointCloudImageDefault: "/images/series/standard/pointcloud-pcb.png",
-    },
-  ],
+  applicationCases: measurementScenarios,
   fovCalculator: {
     defaultModel: "S",
     modelOptions: ["Nano Plus", "DP", "S", "M", "L"],
