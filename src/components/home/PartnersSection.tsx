@@ -1,9 +1,39 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 
-const partners = ["NVIDIA", "TESLA", "FANUC", "KUKA", "ABB", "INTEL"];
+const partners = [
+  {
+    name: "合作伙伴 01",
+    logo: "/images/home/partners/partner-01.png",
+    width: 148,
+    height: 180,
+    className: "w-16 md:w-20",
+  },
+  {
+    name: "合作伙伴 02",
+    logo: "/images/home/partners/partner-02.png",
+    width: 202,
+    height: 180,
+    className: "w-20 md:w-24",
+  },
+  {
+    name: "理想汽车",
+    logo: "/images/home/partners/li-auto.png",
+    width: 900,
+    height: 180,
+    className: "w-48 md:w-64",
+  },
+  {
+    name: "珞石机器人",
+    logo: "/images/home/partners/rokae.png",
+    width: 1153,
+    height: 180,
+    className: "w-56 md:w-72",
+  },
+];
 
 export default function PartnersSection() {
   const ref = useRef<HTMLDivElement>(null);
@@ -22,18 +52,25 @@ export default function PartnersSection() {
         </motion.h2>
 
         <motion.div
-          className="mt-14 flex flex-wrap items-center justify-center gap-x-14 gap-y-6 opacity-55 mix-blend-screen md:gap-x-20"
+          className="mt-14 flex flex-wrap items-center justify-center gap-5 md:gap-7"
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 0.55, y: 0 } : {}}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.15 }}
         >
           {partners.map((partner) => (
-            <span
-              key={partner}
-              className="font-mono text-2xl font-bold tracking-tight text-white md:text-3xl"
+            <div
+              key={partner.name}
+              className="flex h-24 items-center justify-center rounded-lg border border-white/10 bg-white/90 px-6 shadow-[0_18px_50px_rgba(0,0,0,0.22)] backdrop-blur-sm transition-transform duration-300 hover:-translate-y-1 md:h-28 md:px-8"
             >
-              {partner}
-            </span>
+              <Image
+                src={partner.logo}
+                alt={partner.name}
+                width={partner.width}
+                height={partner.height}
+                sizes="(min-width: 768px) 288px, 224px"
+                className={`${partner.className} max-h-16 object-contain md:max-h-20`}
+              />
+            </div>
           ))}
         </motion.div>
       </div>
