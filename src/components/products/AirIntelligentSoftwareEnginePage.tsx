@@ -1,67 +1,79 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowRight,
-  BrainCircuit,
-  CheckCircle2,
-  Eye,
-  Gauge,
-  Move3D,
-  RefreshCw,
-  Sparkles,
-  type LucideIcon,
-} from "lucide-react";
 import SeriesCTA from "@/components/series/SeriesCTA";
 
 const IMAGE_ROOT = "/images/products/air-intelligent-software-engine";
 
-const painCards: Array<{
-  number: string;
-  title: string;
-  description: string;
-  icon: LucideIcon;
-  image?: string;
-}> = [
+const painCards = [
   {
-    number: "01",
     title: "感知局限",
     description:
-      "傳統 2D 視覺缺乏深度資訊，受光照影響大，難以估量深度。",
-    icon: Eye,
-    image: `${IMAGE_ROOT}/pain-icon-depth.png`,
+      "傳統 2D 視覺缺乏深度資訊，受光照影響大（如過暗、過亮、遮擋），難以估量深度。",
+    image: `${IMAGE_ROOT}/pain-section-wave.png`,
+    icon: `${IMAGE_ROOT}/pain-card-depth-icon.png`,
+    crop: { width: "401%", height: "425%", left: "-14%", top: "-250%" },
   },
   {
-    number: "02",
     title: "視野與空間受限",
     description:
-      "單一視角無法覆蓋大型或複雜曲面工件，如風力葉片、汽車輪罩與船舶鑄件。",
-    icon: Move3D,
-    image: `${IMAGE_ROOT}/pain-icon-vision.png`,
+      "單一視角無法覆蓋大型或複雜曲面工件（如 20 米鐵軌、100 米風力葉片、汽車輪罩、船舶鑄件）。",
+    image: `${IMAGE_ROOT}/pain-section-wave.png`,
+    icon: `${IMAGE_ROOT}/pain-card-vision-icon.png`,
+    crop: {
+      width: "486.05%",
+      height: "525.7%",
+      left: "-150.29%",
+      top: "-301.68%",
+    },
   },
   {
-    number: "03",
     title: "一致性與精度差",
     description:
-      "來料與加工誤差大，且機械人絕對定位精度遠低於重複定位精度。",
-    icon: Gauge,
-    image: `${IMAGE_ROOT}/pain-icon-precision.png`,
+      "來料與加工誤差大，且機械人絕對定位精度遠低於重複定位精度，制約了高精度任務執行。",
+    image: `${IMAGE_ROOT}/pain-section-wave.png`,
+    icon: `${IMAGE_ROOT}/pain-card-precision-icon.png`,
+    crop: {
+      width: "470.99%",
+      height: "465.84%",
+      left: "-248.45%",
+      top: "-257.92%",
+    },
   },
   {
-    number: "04",
-    title: "彈性不足",
+    title: "柔性不足",
     description: "產線換型頻繁時，重新部署週期長、成本高。",
-    icon: RefreshCw,
-    image: `${IMAGE_ROOT}/pain-icon-flexibility.png`,
+    image: `${IMAGE_ROOT}/pain-section-wave.png`,
+    icon: `${IMAGE_ROOT}/pain-card-flexibility-icon.png`,
+    crop: {
+      width: "465.74%",
+      height: "429.68%",
+      left: "-349.86%",
+      top: "-228.31%",
+    },
   },
-];
+] as const;
 
-const systemSteps: Array<{ label: string; image: string }> = [
+const capabilityStrip = [
+  { label: "深度感知突破", icon: `${IMAGE_ROOT}/check-depth.svg` },
+  { label: "大視野覆蓋", icon: `${IMAGE_ROOT}/check-vision.svg` },
+  { label: "高精度一致性", icon: `${IMAGE_ROOT}/check-precision.svg` },
+  { label: "快速部署與柔性擴展", icon: `${IMAGE_ROOT}/check-flexibility.svg` },
+] as const;
+
+const systemSteps = [
   { label: "方案生成", image: `${IMAGE_ROOT}/system-step-solution.png` },
   { label: "3D成像", image: `${IMAGE_ROOT}/system-step-imaging.png` },
   { label: "數據處理分析", image: `${IMAGE_ROOT}/system-step-analysis.png` },
   { label: "軌跡規劃", image: `${IMAGE_ROOT}/system-step-planning.png` },
   { label: "執行結果", image: `${IMAGE_ROOT}/system-step-result.png` },
-];
+] as const;
+
+const systemParts = [
+  { label: "機械人", image: `${IMAGE_ROOT}/robot-feature-global.png` },
+  { label: "3D 相機", image: `${IMAGE_ROOT}/pain-card-depth-icon.png` },
+  { label: "執行機構", image: `${IMAGE_ROOT}/robot-feature-marker.png` },
+  { label: "移動平台", image: `${IMAGE_ROOT}/robot-workstation-mobile.png` },
+] as const;
 
 const platformCards = [
   {
@@ -76,7 +88,7 @@ const platformCards = [
     image: `${IMAGE_ROOT}/system-platform-ai.png`,
     icon: `${IMAGE_ROOT}/system-platform-ai-icon.png`,
   },
-];
+] as const;
 
 const robotFeatureCards = [
   {
@@ -95,7 +107,7 @@ const robotFeatureCards = [
     title: "支援超大場景全局 3D 成像",
     image: `${IMAGE_ROOT}/robot-feature-global.png`,
   },
-];
+] as const;
 
 const softwareCards = [
   {
@@ -110,21 +122,36 @@ const softwareCards = [
     title: "AIR Planner",
     subtitle: "機器人軌跡規劃軟件",
     description:
-      "為工業機器人應用設計的離線編程與仿真軟件，提供從環境導入、軌跡生成到示教器代碼的一站式解決方式。",
+      "專為工業機器人應用設計的離線編程與仿真軟件，提供從環境導入、軌跡生成到示教器代碼的一站式解決方式。",
     value:
-      "基于 CAD 模型自動規劃視點，將人工示教耗時從 2 小時縮短至 3 分鐘。",
+      "基于 CAD 模型自動規劃視點，將耗時從人工示教 2 小時縮短至 3 分鐘（作業提效 40 倍），實現 96% 表面覆蓋率與 100% 關鍵特征覆蓋。",
     href: "/products/air-planner-engine",
     image: `${IMAGE_ROOT}/software-air-planner.png`,
   },
   {
     title: "AIR Calibrator",
-    subtitle: "自動化手眼標定與 DH 校正",
+    subtitle: "自動化手眼標定與DH校正",
     description: "自動化引導式手眼標定，同時校正機器人 DH 參數。",
     value: "降低使用門檻，提升機器人絕對精度與操作精度。",
     href: "/products/air-calibrator-engine",
     image: `${IMAGE_ROOT}/software-air-calibrator.png`,
   },
-];
+] as const;
+
+const useCases = [
+  {
+    title: "新能源汽車，鋰電池蓋板測量",
+    image: `${IMAGE_ROOT}/use-case-battery-cover.png`,
+  },
+  {
+    title: "新能源汽車，電池盒下箱體檢測",
+    image: `${IMAGE_ROOT}/use-case-battery-box.png`,
+  },
+  {
+    title: "新能源汽車，顯示屏背板測量",
+    image: `${IMAGE_ROOT}/use-case-display-backplate.png`,
+  },
+] as const;
 
 export default function AirIntelligentSoftwareEnginePage() {
   return (
@@ -134,6 +161,7 @@ export default function AirIntelligentSoftwareEnginePage() {
       <SystemSection />
       <RobotScanSection />
       <SoftwareBrainSection />
+      <UseCasesSection />
       <SeriesCTA
         data={{
           title: "開啟工業具身智能 新紀元",
@@ -151,47 +179,63 @@ export default function AirIntelligentSoftwareEnginePage() {
 
 function HeroSection() {
   return (
-    <section className="relative isolate overflow-hidden bg-black pt-20 md:pt-24">
-      <Image
-        src={`${IMAGE_ROOT}/hero-bg.png`}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="absolute inset-0 -z-30 object-cover object-center"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-20 bg-[linear-gradient(90deg,#000_0%,rgba(0,0,0,0.94)_34%,rgba(0,0,0,0.48)_65%,rgba(0,0,0,0.1)_100%)]"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_60%_at_74%_40%,rgba(123,102,255,0.22),transparent_64%)]"
-      />
+    <section className="bg-black pt-16 md:pt-20">
+      <div className="relative isolate min-h-[720px] overflow-hidden lg:min-h-[720px]">
+        <Image
+          src={`${IMAGE_ROOT}/hero-bg.png`}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="absolute inset-0 -z-30 object-cover object-center"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-20 bg-[linear-gradient(90deg,#050507_0%,rgba(5,5,8,0.92)_24%,rgba(5,5,8,0.5)_52%,rgba(5,5,8,0.08)_100%)]"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_72%_18%,rgba(123,102,255,0.34),transparent_34%),linear-gradient(180deg,rgba(0,0,0,0)_64%,#020405_100%)]"
+        />
 
-      <div className="mx-auto flex min-h-[640px] max-w-[1280px] items-center px-6 py-16 md:px-10">
-        <div className="max-w-[670px]">
-          <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-[52px] md:leading-[1.12]">
-            面向高階複雜場景的
-            <br />
-            3D 視覺與機械人感知方案
-          </h1>
-          <p className="mt-6 max-w-[640px] text-sm leading-7 text-white/78 md:text-base">
-            3D視覺算法平台、機器人掃描與執行系統、機器人軌跡規劃軟件，從系統硬件、成像到演算法源頭，全面優化系統精度，全端技術自主可控。
-          </p>
-          <div className="mt-9 flex flex-wrap gap-4">
-            <Link
-              href="/about/contact"
-              className="inline-flex min-w-[132px] items-center justify-center rounded-sm bg-purple-primary px-7 py-3 text-sm font-semibold tracking-[1px] transition-colors hover:bg-purple-primary/85"
-            >
-              立即咨詢
-            </Link>
-            <Link
-              href="#air-system"
-              className="inline-flex min-w-[132px] items-center justify-center rounded-sm border border-white/20 bg-black/35 px-7 py-3 text-sm font-semibold tracking-[1px] text-white/88 transition-colors hover:border-purple-light hover:text-white"
-            >
-              功能演示
-            </Link>
+        <div className="mx-auto flex min-h-[720px] max-w-[1280px] items-center px-6 py-16 md:px-10 lg:py-10">
+          <div className="max-w-[604px]">
+            <h1 className="max-w-[342px] text-[30px] font-bold leading-tight tracking-tight text-white md:max-w-[604px] md:text-[40px] md:leading-[1.28]">
+              面向高階複雜場景的
+              <br />
+              3D 視覺與機械人
+              <span className="md:hidden">
+                <br />
+              </span>
+              感知方案
+            </h1>
+            <p className="mt-6 max-w-[604px] [word-break:break-word] text-sm font-semibold leading-[2] text-white/78 md:text-[15px]">
+              <span className="bg-gradient-to-r from-[#7b66ff] to-[#ad92ff] bg-clip-text text-transparent">
+                3D視覺算法平台 × 機器人掃描與執行系統
+                <br />
+                × 機器人軌跡規劃軟件
+              </span>
+              <br />
+              從系統硬件、成像到演算法源頭，
+              <br className="md:hidden" />
+              全面優化系統精度，
+              <br className="md:hidden" />
+              全端技術自主可控。
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link
+                href="/about/contact"
+                className="inline-flex h-12 min-w-[100px] items-center justify-center rounded-[4px] bg-[#4f3199] px-7 text-sm font-semibold tracking-[1px] transition-colors hover:bg-[#5c3ab0]"
+              >
+                立即咨詢
+              </Link>
+              <Link
+                href="#air-system"
+                className="inline-flex h-12 min-w-[132px] items-center justify-center rounded-[4px] border border-white/18 bg-black/20 px-7 text-sm font-semibold tracking-[1px] text-white/88 transition-colors hover:border-purple-light hover:text-white"
+              >
+                功能演示
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -201,82 +245,89 @@ function HeroSection() {
 
 function PainPointSection() {
   return (
-    <section className="relative isolate overflow-hidden bg-[#020405] py-16 md:py-20">
+    <section className="relative isolate overflow-hidden bg-[#020405] pb-10 pt-10 md:pt-12">
       <Image
-        src={`${IMAGE_ROOT}/section-texture.png`}
+        src={`${IMAGE_ROOT}/pain-top-wave.png`}
         alt=""
-        fill
-        sizes="100vw"
-        className="absolute inset-0 -z-20 object-cover object-center opacity-20"
+        width={738}
+        height={295}
+        className="pointer-events-none absolute right-0 top-0 -z-10 hidden opacity-80 mix-blend-screen md:block"
       />
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(2,4,5,0.75),#020405_42%,#020405_100%)]"
-      />
-
       <div className="mx-auto max-w-[1280px] px-6 md:px-10">
         <SectionHeading
-          eyebrow="行業痛點分析"
           title="突破傳統2D視覺與機器人執行的極限"
-          subtitle="AIR 智能軟體引擎 × 3D 視覺方案，重塑工業場景的感知與執行邊界"
+          subtitle="AIR 智能軟體引擎 X 3D 視覺方案，重塑工業場景的感知與執行邊界"
         />
 
         <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {painCards.map((card) => {
-            const Icon = card.icon;
-            return (
-              <article
-                key={card.title}
-                className="relative overflow-hidden rounded-xl border border-[#534384] bg-[rgba(18,16,34,0.82)] p-5 shadow-[0_0_28px_rgba(123,102,255,0.16)]"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="flex size-12 items-center justify-center rounded-full border border-[#7b66ff]/70 bg-[#492e8d]/40 text-purple-light">
-                    <Icon size={22} />
-                  </span>
-                  <h3 className="text-xl font-bold">
-                    <span className="mr-2 text-purple-light">
-                      {card.number}
-                    </span>
-                    {card.title}
-                  </h3>
+          {painCards.map((card) => (
+            <article
+              key={card.title}
+              className="relative flex min-h-[373px] flex-col overflow-hidden rounded-xl border-[3px] border-[#534384] bg-[rgba(18,16,34,0.85)] p-[15px] shadow-[0_0_28px_rgba(123,102,255,0.16)]"
+            >
+              <div className="flex min-h-[74px] items-center gap-3">
+                <div className="relative size-[50px] shrink-0 mix-blend-lighten">
+                  <Image
+                    src={card.icon}
+                    alt=""
+                    fill
+                    sizes="50px"
+                    className="object-cover"
+                  />
                 </div>
-                <p className="mt-5 min-h-[84px] text-sm leading-7 text-white/75">
-                  {card.description}
-                </p>
-                {card.image && (
-                  <div className="relative mt-5 h-32 overflow-hidden rounded-md border border-white/10">
-                    <Image
-                      src={card.image}
-                      alt=""
-                      fill
-                      sizes="(min-width: 1280px) 260px, 90vw"
-                      className="object-cover object-center opacity-80 mix-blend-lighten"
-                    />
-                  </div>
-                )}
-              </article>
-            );
-          })}
+                <h3 className="text-[22px] font-medium leading-9 text-white md:text-2xl">
+                  {card.title}
+                </h3>
+              </div>
+              <p className="mt-4 min-h-[84px] text-sm font-medium leading-[21px] text-white/80">
+                {card.description}
+              </p>
+              <div className="relative mt-auto h-[145px] overflow-hidden rounded-[5px] border border-white/8 mix-blend-lighten">
+                <CroppedImage src={card.image} crop={card.crop} />
+              </div>
+            </article>
+          ))}
         </div>
 
-        <div className="mt-8 flex flex-wrap items-center gap-5 rounded-xl border border-[#7b66ff] bg-[#0b0c12]/88 px-6 py-5 shadow-[0_0_16px_rgba(123,102,255,0.28)] md:px-10">
-          <span className="rounded-full border border-[#7b66ff] px-4 py-2 text-lg font-bold text-purple-light">
-            AIR
-          </span>
-          <strong className="text-xl text-purple-light">
-            AIR 智能軟體引擎 × 3D 視覺方案
-          </strong>
-          {["深度感知突破", "大視野覆蓋", "高精度一致性", "快速部署與彈性擴展"].map(
-            (item) => (
-              <span key={item} className="inline-flex items-center gap-2 text-sm text-white/88">
-                <CheckCircle2 size={16} className="text-purple-light" />
-                {item}
-              </span>
-            ),
-          )}
-        </div>
+        <CapabilityStrip />
       </div>
     </section>
+  );
+}
+
+function CapabilityStrip() {
+  return (
+    <div className="relative mt-8 overflow-hidden rounded-xl border-2 border-[#6244a2] bg-[#0b0c12] px-4 py-4 shadow-[0_0_2px_#7b66ff,0_0_10px_#7b66ff] md:px-6">
+      <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex items-center gap-4">
+          <div className="relative h-[54px] w-[115px] shrink-0 overflow-hidden rounded-l-[10px]">
+            <CroppedImage
+              src={`${IMAGE_ROOT}/pain-section-wave.png`}
+              crop={{
+                width: "876.88%",
+                height: "1052.34%",
+                left: "-30.22%",
+                top: "-846.15%",
+              }}
+            />
+          </div>
+          <strong className="text-lg font-semibold leading-[30px] text-[#8553ec] md:text-xl">
+            AIR 智能軟體引擎 X 3D視覺方案
+          </strong>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+          {capabilityStrip.map((item) => (
+            <span
+              key={item.label}
+              className="inline-flex items-center gap-2 whitespace-nowrap text-base font-medium leading-[30px] text-white drop-shadow-[0_0_8px_#7b66ff]"
+            >
+              <Image src={item.icon} alt="" width={42} height={42} />
+              {item.label}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -284,85 +335,94 @@ function SystemSection() {
   return (
     <section
       id="air-system"
-      className="scroll-mt-24 border-y border-white/10 bg-[#020307] py-16 md:py-20"
+      className="scroll-mt-24 border-y border-white/10 bg-[#020405] py-10 md:py-12"
     >
       <div className="mx-auto max-w-[1280px] px-6 md:px-10">
         <SectionHeading title="自研軟硬件一體化，打通感知、規劃與執行" />
 
-        <div className="mt-10 grid gap-4 md:grid-cols-5">
-          {systemSteps.map((step, index) => (
-            <div key={step.label} className="relative">
-              <div className="rounded-xl border border-[#7a69ac] bg-gradient-to-b from-[#070715] to-[#231e40] p-4 text-center shadow-[0_0_12px_rgba(123,102,255,0.35)]">
-                <div className="relative mx-auto size-20">
-                  <Image
-                    src={step.image}
-                    alt=""
-                    fill
-                    sizes="80px"
-                    className="object-cover mix-blend-lighten"
-                  />
-                </div>
-                <p className="mt-3 text-base font-semibold">{step.label}</p>
-              </div>
-              {index < systemSteps.length - 1 && (
-                <ArrowRight
-                  aria-hidden
-                  className="absolute -right-5 top-1/2 hidden -translate-y-1/2 text-purple-light md:block"
-                  size={22}
+        <div className="mx-auto mt-10 grid max-w-[1097px] gap-4 sm:grid-cols-2 lg:grid-cols-[157px_157px_227px_157px_157px] lg:justify-between">
+          {systemSteps.map((step) => (
+            <div
+              key={step.label}
+              className="flex h-[127px] flex-col items-center justify-center rounded-xl border border-[#7a69ac] bg-gradient-to-b from-[#070715] to-[#231e40] text-center shadow-[0_0_2px_rgba(123,102,255,0.25),0_0_10px_#7b66ff]"
+            >
+              <div className="relative size-[88px] mix-blend-lighten">
+                <Image
+                  src={step.image}
+                  alt=""
+                  fill
+                  sizes="88px"
+                  className="object-cover"
                 />
-              )}
+              </div>
+              <p className="-mt-1 text-lg font-medium leading-[30px] text-white md:text-xl">
+                {step.label}
+              </p>
             </div>
           ))}
         </div>
 
-        <div className="mt-10 rounded-xl border border-[#7b66ff]/50 bg-[#0b0c12] p-5 shadow-[0_0_14px_rgba(123,102,255,0.25)]">
-          <div className="flex flex-wrap items-center gap-6">
-            <strong className="text-xl text-purple-light">系統組成</strong>
-            <span className="text-sm text-white/75">
-              AIR 智能軟體引擎 X 3D視覺方案
-            </span>
-            {["深度感知突破", "大視野覆蓋", "高精度一致性", "快速部署與柔性擴展"].map(
-              (item) => (
-                <span key={item} className="inline-flex items-center gap-2 text-sm">
-                  <CheckCircle2 size={16} className="text-purple-light" />
-                  {item}
-                </span>
-              ),
-            )}
+        <div className="mt-9 overflow-hidden">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center">
+            <strong className="shrink-0 text-2xl font-semibold leading-9 text-white">
+              系統組成
+            </strong>
+            <div className="hidden h-px w-[75px] bg-[#30334a] md:block" />
+            <div className="grid flex-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {systemParts.map((part) => (
+                <div
+                  key={part.label}
+                  className="flex h-[60px] items-center gap-4 rounded-[9px] border border-[#272938] bg-[linear-gradient(90deg,#0a0b13_0%,rgba(11,12,19,0.58)_100%)] px-5"
+                >
+                  <div className="relative size-12 shrink-0 overflow-hidden rounded-md mix-blend-lighten">
+                    <Image
+                      src={part.image}
+                      alt=""
+                      fill
+                      sizes="48px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <span className="text-base font-medium text-white/85">
+                    {part.label}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="mt-10 grid gap-5 lg:grid-cols-2">
+        <div className="mt-8 grid gap-2 lg:grid-cols-2">
           {platformCards.map((card) => (
             <article
               key={card.title}
-              className="grid overflow-hidden rounded-xl border border-[#272938] bg-[#070810] md:grid-cols-[0.45fr_0.55fr]"
+              className="relative min-h-[194px] overflow-hidden rounded-[9px] border border-[#272938] bg-[#070810] px-6 py-7"
             >
-              <div className="p-6">
-                <div className="relative mb-4 size-14 overflow-hidden rounded-lg">
-                  <Image
-                    src={card.icon}
-                    alt=""
-                    fill
-                    sizes="56px"
-                    className="object-cover mix-blend-lighten"
-                  />
+              <Image
+                src={card.image}
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 596px, 100vw"
+                className="object-cover object-right opacity-90"
+              />
+              <div className="relative z-10 max-w-[260px]">
+                <div className="flex items-center gap-3">
+                  <div className="relative size-[67px] shrink-0 mix-blend-lighten">
+                    <Image
+                      src={card.icon}
+                      alt=""
+                      fill
+                      sizes="67px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <h3 className="text-xl font-semibold leading-[30px] text-[#8553ec]">
+                    {card.title}
+                  </h3>
                 </div>
-                <h3 className="text-xl font-bold text-purple-light">
-                  {card.title}
-                </h3>
-                <p className="mt-4 text-sm leading-7 text-white/75">
+                <p className="mt-5 text-sm font-medium leading-[21px] text-white/80">
                   {card.description}
                 </p>
-              </div>
-              <div className="relative min-h-[190px]">
-                <Image
-                  src={card.image}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 380px, 100vw"
-                  className="object-cover object-center"
-                />
               </div>
             </article>
           ))}
@@ -374,16 +434,24 @@ function SystemSection() {
 
 function RobotScanSection() {
   return (
-    <section className="bg-[#050509] py-16 md:py-20">
+    <section className="bg-[#020405] py-10 md:py-12">
       <div className="mx-auto max-w-[1280px] px-6 md:px-10">
         <SectionHeading title="RobotScan 智能成像機器人" />
 
-        <div className="mt-8 rounded-full border border-[#7b66ff]/60 px-5 py-3 text-center text-sm text-white/85">
-          高精度 3D 相機 + 低成本機械臂 + 掃描拼接軟件 = RobotScan 測量工作站
+        <div className="mx-auto mt-8 flex min-h-[52px] max-w-[1060px] items-center justify-center rounded-[35px] border-2 border-[#534384] bg-black px-5 text-center text-base font-bold leading-[30px] text-white md:text-xl">
+          <span>
+            高精度 3D 相機 <span className="text-[#7b66ff]">+</span>{" "}
+            低成本機械臂 <span className="text-[#7b66ff]">+</span>{" "}
+            掃描拼接軟件 ={" "}
+            <span className="bg-gradient-to-r from-[#7b66ff] to-[#4a3d99] bg-clip-text text-2xl text-transparent">
+              RobotScan
+            </span>{" "}
+            測量工作站
+          </span>
         </div>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-[0.58fr_0.42fr]">
-          <div className="grid gap-5 md:grid-cols-2">
+        <div className="mt-10 grid gap-6 lg:grid-cols-[0.56fr_0.44fr]">
+          <div className="grid gap-7 md:grid-cols-2">
             <StationCard
               title="單臂/雙臂工作站"
               subtitle="適用於中小尺寸測量"
@@ -396,19 +464,19 @@ function RobotScanSection() {
             />
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2">
             {robotFeatureCards.map((item) => (
               <article
                 key={item.title}
-                className="grid min-h-[138px] grid-cols-[96px_1fr] items-center gap-4 rounded-xl border border-[#272938] bg-[#090a12] p-3"
+                className="grid min-h-[141px] grid-cols-[84px_1fr] items-center gap-4 rounded-[10px] border border-[#272938] bg-[#070810] p-3"
               >
-                <div className="relative size-24 overflow-hidden rounded-lg">
+                <div className="relative size-[84px] overflow-hidden rounded-[8px] mix-blend-lighten">
                   <Image
                     src={item.image}
                     alt=""
                     fill
-                    sizes="96px"
-                    className="object-cover mix-blend-lighten"
+                    sizes="84px"
+                    className="object-cover"
                   />
                 </div>
                 <p className="text-sm font-semibold leading-6 text-white/86">
@@ -419,7 +487,7 @@ function RobotScanSection() {
           </div>
         </div>
 
-        <div className="mt-8 rounded-lg border border-[#7b66ff]/60 px-5 py-3 text-center text-sm text-white/85">
+        <div className="mt-10 flex min-h-[52px] items-center justify-center rounded-[7px] border-2 border-[#534384] bg-black px-5 text-center text-base font-bold leading-[30px] text-white md:text-xl">
           覆蓋Φ300-700mm（汽車零部件）、Φ500-1200mm（電池盒）至＜5000mm（汽車車架）
         </div>
       </div>
@@ -429,7 +497,7 @@ function RobotScanSection() {
 
 function SoftwareBrainSection() {
   return (
-    <section className="bg-black py-16 md:py-20">
+    <section className="bg-black py-10 md:py-12">
       <div className="mx-auto max-w-[1280px] px-6 md:px-10">
         <SectionHeading title="賦能工業視覺的軟件大腦" />
 
@@ -438,41 +506,43 @@ function SoftwareBrainSection() {
             <Link
               key={card.title}
               href={card.href}
-              className="group flex min-h-[620px] flex-col overflow-hidden rounded-xl border border-[#7b66ff]/35 bg-[#070810] transition-transform hover:-translate-y-1 hover:border-purple-light"
+              className="group flex min-h-[637px] flex-col overflow-hidden rounded-xl border-[3px] border-[#534384] bg-[#020405] transition-transform hover:-translate-y-1 hover:border-[#7b66ff]"
             >
-              <div className="p-6 text-center">
-                <h3 className="text-2xl font-bold">{card.title}</h3>
-                <p className="mt-3 text-sm font-semibold text-white/78">
+              <div className="px-6 pt-6 text-center">
+                <h3 className="text-[26px] font-medium leading-[30px] text-white">
+                  {card.title}
+                </h3>
+                <p className="mt-2 text-xl font-medium leading-[30px] text-white/80">
                   {card.subtitle}
                 </p>
               </div>
-              <div className="relative mx-6 h-44 overflow-hidden rounded-md border border-white/10">
+              <div className="relative mx-7 mt-5 h-[178px] overflow-hidden rounded-xl border-2 border-[#534384]">
                 <Image
                   src={card.image}
                   alt=""
                   fill
-                  sizes="(min-width: 1024px) 330px, 90vw"
+                  sizes="(min-width: 1024px) 331px, 90vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
-              <div className="mt-6 border-t border-white/12 p-6">
-                <p className="text-sm leading-7 text-white/76">
+              <div className="px-7 py-4">
+                <p className="min-h-[90px] text-xl font-medium leading-[30px] text-white/80">
                   {card.description}
                 </p>
-                <div className="mt-8 flex items-center gap-2 text-sm font-semibold text-purple-light">
-                  <BrainCircuit size={18} />
+              </div>
+              <div className="mt-auto border-t border-[#534384] px-6 py-6">
+                <div className="flex items-center gap-2 text-xl font-bold leading-[21px] text-[#7b66ff]">
+                  <Image
+                    src={`${IMAGE_ROOT}/software-value-icon.svg`}
+                    alt=""
+                    width={22}
+                    height={22}
+                  />
                   核心價值
                 </div>
-                <p className="mt-4 text-sm leading-7 text-white/76">
+                <p className="mt-4 text-xl font-medium leading-[30px] text-white/80">
                   {card.value}
                 </p>
-                <span className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-purple-light">
-                  查看詳情
-                  <ArrowRight
-                    size={16}
-                    className="transition-transform group-hover:translate-x-1"
-                  />
-                </span>
               </div>
             </Link>
           ))}
@@ -482,33 +552,102 @@ function SoftwareBrainSection() {
   );
 }
 
+function UseCasesSection() {
+  return (
+    <section className="border-b border-white/10 bg-[#0d0e10] px-6 py-16 md:px-10 md:py-20">
+      <div className="mx-auto max-w-[1200px]">
+        <h2 className="text-3xl font-medium uppercase leading-[40px] tracking-[-0.9px] text-[#fdfbfe] md:text-4xl">
+          應用案例{" "}
+          <span className="bg-gradient-to-r from-[#7b66ff] to-[#492e8d] bg-clip-text font-bold text-transparent">
+            / USE CASES
+          </span>
+        </h2>
+
+        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          {useCases.map((item) => (
+            <article
+              key={item.title}
+              className="relative h-[368px] overflow-hidden bg-[#121316]"
+            >
+              <Image
+                src={item.image}
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 380px, 100vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80" />
+              <h3 className="absolute bottom-8 left-1/2 w-[320px] -translate-x-1/2 text-center text-xl font-bold leading-9 text-[#fdfbfe]">
+                {item.title}
+              </h3>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-8 flex justify-center gap-4">
+          {[
+            { label: "上一個案例", icon: `${IMAGE_ROOT}/use-case-arrow-left.svg` },
+            { label: "下一個案例", icon: `${IMAGE_ROOT}/use-case-arrow-right.svg` },
+          ].map((item) => (
+            <button
+              key={item.label}
+              type="button"
+              aria-label={item.label}
+              className="flex size-12 items-center justify-center border border-[#47484a] transition-colors hover:border-[#7b66ff]"
+            >
+              <Image src={item.icon} alt="" width={8} height={12} />
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function SectionHeading({
-  eyebrow,
   title,
   subtitle,
 }: {
-  eyebrow?: string;
   title: string;
   subtitle?: string;
 }) {
   return (
     <div>
-      {eyebrow && (
-        <p className="mb-4 inline-flex items-center gap-3 text-sm font-bold tracking-[3px] text-purple-light">
-          <Sparkles size={18} />
-          {eyebrow}
-        </p>
-      )}
-      <h2 className="text-3xl font-bold leading-tight md:text-[42px]">
+      <h2 className="text-[30px] font-medium leading-tight text-white md:text-[42px] md:leading-[63px]">
         <span className="text-[#7b66ff]">丨</span>
         {title}
       </h2>
       {subtitle && (
-        <p className="mt-5 max-w-[720px] text-base leading-8 text-white/72">
+        <p className="mt-3 max-w-[720px] text-sm font-semibold leading-9 text-white/80 md:text-xl">
           {subtitle}
         </p>
       )}
     </div>
+  );
+}
+
+function CroppedImage({
+  src,
+  crop,
+}: {
+  src: string;
+  crop: { width: string; height: string; left: string; top: string };
+}) {
+  return (
+    <Image
+      src={src}
+      alt=""
+      width={1672}
+      height={941}
+      sizes="(min-width: 1280px) 258px, 90vw"
+      className="absolute max-w-none"
+      style={{
+        width: crop.width,
+        height: crop.height,
+        left: crop.left,
+        top: crop.top,
+      }}
+    />
   );
 }
 
@@ -522,17 +661,21 @@ function StationCard({
   image: string;
 }) {
   return (
-    <article className="rounded-xl border border-[#272938] bg-[#090a12] p-5">
-      <h3 className="text-xl font-bold">{title}</h3>
-      <p className="mt-3 min-h-12 text-sm leading-6 text-white/70">
-        {subtitle}
-      </p>
-      <div className="relative mt-5 h-44 overflow-hidden rounded-lg border border-white/10">
+    <article className="rounded-xl border-[3px] border-[#534384] bg-[#020405] p-2.5 md:min-h-[306px]">
+      <div className="px-2.5 pt-2">
+        <h3 className="text-[26px] font-medium leading-[30px] text-white">
+          {title}
+        </h3>
+        <p className="mt-4 min-h-12 max-w-[190px] text-base font-medium leading-6 text-white/80">
+          {subtitle}
+        </p>
+      </div>
+      <div className="relative mt-5 h-[155px] overflow-hidden rounded-[4px]">
         <Image
           src={image}
           alt=""
           fill
-          sizes="(min-width: 768px) 300px, 90vw"
+          sizes="(min-width: 768px) 297px, 90vw"
           className="object-cover"
         />
       </div>
