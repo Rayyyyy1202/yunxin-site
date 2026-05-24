@@ -68,13 +68,6 @@ const systemSteps = [
   { label: "執行結果", image: `${IMAGE_ROOT}/system-step-result.png` },
 ] as const;
 
-const systemParts = [
-  { label: "機械人", image: `${IMAGE_ROOT}/robot-feature-global.png` },
-  { label: "3D 相機", image: `${IMAGE_ROOT}/pain-card-depth-icon.png` },
-  { label: "執行機構", image: `${IMAGE_ROOT}/robot-feature-marker.png` },
-  { label: "移動平台", image: `${IMAGE_ROOT}/robot-workstation-mobile.png` },
-] as const;
-
 const platformCards = [
   {
     title: "3D視覺演算法平台",
@@ -93,19 +86,19 @@ const platformCards = [
 const robotFeatureCards = [
   {
     title: "無需 marker 與額外追蹤器",
-    image: `${IMAGE_ROOT}/robot-feature-marker.png`,
-  },
-  {
-    title: "局部測量精度達 0.03mm",
-    image: `${IMAGE_ROOT}/robot-feature-local.png`,
+    image: `${IMAGE_ROOT}/robot-scan-marker-20260524.png`,
   },
   {
     title: "目標空間定位精度高達 ±0.2mm",
-    image: `${IMAGE_ROOT}/robot-feature-position.png`,
+    image: `${IMAGE_ROOT}/robot-scan-position-20260524.png`,
+  },
+  {
+    title: "局部測量精度達 0.03mm",
+    image: `${IMAGE_ROOT}/robot-scan-local-20260524.png`,
   },
   {
     title: "支援超大場景全局 3D 成像",
-    image: `${IMAGE_ROOT}/robot-feature-global.png`,
+    image: `${IMAGE_ROOT}/robot-scan-global-20260524.png`,
   },
 ] as const;
 
@@ -209,11 +202,9 @@ function HeroSection() {
               </span>
               感知方案
             </h1>
-            <p className="mt-6 max-w-[604px] [word-break:break-word] text-sm font-semibold leading-[2] text-white/78 md:text-[15px]">
-              <span className="bg-gradient-to-r from-[#7b66ff] to-[#ad92ff] bg-clip-text text-transparent">
-                3D視覺算法平台 × 機器人掃描與執行系統
-                <br />
-                × 機器人軌跡規劃軟件
+            <p className="mt-6 max-w-[604px] text-sm font-semibold leading-[2] text-white/78 md:text-[15px]">
+              <span className="inline-block whitespace-nowrap bg-gradient-to-r from-[#7b66ff] to-[#ad92ff] bg-clip-text text-transparent">
+                3D視覺算法平台 × 機器人掃描與執行系統 × 機器人軌跡規劃軟件
               </span>
               <br />
               從系統硬件、成像到演算法源頭，
@@ -297,9 +288,9 @@ function PainPointSection() {
 
 function CapabilityStrip() {
   return (
-    <div className="relative mt-8 overflow-hidden rounded-xl border-2 border-[#6244a2] bg-[#0b0c12] px-4 py-4 shadow-[0_0_2px_#7b66ff,0_0_10px_#7b66ff] md:px-6">
-      <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex items-center gap-4">
+    <div className="relative mt-8 overflow-x-auto rounded-xl border-2 border-[#6244a2] bg-[#0b0c12] px-4 py-4 shadow-[0_0_2px_#7b66ff,0_0_10px_#7b66ff] md:px-[9px] md:py-[9px]">
+      <div className="flex flex-col gap-5 md:min-w-[1156px] md:flex-row md:items-center md:gap-0">
+        <div className="flex items-center gap-4 md:w-[461px] md:shrink-0 md:gap-0">
           <div className="relative h-[54px] w-[115px] shrink-0 overflow-hidden rounded-l-[10px]">
             <CroppedImage
               src={`${IMAGE_ROOT}/pain-section-wave.png`}
@@ -311,17 +302,23 @@ function CapabilityStrip() {
               }}
             />
           </div>
-          <strong className="text-lg font-semibold leading-[30px] text-[#8553ec] md:text-xl">
+          <strong className="text-lg font-semibold leading-[30px] text-[#8553ec] md:w-[303px] md:shrink-0 md:whitespace-nowrap md:text-[20px]">
             AIR 智能軟體引擎 X 3D視覺方案
           </strong>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <div className="grid gap-3 sm:grid-cols-2 md:flex md:shrink-0 md:items-center md:gap-[29px]">
           {capabilityStrip.map((item) => (
             <span
               key={item.label}
-              className="inline-flex items-center gap-2 whitespace-nowrap text-base font-medium leading-[30px] text-white drop-shadow-[0_0_8px_#7b66ff]"
+              className="inline-flex items-center gap-2 whitespace-nowrap text-base font-medium leading-[30px] text-white drop-shadow-[0_0_8px_#7b66ff] md:gap-0"
             >
-              <Image src={item.icon} alt="" width={42} height={42} />
+              <Image
+                src={item.icon}
+                alt=""
+                width={42}
+                height={42}
+                className="md:mr-0"
+              />
               {item.label}
             </span>
           ))}
@@ -362,32 +359,22 @@ function SystemSection() {
           ))}
         </div>
 
-        <div className="mt-9 overflow-hidden">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center">
-            <strong className="shrink-0 text-2xl font-semibold leading-9 text-white">
-              系統組成
-            </strong>
-            <div className="hidden h-px w-[75px] bg-[#30334a] md:block" />
-            <div className="grid flex-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {systemParts.map((part) => (
-                <div
-                  key={part.label}
-                  className="flex h-[60px] items-center gap-4 rounded-[9px] border border-[#272938] bg-[linear-gradient(90deg,#0a0b13_0%,rgba(11,12,19,0.58)_100%)] px-5"
-                >
-                  <div className="relative size-12 shrink-0 overflow-hidden rounded-md mix-blend-lighten">
-                    <Image
-                      src={part.image}
-                      alt=""
-                      fill
-                      sizes="48px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <span className="text-base font-medium text-white/85">
-                    {part.label}
-                  </span>
-                </div>
-              ))}
+        <div className="mt-9 overflow-x-auto pb-2">
+          <div className="flex min-w-[1160px] items-center lg:min-w-0">
+            <div className="flex w-[173px] shrink-0 items-center gap-[18px]">
+              <strong className="shrink-0 text-2xl font-semibold leading-9 text-white">
+                系統組成
+              </strong>
+              <div className="h-px flex-1 bg-[#30334a]" />
+            </div>
+            <div className="relative h-[75px] w-[987px] shrink-0">
+              <Image
+                src={`${IMAGE_ROOT}/system-composition-strip.png`}
+                alt="系統組成：機械人、3D 相機、執行機構、移動平台"
+                fill
+                sizes="987px"
+                className="object-contain"
+              />
             </div>
           </div>
         </div>
@@ -468,14 +455,14 @@ function RobotScanSection() {
             {robotFeatureCards.map((item) => (
               <article
                 key={item.title}
-                className="grid min-h-[141px] grid-cols-[84px_1fr] items-center gap-4 rounded-[10px] border border-[#272938] bg-[#070810] p-3"
+                className="grid min-h-[141px] grid-cols-[101px_1fr] items-center gap-4 rounded-[10px] border border-[#272938] bg-[#070810] p-0 pr-4"
               >
-                <div className="relative size-[84px] overflow-hidden rounded-[8px] mix-blend-lighten">
+                <div className="relative size-[101px] overflow-hidden mix-blend-lighten">
                   <Image
                     src={item.image}
                     alt=""
                     fill
-                    sizes="84px"
+                    sizes="101px"
                     className="object-cover"
                   />
                 </div>
