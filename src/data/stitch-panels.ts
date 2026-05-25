@@ -9,7 +9,7 @@ export const stitchPanels: StitchPanelData[] = [
       "全栈自研 3D 视觉与 AI 感知系统，让机器在复杂环境中看得清、判得准，理解物体与空间关系。",
     scanLabel: "SCAN_001",
     statusLabel: "NEURAL_RT",
-    detailImage: "/images/home/gateway/embodied-perception.png",
+    detailImage: "/images/home/gateway/embodied-perception-still.jpg",
     detailVideo: "/videos/home/gateway/embodied-perception.mp4",
   },
   {
@@ -20,7 +20,7 @@ export const stitchPanels: StitchPanelData[] = [
       "融合视觉感知、运动控制与操作策略，支撑机器人完成抓取、装配、检测等高精度任务。",
     scanLabel: "CTRL_002",
     statusLabel: "MOTOR_RT",
-    detailImage: "/images/home/gateway/embodied-manipulation.png",
+    detailImage: "/images/home/gateway/embodied-manipulation-still.jpg",
     detailVideo: "/videos/home/gateway/embodied-manipulation.mp4",
   },
   {
@@ -31,7 +31,7 @@ export const stitchPanels: StitchPanelData[] = [
       "结合自主导航、路径规划与多模态感知，让机器人在动态场景中稳定移动、灵活协同。",
     scanLabel: "NAV_003",
     statusLabel: "PATH_RT",
-    detailImage: "/images/home/gateway/embodied-mobility.png",
+    detailImage: "/images/home/gateway/embodied-mobility-still.jpg",
     detailVideo: "/videos/home/gateway/embodied-mobility.mp4",
   },
 ];

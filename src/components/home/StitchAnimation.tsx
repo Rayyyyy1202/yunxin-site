@@ -12,7 +12,7 @@ import StitchPanel from "./StitchPanel";
 // land in the visual centre of each slanted slice.
 const PANEL_CENTROID_X = [17, 51.5, 84.5] as const;
 const PANEL_CENTERS = PANEL_CENTROID_X.map((x) => `${x}%`);
-const PANEL_OBJECT_POSITIONS = ["center 40%", "center 34%", "center 42%"] as const;
+const PANEL_OBJECT_POSITIONS = ["center center", "center center", "center center"] as const;
 const FOLDED_IMAGE_SHIFT_X = [0, 0, 4] as const;
 
 const SLANT = 6.5;
