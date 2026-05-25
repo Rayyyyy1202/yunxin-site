@@ -141,19 +141,22 @@ function DesktopFloatingFilter({
 }: FilterControlsProps) {
   return (
     <aside className="relative hidden xl:block">
-      <div className="group/filter sticky top-28 z-30 h-[220px] w-[72px]">
+      <div className="group/filter sticky top-28 z-30 h-[202px] w-[80px]">
         <button
           type="button"
-          className="flex h-[220px] w-[72px] flex-col items-center justify-center gap-4 rounded-md bg-[#8d8d8d]/90 text-purple-light shadow-[0_14px_30px_rgba(0,0,0,0.32)] backdrop-blur-md transition-opacity duration-200 group-hover/filter:opacity-0 group-focus-within/filter:opacity-0"
+          className="flex h-[202px] w-[80px] flex-col items-center justify-start rounded-r-[5px] border-r border-[rgba(73,46,141,0.3)] bg-[rgba(13,14,16,0.45)] p-8 text-[#7b66ff] backdrop-blur-[2px] transition-opacity duration-200 group-hover/filter:opacity-0 group-focus-within/filter:opacity-0"
           aria-label="展開系統篩選"
         >
-          <SlidersHorizontal size={22} strokeWidth={2.1} />
-          <span className="[writing-mode:vertical-rl] text-[22px] font-semibold tracking-[0.22em]">
-            系統篩選
+          <SlidersHorizontal size={18} strokeWidth={2.1} />
+          <span className="mt-2 flex flex-col items-center text-[18px] font-medium leading-[28px] tracking-[1.8px]">
+            <span>系</span>
+            <span>統</span>
+            <span>篩</span>
+            <span>選</span>
           </span>
         </button>
 
-        <div className="pointer-events-none absolute left-0 top-0 w-[336px] border border-purple-light/75 bg-[#8d8d8d]/90 px-8 py-8 text-text-primary opacity-0 shadow-[0_14px_30px_rgba(0,0,0,0.32)] backdrop-blur-md transition-opacity duration-200 group-hover/filter:pointer-events-auto group-hover/filter:opacity-100 group-focus-within/filter:pointer-events-auto group-focus-within/filter:opacity-100">
+        <div className="pointer-events-none absolute left-0 top-0 h-[422px] w-[288px] overflow-hidden border-r border-[rgba(73,46,141,0.3)] bg-[rgba(13,14,16,0.45)] px-8 py-8 text-text-primary opacity-0 backdrop-blur-[2px] transition-opacity duration-200 group-hover/filter:pointer-events-auto group-hover/filter:opacity-100 group-focus-within/filter:pointer-events-auto group-focus-within/filter:opacity-100">
           <FilterTitle />
           <FilterChecklist
             filters={filters}
@@ -181,7 +184,7 @@ function MobileTopicFilter({
   onReset,
 }: MobileTopicFilterProps) {
   return (
-    <div className="border border-purple-light/50 bg-[#8d8d8d]/75 shadow-[0_12px_28px_rgba(0,0,0,0.25)] backdrop-blur-md">
+    <div className="border border-[#492e8d]/50 bg-[rgba(13,14,16,0.55)] backdrop-blur-[2px]">
       <button
         type="button"
         onClick={onToggleOpen}
@@ -217,19 +220,26 @@ function MobileTopicFilter({
 
 function FilterTitle({ compact = false }: { compact?: boolean }) {
   return (
-    <div className={cn("text-purple-light", compact ? "mb-4" : "mb-8")}>
+    <div className={cn("text-[#7b66ff]", compact ? "mb-4" : "mb-4")}>
       <div className="flex items-center gap-3">
-        <SlidersHorizontal size={compact ? 18 : 21} strokeWidth={2.1} />
+        <SlidersHorizontal size={18} strokeWidth={2.1} />
         <p
           className={cn(
-            "font-semibold tracking-[0.18em]",
-            compact ? "text-base" : "text-2xl",
+            "font-medium tracking-[0.1em]",
+            compact ? "text-base" : "text-[18px] leading-[28px]",
           )}
         >
-          主 系統篩選
+          系統篩選
         </p>
       </div>
-      <p className="mt-4 border-l-2 border-purple-light pl-4 text-sm font-semibold tracking-[0.18em] text-text-primary">
+      <p
+        className={cn(
+          "border-l-2 border-[#7b66ff] pl-[14px] font-medium tracking-[0.2em] text-text-primary",
+          compact
+            ? "mt-4 text-sm leading-5"
+            : "mt-8 text-[12px] leading-4",
+        )}
+      >
         行業應用
       </p>
     </div>
@@ -253,8 +263,10 @@ function FilterChecklist({
           <label
             key={filter}
             className={cn(
-              "flex cursor-pointer items-center gap-4 text-text-primary/75 transition-colors hover:text-text-primary",
-              compact ? "text-sm" : "text-base",
+              "flex cursor-pointer items-center transition-colors hover:text-text-primary",
+              compact
+                ? "gap-4 text-sm text-text-primary/75"
+                : "gap-3 pl-3 text-[14px] font-medium leading-5 text-[#ababad]",
             )}
           >
             <input
@@ -266,13 +278,13 @@ function FilterChecklist({
             <span
               aria-hidden
               className={cn(
-                "grid place-items-center border border-purple-primary text-white transition-colors",
-                compact ? "h-5 w-5" : "h-5 w-5",
-                checked ? "bg-purple-primary" : "bg-transparent",
+                "grid place-items-center border border-[#492e8d] text-white transition-colors",
+                compact ? "h-5 w-5" : "size-4 rounded-[2px]",
+                checked ? "bg-[#492e8d]" : "bg-transparent",
               )}
             >
               {checked && (
-                <span className="block h-2.5 w-4 rotate-[-45deg] border-b-4 border-l-4 border-white" />
+                <span className="block h-2 w-3 rotate-[-45deg] border-b-2 border-l-2 border-white" />
               )}
             </span>
             <span>{filter}</span>
@@ -295,8 +307,10 @@ function ResetButton({
       type="button"
       onClick={onReset}
       className={cn(
-        "w-full border border-purple-primary text-purple-light transition-colors hover:bg-purple-primary hover:text-white",
-        compact ? "mt-5 px-4 py-3 text-sm" : "mt-8 px-5 py-3 text-sm",
+        "w-full border border-[#492e8d] text-[#7b66ff] transition-colors hover:bg-[#492e8d] hover:text-white",
+        compact
+          ? "mt-5 px-4 py-3 text-sm"
+          : "mt-8 h-[34px] px-px py-[9px] text-[12px] font-medium leading-4 tracking-[0.1em]",
       )}
     >
       重置篩選
