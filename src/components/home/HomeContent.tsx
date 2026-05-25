@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import StitchAnimation from "./StitchAnimation";
@@ -14,9 +14,13 @@ import PartnersSection from "./PartnersSection";
 import CTASection from "./CTASection";
 
 const SMOOTH_EASE = [0.22, 1, 0.36, 1] as const;
+const INTRO_VIDEO_SRC = "/videos/home/intro/opening.mp4";
 
 export default function HomeContent() {
   const [entered, setEntered] = useState(false);
+  const [introComplete, setIntroComplete] = useState(false);
+  const [introBlocked, setIntroBlocked] = useState(false);
+  const introVideoRef = useRef<HTMLVideoElement>(null);
 
   // Mark the initial history entry on mount so popstate can distinguish it.
   useEffect(() => {
@@ -29,11 +33,47 @@ export default function HomeContent() {
     setEntered(true);
   }, [entered]);
 
+  const finishIntro = useCallback(() => {
+    setIntroBlocked(false);
+    setIntroComplete(true);
+  }, []);
+
+  useEffect(() => {
+    if (introComplete) return;
+
+    const video = introVideoRef.current;
+    if (!video) return;
+
+    video.muted = false;
+    const playPromise = video.play();
+
+    if (playPromise) {
+      playPromise
+        .then(() => setIntroBlocked(false))
+        .catch(() => setIntroBlocked(true));
+    }
+  }, [introComplete]);
+
+  const handleIntroClick = useCallback(() => {
+    const video = introVideoRef.current;
+    if (!video) {
+      finishIntro();
+      return;
+    }
+
+    video.muted = false;
+    video
+      .play()
+      .then(() => setIntroBlocked(false))
+      .catch(() => finishIntro());
+  }, [finishIntro]);
+
   // Listen for browser back (popstate) to restore the gateway.
   useEffect(() => {
     const onPopState = (e: PopStateEvent) => {
       if (e.state?.gateway === true) {
         setEntered(false);
+        setIntroComplete(true);
       }
     };
     window.addEventListener("popstate", onPopState);
@@ -55,9 +95,45 @@ export default function HomeContent() {
 
   return (
     <>
+      {/* Full-screen intro video */}
+      <AnimatePresence>
+        {!entered && !introComplete && (
+          <motion.div
+            key="intro"
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.7, ease: SMOOTH_EASE }}
+            className="fixed inset-0 z-[80] cursor-pointer bg-bg-primary"
+            onClick={handleIntroClick}
+          >
+            <video
+              ref={introVideoRef}
+              aria-label="AIeveR Robotics opening animation"
+              autoPlay
+              playsInline
+              controls={false}
+              preload="auto"
+              className="h-full w-full object-cover"
+              onEnded={finishIntro}
+              onError={finishIntro}
+              onPlay={() => setIntroBlocked(false)}
+            >
+              <source src={INTRO_VIDEO_SRC} type="video/mp4" />
+            </video>
+
+            {introBlocked && (
+              <div className="pointer-events-none absolute inset-0 flex items-end justify-center bg-black/25 px-6 pb-10">
+                <div className="rounded-full border border-white/20 bg-black/45 px-5 py-2 text-sm font-medium tracking-[0.18em] text-white/85 backdrop-blur-sm">
+                  點擊繼續播放
+                </div>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Full-screen gateway */}
       <AnimatePresence>
-        {!entered && (
+        {!entered && introComplete && (
           <motion.div
             key="gateway"
             exit={{ opacity: 0, scale: 1.02, filter: "blur(8px)" }}
