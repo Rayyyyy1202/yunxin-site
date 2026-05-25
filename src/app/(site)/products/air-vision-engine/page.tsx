@@ -254,6 +254,43 @@ export default function AirVisionEnginePage() {
         </div>
       </section>
 
+      <section className="overflow-hidden border-y border-purple-light/15 bg-[#05060d] py-16 md:py-20">
+        <div className="mx-auto grid max-w-[1280px] gap-10 px-6 md:px-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[4px] text-purple-light">
+              Product Preview
+            </p>
+            <h2 className="mt-5 text-3xl font-bold leading-tight text-text-primary md:text-5xl">
+              AIRVision 通用視覺算法平台
+            </h2>
+            <p className="mt-5 text-base leading-8 text-text-secondary">
+              AIRVision Master、AIRVision-DL 與底層算子 SDK 覆蓋低代碼流程搭建、深度學習標註訓練、2D/3D 視覺與機器人引導。
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              {["流程搭建", "點雲處理", "AI Agent", "PLC / 機器人通信"].map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-purple-light/30 bg-purple-primary/12 px-4 py-2 text-sm font-semibold text-purple-light"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="overflow-hidden rounded-xl border border-purple-light/25 bg-black shadow-[0_0_36px_rgba(123,102,255,0.18)]">
+            <Image
+              src={AIR_STORE_PRODUCT_IMAGE}
+              alt="AIRVision 通用視覺算法平台界面"
+              width={2560}
+              height={1368}
+              sizes="(max-width: 1024px) 100vw, 62vw"
+              className="h-auto w-full"
+            />
+          </div>
+        </div>
+      </section>
+
       <section
         id="core-advantages"
         className="relative scroll-mt-20 overflow-hidden bg-bg-primary py-20 md:py-0"
