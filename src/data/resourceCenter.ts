@@ -24,7 +24,7 @@ export const resourceCenterItems: ResourceCenterItem[] = [
     category: "產品手冊",
     fileType: "PDF",
     fileSize: "42.41 MB · 待外部存儲",
-    imageSrc: "/images/figma/lineup-card-depthsight-product-shot.png",
+    imageSrc: "/images/series/advanced/hero-product.png",
   },
   {
     id: "depthsight-a-series-quick-start",
@@ -33,7 +33,7 @@ export const resourceCenterItems: ResourceCenterItem[] = [
     fileType: "PDF",
     fileSize: "866 KB",
     href: "/resources/guides/depthsight-a-series-quick-start.pdf",
-    imageSrc: "/images/figma/lineup-card-depthsight-product-shot.png",
+    imageSrc: "/images/series/advanced/specs/a10400.png",
   },
   {
     id: "depthsight-a-series-software-manual",
@@ -42,7 +42,7 @@ export const resourceCenterItems: ResourceCenterItem[] = [
     fileType: "PDF",
     fileSize: "920 KB",
     href: "/resources/guides/depthsight-a-series-software-manual.pdf",
-    imageSrc: "/images/figma/lineup-card-depthsight-product-shot.png",
+    imageSrc: "/images/series/advanced/specs/a10400.png",
   },
   {
     id: "depthsight-a-series-communication-reference",
@@ -51,7 +51,7 @@ export const resourceCenterItems: ResourceCenterItem[] = [
     fileType: "PDF",
     fileSize: "896 KB",
     href: "/resources/guides/depthsight-a-series-communication-library-reference.pdf",
-    imageSrc: "/images/figma/lineup-card-depthsight-product-shot.png",
+    imageSrc: "/images/series/advanced/specs/a10400.png",
   },
   {
     id: "depthsight-l-series-quick-start",
@@ -60,7 +60,7 @@ export const resourceCenterItems: ResourceCenterItem[] = [
     fileType: "PDF",
     fileSize: "1.01 MB",
     href: "/resources/guides/depthsight-l-series-quick-start.pdf",
-    imageSrc: "/images/series/line/hero-product.png",
+    imageSrc: "/images/series/line/specs/l10400.png",
   },
   {
     id: "depthsight-l-series-software-manual",
@@ -69,7 +69,7 @@ export const resourceCenterItems: ResourceCenterItem[] = [
     fileType: "PDF",
     fileSize: "2.96 MB",
     href: "/resources/guides/depthsight-l-series-software-manual.pdf",
-    imageSrc: "/images/series/line/hero-product.png",
+    imageSrc: "/images/series/line/specs/l10400.png",
   },
   {
     id: "depthsight-l-series-communication-reference",
@@ -78,7 +78,7 @@ export const resourceCenterItems: ResourceCenterItem[] = [
     fileType: "PDF",
     fileSize: "3.00 MB",
     href: "/resources/guides/depthsight-l-series-communication-library-reference.pdf",
-    imageSrc: "/images/series/line/hero-product.png",
+    imageSrc: "/images/series/line/specs/l10400.png",
   },
   {
     id: "ce-emc-certification",
@@ -87,7 +87,7 @@ export const resourceCenterItems: ResourceCenterItem[] = [
     fileType: "PDF",
     fileSize: "1.69 MB",
     href: "/resources/certifications/ce-emc-certification.pdf",
-    imageSrc: "/images/figma/lineup-card-standard-workstation-bg.png",
+    imageSrc: "/images/series/advanced/specs/a10400.png",
   },
   {
     id: "fcc-safety-certification",
@@ -96,7 +96,7 @@ export const resourceCenterItems: ResourceCenterItem[] = [
     fileType: "PDF",
     fileSize: "1.67 MB",
     href: "/resources/certifications/fcc-safety-certification.pdf",
-    imageSrc: "/images/figma/lineup-card-standard-workstation-bg.png",
+    imageSrc: "/images/series/advanced/specs/a10400.png",
   },
   {
     id: "depthsight-a-ce-certification",
@@ -105,7 +105,7 @@ export const resourceCenterItems: ResourceCenterItem[] = [
     fileType: "PDF",
     fileSize: "2.12 MB",
     href: "/resources/certifications/depthsight-a-ce-certification.pdf",
-    imageSrc: "/images/figma/lineup-card-standard-workstation-bg.png",
+    imageSrc: "/images/series/advanced/specs/a10400.png",
   },
   {
     id: "depthsight-a-fcc-certification",
@@ -114,7 +114,7 @@ export const resourceCenterItems: ResourceCenterItem[] = [
     fileType: "PDF",
     fileSize: "2.09 MB",
     href: "/resources/certifications/depthsight-a-fcc-certification.pdf",
-    imageSrc: "/images/figma/lineup-card-standard-workstation-bg.png",
+    imageSrc: "/images/series/advanced/specs/a10400.png",
   },
   {
     id: "ds-l10140-accuracy-certification",
@@ -123,7 +123,7 @@ export const resourceCenterItems: ResourceCenterItem[] = [
     fileType: "PDF",
     fileSize: "536 KB",
     href: "/resources/certifications/ds-l10140-accuracy-certification.pdf",
-    imageSrc: "/images/series/line/hero-product.png",
+    imageSrc: "/images/series/line/specs/l10140.png",
   },
   {
     id: "ds-l10400-accuracy-certification",
@@ -132,7 +132,7 @@ export const resourceCenterItems: ResourceCenterItem[] = [
     fileType: "PDF",
     fileSize: "535 KB",
     href: "/resources/certifications/ds-l10400-accuracy-certification.pdf",
-    imageSrc: "/images/series/line/hero-product.png",
+    imageSrc: "/images/series/line/specs/l10400.png",
   },
   {
     id: "line-scan-camera-software",
@@ -140,7 +140,7 @@ export const resourceCenterItems: ResourceCenterItem[] = [
     category: "產品軟件",
     fileType: "ZIP",
     fileSize: "349.36 MB · 待外部存儲",
-    imageSrc: "/images/figma/lineup-card-air-engine-bg.png",
+    imageSrc: "/images/series/line/specs/l10400.png",
   },
   {
     id: "area-scan-camera-software",
@@ -148,7 +148,7 @@ export const resourceCenterItems: ResourceCenterItem[] = [
     category: "產品軟件",
     fileType: "ZIP",
     fileSize: "66.79 MB · 待外部存儲",
-    imageSrc: "/images/figma/lineup-card-air-engine-bg.png",
+    imageSrc: "/images/series/advanced/specs/a10400.png",
   },
   {
     id: "line-scan-camera-sdk-manual",
@@ -156,6 +156,6 @@ export const resourceCenterItems: ResourceCenterItem[] = [
     category: "產品軟件",
     fileType: "ZIP",
     fileSize: "30.64 MB · 待外部存儲",
-    imageSrc: "/images/figma/lineup-card-air-engine-bg.png",
+    imageSrc: "/images/series/line/specs/l10400.png",
   },
 ];
