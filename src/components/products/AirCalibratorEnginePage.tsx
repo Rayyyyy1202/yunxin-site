@@ -449,12 +449,12 @@ export default function AirCalibratorEnginePage() {
 
             <div className="relative overflow-hidden rounded-lg border border-purple-light/25 bg-[#060812]">
               <Image
-                src={`${IMAGE_ROOT}/bento-grid-d.png`}
-                alt="AIR Calibrator 硬件與標定流程示意"
+                src={`${IMAGE_ROOT}/store-product.png`}
+                alt="AIR Calibrator 商品軟件界面"
                 width={1536}
                 height={1024}
                 sizes="(max-width: 1024px) 100vw, 56vw"
-                className="w-full object-cover"
+                className="w-full bg-white object-contain"
               />
             </div>
           </div>

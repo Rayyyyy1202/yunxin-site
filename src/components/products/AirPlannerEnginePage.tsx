@@ -134,7 +134,8 @@ const applicationScenes = [
     title: "是機械臂集成商進行內部項目開發與模擬驗證的得力工具",
     description: "支援內部打樣、方案驗證與工程交付前的風險排查。",
     href: "/products/air-intelligent-software-engine",
-    image: "/images/products/air-intelligent-software-engine/software-air-planner.png",
+    image: `${IMAGE_ROOT}/store-product.png`,
+    imageFit: "contain",
   },
 ];
 
@@ -516,7 +517,11 @@ function ApplicationCard({
           alt=""
           fill
           sizes="(min-width: 768px) 33vw, 100vw"
-          className="object-cover opacity-82 transition-transform duration-500 group-hover:scale-105"
+          className={`opacity-82 transition-transform duration-500 group-hover:scale-105 ${
+            scene.imageFit === "contain"
+              ? "bg-black object-contain p-2"
+              : "object-cover"
+          }`}
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_40%,rgba(0,0,0,0.76)_100%)]" />
       </div>

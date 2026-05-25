@@ -3,6 +3,10 @@ import Link from "next/link";
 import SeriesCTA from "@/components/series/SeriesCTA";
 
 const IMAGE_ROOT = "/images/products/air-intelligent-software-engine";
+const AIR_VISION_STORE_IMAGE = "/images/products/air-vision-engine/store-product.png";
+const AIR_PLANNER_STORE_IMAGE = "/images/products/air-planner-engine/store-product.png";
+const AIR_CALIBRATOR_STORE_IMAGE =
+  "/images/products/air-calibrator-engine/store-product.png";
 
 const painCards = [
   {
@@ -106,28 +110,30 @@ const softwareCards = [
   {
     title: "AIR Vision",
     subtitle: "全維度視覺分析引擎",
-    description: "通用視覺算法平台，從測量檢測到機器人引導，一平台全搞定。",
-    value: "破解各類複雜工業視覺難題。",
+    description:
+      "AIRVision Master、AIRVision-DL 與底層算子 SDK 覆蓋流程搭建、深度學習標註訓練與二次開發。",
+    value: "支持 2D/3D 視覺、點雲處理、PLC 與機器人控制器通信。",
     href: "/products/air-vision-engine",
-    image: `${IMAGE_ROOT}/software-air-vision.png`,
+    image: AIR_VISION_STORE_IMAGE,
   },
   {
     title: "AIR Planner",
     subtitle: "機器人軌跡規劃軟件",
     description:
-      "專為工業機器人應用設計的離線編程與仿真軟件，提供從環境導入、軌跡生成到示教器代碼的一站式解決方式。",
+      "專為工業機器人應用設計的離線編程與仿真軟件，支持 STEP/STL 導入、TCP 標定、軌跡生成與示教器代碼輸出。",
     value:
-      "基于 CAD 模型自動規劃視點，將耗時從人工示教 2 小時縮短至 3 分鐘（作業提效 40 倍），實現 96% 表面覆蓋率與 100% 關鍵特征覆蓋。",
+      "覆蓋弓字形/Z 字形面打磨、邊緣打磨、自定義選點、碰撞檢測與 WAIT I/O 控制代碼。",
     href: "/products/air-planner-engine",
-    image: `${IMAGE_ROOT}/software-air-planner.png`,
+    image: AIR_PLANNER_STORE_IMAGE,
   },
   {
     title: "AIR Calibrator",
     subtitle: "自動化手眼標定與DH校正",
-    description: "自動化引導式手眼標定，同時校正機器人 DH 參數。",
-    value: "降低使用門檻，提升機器人絕對精度與操作精度。",
+    description:
+      "以一台相機與 Charuco 標定板完成 Eye-to-Hand、Hand-to-Eye、DH 參數校正與精度驗證。",
+    value: "手眼標定最快 3 分鐘，全套校準流程約 15 分鐘完成。",
     href: "/products/air-calibrator-engine",
-    image: `${IMAGE_ROOT}/software-air-calibrator.png`,
+    image: AIR_CALIBRATOR_STORE_IMAGE,
   },
 ] as const;
 
@@ -509,7 +515,7 @@ function SoftwareBrainSection() {
                   alt=""
                   fill
                   sizes="(min-width: 1024px) 331px, 90vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="bg-black object-contain p-1 transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
               <div className="px-7 py-4">

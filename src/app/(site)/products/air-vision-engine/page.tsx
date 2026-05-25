@@ -23,6 +23,7 @@ export const metadata: Metadata = {
 
 const AIR_IMAGE_ROOT = "/images/products/air-vision-engine";
 const AIR_FEATURE_SVG = `${AIR_IMAGE_ROOT}/feature.svg`;
+const AIR_STORE_PRODUCT_IMAGE = `${AIR_IMAGE_ROOT}/store-product.png`;
 
 const coreAdvantages: {
   title: string;
@@ -33,7 +34,7 @@ const coreAdvantages: {
   {
     title: "低代碼，高靈活",
     description: "拖拉拽搭建視覺算法流程，無需編程。",
-    image: `${AIR_IMAGE_ROOT}/advantage-low-code.png`,
+    image: AIR_STORE_PRODUCT_IMAGE,
     icon: MousePointer2,
   },
   {
