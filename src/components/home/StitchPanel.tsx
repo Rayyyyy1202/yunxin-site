@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { StitchPanelData } from "@/lib/types";
-import { useSiteImage } from "@/components/SiteImageProvider";
+import { useSiteCopy, useSiteImage } from "@/components/SiteImageProvider";
 
 interface StitchPanelProps {
   data: StitchPanelData;
@@ -10,6 +10,12 @@ interface StitchPanelProps {
 
 export default function StitchPanel({ data }: StitchPanelProps) {
   const detailSrc = useSiteImage(data.detailImage);
+  const titleEn = useSiteCopy(`home-stitch-${data.id}-title-en`, data.titleEn);
+  const titleCn = useSiteCopy(`home-stitch-${data.id}-title-cn`, data.titleCn);
+  const description = useSiteCopy(
+    `home-stitch-${data.id}-description`,
+    data.description,
+  );
 
   return (
     <motion.article
@@ -45,10 +51,10 @@ export default function StitchPanel({ data }: StitchPanelProps) {
         {/* Title overlay */}
         <div className="absolute bottom-4 left-4 right-4">
           <span className="text-purple-light text-[10px] uppercase tracking-[3px] font-bold">
-            {data.titleEn}
+            {titleEn}
           </span>
           <h3 className="text-text-primary text-2xl font-bold mt-1">
-            {data.titleCn}
+            {titleCn}
           </h3>
         </div>
       </div>
@@ -56,7 +62,7 @@ export default function StitchPanel({ data }: StitchPanelProps) {
       {/* Description below photo */}
       <div className="p-5">
         <p className="text-text-secondary text-sm leading-relaxed">
-          {data.description}
+          {description}
         </p>
       </div>
     </motion.article>

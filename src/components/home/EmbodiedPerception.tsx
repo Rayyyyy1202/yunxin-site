@@ -3,12 +3,25 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { useSiteImage } from "@/components/SiteImageProvider";
+import { useSiteCopy, useSiteImage } from "@/components/SiteImageProvider";
 
 export default function EmbodiedPerception() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.15 });
   const bg = useSiteImage("/images/home/group-243/industrial-robot-arm-a.png");
+  const eyebrow = useSiteCopy(
+    "home-perception-eyebrow",
+    "◇ EMBODIED INTELLIGENCE V2.0",
+  );
+  const title = useSiteCopy("home-perception-title", "具身感知");
+  const accentTitle = useSiteCopy(
+    "home-perception-accent-title",
+    "機器\"慧眼\"，破解複雜視覺難題",
+  );
+  const description = useSiteCopy(
+    "home-perception-description",
+    "具身感知事業部專注於\"3D視覺+AI\"融合的具身操作智能技術及產品研發，構建了從晶片、嵌入式模組到感知演算法、AI模型的全棧自研體系。以3D視覺感測器和智能軟體為核心，系統性攻克高反光、黑色吸光、透明物體等工業視覺痛點，讓機器在複雜工業及民生場景中\"看得清、判得準、做得到\"，為工業自動化、具身操作、具身移動提供精準的感知支撐。",
+  );
 
   return (
     <section
@@ -43,18 +56,18 @@ export default function EmbodiedPerception() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            ◇ EMBODIED INTELLIGENCE V2.0
+            {eyebrow}
           </motion.span>
 
           <motion.h2
-            className="mt-8 text-[clamp(2.5rem,3.2vw,3.45rem)] font-semibold leading-[1.12] text-text-primary"
+            className="mt-7 text-[clamp(2rem,3vw,2.375rem)] font-medium leading-[1.66] text-text-primary"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <span className="block whitespace-nowrap">具身感知</span>
-            <span className="mt-2 block text-purple-light lg:whitespace-nowrap">
-              機器&quot;慧眼&quot;，破解複雜視覺難題
+            <span className="block whitespace-nowrap">{title}</span>
+            <span className="block lg:whitespace-nowrap">
+              {accentTitle}
             </span>
           </motion.h2>
 
@@ -64,7 +77,7 @@ export default function EmbodiedPerception() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            具身感知事業部專注於&quot;3D視覺+AI&quot;融合的具身操作智能技術及產品研發，構建了從晶片、嵌入式模組到感知演算法、AI模型的全棧自研體系。以3D視覺感測器和智能軟體為核心，系統性攻克高反光、黑色吸光、透明物體等工業視覺痛點，讓機器在複雜工業及民生場景中&quot;看得清、判得準、做得到&quot;，為工業自動化、具身操作、具身移動提供精準的感知支撐。
+            {description}
           </motion.p>
         </div>
       </div>

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { stitchPanels } from "@/data/stitch-panels";
-import { useSiteImage } from "@/components/SiteImageProvider";
+import { useSiteCopy, useSiteImage } from "@/components/SiteImageProvider";
 import StitchPanel from "./StitchPanel";
 
 // Keep centroid values aligned with PANEL_RANGES so labels and shifted images
@@ -50,6 +50,14 @@ export default function StitchAnimation({
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.15 });
   const visible = gateway || isInView;
+  const brandTitle = useSiteCopy(
+    "home-stitch-brand-title",
+    "AIeveR Robotics Limited",
+  );
+  const brandSubtitle = useSiteCopy(
+    "home-stitch-brand-subtitle",
+    "雲芯機器人有限公司",
+  );
 
   const activate = (index: number) => {
     setActivationToken((t) => t + 1);
@@ -121,10 +129,10 @@ export default function StitchAnimation({
             >
               <div className="absolute left-8 top-8 select-none text-text-primary/90 md:left-10 md:top-10">
                 <div className="text-sm font-semibold tracking-wide md:text-base">
-                  AIeveR Robotics Limited
+                  {brandTitle}
                 </div>
                 <div className="mt-0.5 text-[10px] tracking-[6px] text-text-secondary md:text-xs">
-                  雲芯機器人有限公司
+                  {brandSubtitle}
                 </div>
               </div>
 
@@ -136,18 +144,7 @@ export default function StitchAnimation({
 
               <div className="absolute inset-0">
                 {stitchPanels.map((panel, i) => (
-                  <div
-                    key={panel.id}
-                    className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 text-center"
-                    style={{ left: PANEL_CENTERS[i] }}
-                  >
-                    <span className="block text-[11px] font-bold uppercase tracking-[3px] text-purple-light md:text-xs">
-                      {panel.titleEn}
-                    </span>
-                    <h3 className="mt-2 whitespace-nowrap text-3xl font-bold text-text-primary drop-shadow-[0_4px_18px_rgba(0,0,0,0.55)] md:text-5xl">
-                      {panel.titleCn}
-                    </h3>
-                  </div>
+                  <FoldedPanelTitle key={panel.id} panel={panel} index={i} />
                 ))}
               </div>
 
@@ -169,6 +166,8 @@ export default function StitchAnimation({
               key={`${stitchPanels[activePanel].id}-${activationToken}`}
               panel={stitchPanels[activePanel]}
               index={activePanel}
+              brandTitle={brandTitle}
+              brandSubtitle={brandSubtitle}
             />
           )}
         </AnimatePresence>
@@ -304,9 +303,36 @@ function FoldedSlice({ panel, index, dimmed }: FoldedSliceProps) {
   );
 }
 
+function FoldedPanelTitle({
+  panel,
+  index,
+}: {
+  panel: (typeof stitchPanels)[number];
+  index: number;
+}) {
+  const titleEn = useSiteCopy(`home-stitch-${panel.id}-title-en`, panel.titleEn);
+  const titleCn = useSiteCopy(`home-stitch-${panel.id}-title-cn`, panel.titleCn);
+
+  return (
+    <div
+      className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 text-center"
+      style={{ left: PANEL_CENTERS[index] }}
+    >
+      <span className="block text-[11px] font-bold uppercase tracking-[3px] text-purple-light md:text-xs">
+        {titleEn}
+      </span>
+      <h3 className="mt-2 whitespace-nowrap text-3xl font-bold text-text-primary drop-shadow-[0_4px_18px_rgba(0,0,0,0.55)] md:text-5xl">
+        {titleCn}
+      </h3>
+    </div>
+  );
+}
+
 interface ExpandedPanelProps {
   panel: (typeof stitchPanels)[number];
   index: number;
+  brandTitle: string;
+  brandSubtitle: string;
 }
 
 const WIPE_START_CLIP_PATHS: readonly string[] = [
@@ -321,11 +347,18 @@ const WIPE_END_CLIP_PATHS: readonly string[] = [
   `polygon(0% 0%, ${100 + SLANT}% 0%, 100% 100%, -${SLANT}% 100%)`,
 ];
 
-function ExpandedPanel({ panel, index }: ExpandedPanelProps) {
+function ExpandedPanel({
+  panel,
+  index,
+  brandTitle,
+  brandSubtitle,
+}: ExpandedPanelProps) {
   const startClip = WIPE_START_CLIP_PATHS[index] ?? WIPE_END_CLIP_PATHS[0];
   const endClip = WIPE_END_CLIP_PATHS[index] ?? WIPE_END_CLIP_PATHS[0];
   const detailSrc = useSiteImage(panel.detailImage);
   const detailVideoSrc = panel.detailVideo;
+  const titleEn = useSiteCopy(`home-stitch-${panel.id}-title-en`, panel.titleEn);
+  const titleCn = useSiteCopy(`home-stitch-${panel.id}-title-cn`, panel.titleCn);
 
   return (
     <motion.div
@@ -392,10 +425,10 @@ function ExpandedPanel({ panel, index }: ExpandedPanelProps) {
         className="absolute left-8 top-8 select-none text-text-primary/90 md:left-10 md:top-10"
       >
         <div className="text-sm font-semibold tracking-wide md:text-base">
-          AIeveR Robotics Limited
+          {brandTitle}
         </div>
         <div className="mt-0.5 text-[10px] tracking-[6px] text-text-secondary md:text-xs">
-          雲芯機器人有限公司
+          {brandSubtitle}
         </div>
       </motion.div>
 
@@ -406,10 +439,10 @@ function ExpandedPanel({ panel, index }: ExpandedPanelProps) {
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center"
       >
         <span className="block text-[11px] font-bold uppercase tracking-[3px] text-purple-light md:text-xs">
-          {panel.titleEn}
+          {titleEn}
         </span>
         <h3 className="mt-2 whitespace-nowrap text-3xl font-bold text-text-primary drop-shadow-[0_4px_18px_rgba(0,0,0,0.55)] md:text-5xl">
-          {panel.titleCn}
+          {titleCn}
         </h3>
       </motion.div>
 

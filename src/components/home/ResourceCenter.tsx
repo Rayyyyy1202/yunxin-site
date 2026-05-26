@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
-import { useSiteImage } from "@/components/SiteImageProvider";
+import { useSiteCopy, useSiteImage } from "@/components/SiteImageProvider";
 
 const resources = [
   {
@@ -37,6 +37,13 @@ export default function ResourceCenter() {
     loop: true,
     containScroll: false,
   });
+  const description = useSiteCopy(
+    "home-resources-description",
+    "從新能源汽車到3C電子，AIeveR Robotics方案已服務多個智能製造一線場景。",
+  );
+  const eyebrow = useSiteCopy("home-resources-eyebrow", "Industry Solutions");
+  const title = useSiteCopy("home-resources-title", "眼見為實 · 資源中心");
+  const allLink = useSiteCopy("home-resources-all-link", "查看全部資源");
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
@@ -51,14 +58,14 @@ export default function ResourceCenter() {
           transition={{ duration: 0.6 }}
         >
           <p className="max-w-xl text-sm leading-7 text-text-secondary">
-            從新能源汽車到3C電子，AIeveR Robotics方案已服務多個智能製造一線場景。
+            {description}
           </p>
           <div className="min-w-0 text-left md:text-right">
             <span className="text-[10px] font-bold uppercase tracking-[3px] text-purple-light">
-              Industry Solutions
+              {eyebrow}
             </span>
             <h2 className="mt-4 text-[clamp(2rem,3vw,3rem)] font-bold leading-[1.12] text-text-primary lg:whitespace-nowrap">
-              眼見為實 · 資源中心
+              {title}
             </h2>
           </div>
         </motion.div>
@@ -102,7 +109,7 @@ export default function ResourceCenter() {
           href="/support/docs"
           className="text-sm font-medium tracking-[2px] text-purple-light hover:underline"
         >
-          查看全部資源
+          {allLink}
         </Link>
         <button
           type="button"
@@ -120,16 +127,17 @@ export default function ResourceCenter() {
 function ResourceCard({
   item,
 }: {
-  item: { title: string; image: string; href: string };
+  item: { id: string; title: string; image: string; href: string };
 }) {
   const src = useSiteImage(item.image);
+  const title = useSiteCopy(`home-resources-card-${item.id}-title`, item.title);
 
   return (
     <Link href={item.href} className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-light">
       <div className="relative aspect-video overflow-hidden bg-black">
         <Image
           src={src}
-          alt={item.title}
+          alt={title}
           fill
           sizes="(max-width: 640px) 84vw, (max-width: 1024px) 70vw, 64vw"
           className="home-carousel-image object-cover transition-transform duration-700 group-hover:scale-[1.03]"

@@ -3,12 +3,14 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
+import { useSiteCopy } from "@/components/SiteImageProvider";
 import { news } from "@/data/news";
 
 export default function NewsPreview() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
   const items = news.slice(0, 3);
+  const title = useSiteCopy("home-news-title", "新聞動態");
 
   return (
     <div ref={ref} id="news" className="py-20 md:py-28">
@@ -19,7 +21,7 @@ export default function NewsPreview() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          新聞動態
+          {title}
         </motion.h2>
 
         <motion.div

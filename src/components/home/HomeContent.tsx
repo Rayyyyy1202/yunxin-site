@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
+import { useSiteImage } from "@/components/SiteImageProvider";
 import StitchAnimation from "./StitchAnimation";
 import HeroSection from "./HeroSection";
 import EmbodiedPerception from "./EmbodiedPerception";
@@ -19,8 +20,8 @@ const INTRO_VIDEO_SRC = "/videos/home/intro/opening.mp4";
 export default function HomeContent() {
   const [entered, setEntered] = useState(false);
   const [introComplete, setIntroComplete] = useState(false);
-  const [introBlocked, setIntroBlocked] = useState(false);
   const introVideoRef = useRef<HTMLVideoElement>(null);
+  const newsPartnersBg = useSiteImage("/images/home/news-partners-bg.jpg");
 
   // Mark the initial history entry on mount so popstate can distinguish it.
   useEffect(() => {
@@ -34,7 +35,6 @@ export default function HomeContent() {
   }, [entered]);
 
   const finishIntro = useCallback(() => {
-    setIntroBlocked(false);
     setIntroComplete(true);
   }, []);
 
@@ -44,29 +44,25 @@ export default function HomeContent() {
     const video = introVideoRef.current;
     if (!video) return;
 
-    video.muted = false;
-    const playPromise = video.play();
+    let cancelled = false;
 
-    if (playPromise) {
-      playPromise
-        .then(() => setIntroBlocked(false))
-        .catch(() => setIntroBlocked(true));
-    }
-  }, [introComplete]);
+    const playIntro = async () => {
+      video.muted = false;
+      video.volume = 1;
 
-  const handleIntroClick = useCallback(() => {
-    const video = introVideoRef.current;
-    if (!video) {
-      finishIntro();
-      return;
-    }
+      try {
+        await video.play();
+      } catch {
+        if (!cancelled) finishIntro();
+      }
+    };
 
-    video.muted = false;
-    video
-      .play()
-      .then(() => setIntroBlocked(false))
-      .catch(() => finishIntro());
-  }, [finishIntro]);
+    void playIntro();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [finishIntro, introComplete]);
 
   // Listen for browser back (popstate) to restore the gateway.
   useEffect(() => {
@@ -102,8 +98,7 @@ export default function HomeContent() {
             key="intro"
             exit={{ opacity: 0 }}
             transition={{ duration: 0.7, ease: SMOOTH_EASE }}
-            className="fixed inset-0 z-[80] cursor-pointer bg-bg-primary"
-            onClick={handleIntroClick}
+            className="fixed inset-0 z-[80] bg-bg-primary"
           >
             <video
               ref={introVideoRef}
@@ -115,18 +110,9 @@ export default function HomeContent() {
               className="h-full w-full object-cover"
               onEnded={finishIntro}
               onError={finishIntro}
-              onPlay={() => setIntroBlocked(false)}
             >
               <source src={INTRO_VIDEO_SRC} type="video/mp4" />
             </video>
-
-            {introBlocked && (
-              <div className="pointer-events-none absolute inset-0 flex items-end justify-center bg-black/25 px-6 pb-10">
-                <div className="rounded-full border border-white/20 bg-black/45 px-5 py-2 text-sm font-medium tracking-[0.18em] text-white/85 backdrop-blur-sm">
-                  點擊繼續播放
-                </div>
-              </div>
-            )}
           </motion.div>
         )}
       </AnimatePresence>
@@ -161,7 +147,7 @@ export default function HomeContent() {
         {/* News + Partners shared background */}
         <section className="relative isolate overflow-hidden bg-bg-primary">
           <Image
-            src="/images/home/news-partners-bg.jpg"
+            src={newsPartnersBg}
             alt=""
             fill
             sizes="100vw"

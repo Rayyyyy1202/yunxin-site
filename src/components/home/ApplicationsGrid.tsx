@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
-import { useSiteImage } from "@/components/SiteImageProvider";
+import { useSiteCopy, useSiteImage } from "@/components/SiteImageProvider";
 import { applications, type ApplicationItem } from "@/data/products";
 
 export default function ApplicationsGrid() {
@@ -17,6 +17,12 @@ export default function ApplicationsGrid() {
     containScroll: false,
     loop: true,
   });
+  const eyebrow = useSiteCopy("home-applications-eyebrow", "Industry Solutions");
+  const title = useSiteCopy("home-applications-title", "深耕行業 · 落地有聲");
+  const description = useSiteCopy(
+    "home-applications-description",
+    "從新能源汽車到3C電子，AIeveR Robotics方案已服務多個智能製造一線場景。",
+  );
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
@@ -36,14 +42,14 @@ export default function ApplicationsGrid() {
         >
           <div className="min-w-0">
             <span className="text-[10px] font-bold uppercase tracking-[3px] text-purple-light">
-              Industry Solutions
+              {eyebrow}
             </span>
             <h2 className="mt-4 text-[clamp(2rem,3vw,3rem)] font-bold leading-[1.12] text-text-primary lg:whitespace-nowrap">
-              深耕行業 · 落地有聲
+              {title}
             </h2>
           </div>
           <p className="max-w-md text-sm leading-7 text-text-secondary md:text-right">
-            從新能源汽車到3C電子，AIeveR Robotics方案已服務多個智能製造一線場景。
+            {description}
           </p>
         </motion.div>
       </div>
@@ -97,18 +103,22 @@ export default function ApplicationsGrid() {
 
 function AppCard({ item }: { item: ApplicationItem }) {
   const src = useSiteImage(item.imageSrc);
+  const title = useSiteCopy(
+    `home-applications-${item.id}-title`,
+    item.title,
+  );
   const content = (
     <div className="group relative aspect-video overflow-hidden bg-black">
       <Image
         src={src}
-        alt={item.title}
+        alt={title}
         fill
         sizes="(max-width: 640px) 84vw, (max-width: 1024px) 70vw, 64vw"
         className="home-carousel-image object-cover transition-transform duration-700 group-hover:scale-[1.03]"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
       <h3 className="absolute bottom-6 left-6 whitespace-nowrap text-3xl font-bold text-white md:bottom-8 md:left-8 md:text-4xl">
-        {item.title}
+        {title}
       </h3>
     </div>
   );

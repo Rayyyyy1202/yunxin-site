@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
+import { useSiteCopy, useSiteImage } from "@/components/SiteImageProvider";
 
 const partners = [
   {
@@ -38,6 +39,7 @@ const partners = [
 export default function PartnersSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const title = useSiteCopy("home-partners-title", "信賴雲芯的合作夥伴");
 
   return (
     <div ref={ref} className="py-16 md:py-24">
@@ -48,7 +50,7 @@ export default function PartnersSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          信賴雲芯的合作夥伴
+          {title}
         </motion.h2>
 
         <motion.div
@@ -58,22 +60,27 @@ export default function PartnersSection() {
           transition={{ duration: 0.6, delay: 0.15 }}
         >
           {partners.map((partner) => (
-            <div
-              key={partner.name}
-              className="flex h-24 items-center justify-center rounded-lg border border-white/10 bg-white/90 px-6 shadow-[0_18px_50px_rgba(0,0,0,0.22)] backdrop-blur-sm transition-transform duration-300 hover:-translate-y-1 md:h-28 md:px-8"
-            >
-              <Image
-                src={partner.logo}
-                alt={partner.name}
-                width={partner.width}
-                height={partner.height}
-                sizes="(min-width: 768px) 288px, 224px"
-                className={`${partner.className} max-h-16 object-contain md:max-h-20`}
-              />
-            </div>
+            <PartnerLogo key={partner.name} partner={partner} />
           ))}
         </motion.div>
       </div>
+    </div>
+  );
+}
+
+function PartnerLogo({ partner }: { partner: (typeof partners)[number] }) {
+  const logo = useSiteImage(partner.logo);
+
+  return (
+    <div className="flex h-24 items-center justify-center rounded-lg border border-white/10 bg-white/90 px-6 shadow-[0_18px_50px_rgba(0,0,0,0.22)] backdrop-blur-sm transition-transform duration-300 hover:-translate-y-1 md:h-28 md:px-8">
+      <Image
+        src={logo}
+        alt={partner.name}
+        width={partner.width}
+        height={partner.height}
+        sizes="(min-width: 768px) 288px, 224px"
+        className={`${partner.className} max-h-16 object-contain md:max-h-20`}
+      />
     </div>
   );
 }
