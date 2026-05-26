@@ -7,8 +7,13 @@ import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useSiteCopy, useSiteImage } from "@/components/SiteImageProvider";
 import { products, type ProductItem } from "@/data/products";
+import { type Locale, toLocalizedPath } from "@/lib/i18n";
 
-export default function ProductShowcase() {
+interface ProductShowcaseProps {
+  locale: Locale;
+}
+
+export default function ProductShowcase({ locale }: ProductShowcaseProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
   const eyebrow = useSiteCopy(
@@ -54,7 +59,7 @@ export default function ProductShowcase() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.2 + index * 0.08 }}
             >
-              <ProductCard product={product} />
+              <ProductCard product={product} locale={locale} />
             </motion.div>
           ))}
         </div>
@@ -63,8 +68,15 @@ export default function ProductShowcase() {
   );
 }
 
-function ProductCard({ product }: { product: ProductItem }) {
+function ProductCard({
+  product,
+  locale,
+}: {
+  product: ProductItem;
+  locale: Locale;
+}) {
   const image = useSiteImage(product.image);
+  const href = toLocalizedPath(locale, product.href) ?? product.href;
   const title = useSiteCopy(
     `home-products-card-${product.number}-title`,
     product.title,
@@ -81,7 +93,7 @@ function ProductCard({ product }: { product: ProductItem }) {
 
   return (
     <Link
-      href={product.href}
+      href={href}
       className="group relative flex min-h-[500px] flex-col overflow-hidden rounded-[32px] border border-border-subtle bg-[#111117] shadow-[0_32px_80px_rgba(0,0,0,0.3)] transition-colors hover:border-purple-primary/50 md:min-h-[575px]"
     >
       <div

@@ -13,23 +13,45 @@ import ResourceCenter from "./ResourceCenter";
 import NewsPreview from "./NewsPreview";
 import PartnersSection from "./PartnersSection";
 import CTASection from "./CTASection";
+import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n";
 
 const SMOOTH_EASE = [0.22, 1, 0.36, 1] as const;
 const INTRO_VIDEO_SRC = "/videos/home/intro/opening.mp4";
 
-export default function HomeContent() {
-  const [entered, setEntered] = useState(false);
-  const [introComplete, setIntroComplete] = useState(false);
+declare global {
+  interface Window {
+    __yunxinHomeIntroEntered?: boolean;
+  }
+}
+
+interface HomeContentProps {
+  locale?: Locale;
+}
+
+function hasEnteredHomeIntro() {
+  return (
+    typeof window !== "undefined" && window.__yunxinHomeIntroEntered === true
+  );
+}
+
+export default function HomeContent({
+  locale = DEFAULT_LOCALE,
+}: HomeContentProps) {
+  const [entered, setEntered] = useState(() => hasEnteredHomeIntro());
+  const [introComplete, setIntroComplete] = useState(() =>
+    hasEnteredHomeIntro(),
+  );
   const introVideoRef = useRef<HTMLVideoElement>(null);
   const newsPartnersBg = useSiteImage("/images/home/news-partners-bg.jpg");
 
   // Mark the initial history entry on mount so popstate can distinguish it.
   useEffect(() => {
-    window.history.replaceState({ gateway: true }, "");
+    window.history.replaceState({ gateway: !hasEnteredHomeIntro() }, "");
   }, []);
 
   const handleEnter = useCallback(() => {
     if (entered) return;
+    window.__yunxinHomeIntroEntered = true;
     window.history.pushState({ gateway: false }, "");
     setEntered(true);
   }, [entered]);
@@ -39,7 +61,7 @@ export default function HomeContent() {
   }, []);
 
   useEffect(() => {
-    if (introComplete) return;
+    if (entered || introComplete) return;
 
     const video = introVideoRef.current;
     if (!video) return;
@@ -53,7 +75,16 @@ export default function HomeContent() {
       try {
         await video.play();
       } catch {
-        if (!cancelled) finishIntro();
+        if (cancelled) return;
+
+        video.defaultMuted = true;
+        video.muted = true;
+
+        try {
+          await video.play();
+        } catch {
+          if (!cancelled) finishIntro();
+        }
       }
     };
 
@@ -62,7 +93,7 @@ export default function HomeContent() {
     return () => {
       cancelled = true;
     };
-  }, [finishIntro, introComplete]);
+  }, [entered, finishIntro, introComplete]);
 
   // Listen for browser back (popstate) to restore the gateway.
   useEffect(() => {
@@ -141,7 +172,7 @@ export default function HomeContent() {
       >
         <HeroSection />
         <EmbodiedPerception />
-        <ProductShowcase />
+        <ProductShowcase locale={locale} />
         <ApplicationsGrid />
         <ResourceCenter />
         {/* News + Partners shared background */}
