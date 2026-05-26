@@ -16,7 +16,7 @@ export default function CompanyBody() {
   return (
     <section
       ref={ref}
-      className="relative bg-bg-primary py-20 md:py-32 overflow-hidden flex items-center min-h-[56.25vw]"
+      className="relative flex min-h-[760px] items-center overflow-hidden bg-bg-primary py-20 md:min-h-[832px] md:py-0"
     >
       <div className="absolute inset-0">
         <Image
@@ -30,14 +30,14 @@ export default function CompanyBody() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(13,14,16,0.55) 0%, rgba(13,14,16,0.4) 45%, rgba(13,14,16,0.7) 100%)",
+              "linear-gradient(0deg, rgba(0,0,0,0.65) 0%, rgba(7,40,73,0.65) 100%)",
           }}
         />
       </div>
 
-      <div className="relative max-w-[1080px] mx-auto px-6 md:px-10">
+      <div className="relative mx-auto max-w-[1160px] px-6 text-center md:px-10">
         <motion.h2
-          className="text-center text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary mb-12 md:mb-16"
+          className="mb-10 text-4xl font-medium leading-tight tracking-[-0.04em] text-text-primary md:mb-12 md:text-5xl"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
@@ -46,7 +46,7 @@ export default function CompanyBody() {
         </motion.h2>
 
         <motion.div
-          className="space-y-6"
+          className="space-y-7"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
@@ -54,7 +54,7 @@ export default function CompanyBody() {
           {companyIntro.paragraphs.map((paragraph, idx) => (
             <p
               key={idx}
-              className="text-text-secondary text-sm md:text-base leading-[1.9] tracking-wide"
+              className="text-base font-medium leading-8 text-white md:text-xl md:leading-[1.625]"
             >
               {paragraph}
             </p>
