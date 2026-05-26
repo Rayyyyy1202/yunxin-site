@@ -2,42 +2,6 @@ import type { CareerDetail, CareerItem } from "@/lib/types";
 
 export const careers: CareerItem[] = [
   {
-    id: "perception-lead",
-    title: "高級視覺算法工程師",
-    location: "深圳 / 香港",
-    type: "全職",
-    image: "/images/about/career-perception.jpg",
-    summary: "負責 3D 點雲感知、缺陷檢測與工業視覺算法落地。",
-    tags: ["3D Vision", "Point Cloud", "AI Inspection"],
-  },
-  {
-    id: "manipulation-engineer",
-    title: "機器人操作算法工程師",
-    location: "深圳 / 香港",
-    type: "全職",
-    image: "/images/about/career-manipulation.jpg",
-    summary: "將感知結果轉化為可執行的抓取、裝配與軌跡策略。",
-    tags: ["Robot Control", "Planning", "Manipulation"],
-  },
-  {
-    id: "slam-engineer",
-    title: "SLAM 與導航工程師",
-    location: "深圳 / 香港",
-    type: "全職",
-    image: "/images/about/career-slam.jpg",
-    summary: "面向移動工作站與多視角掃描搭建定位、建圖與路徑能力。",
-    tags: ["SLAM", "Navigation", "Mapping"],
-  },
-  {
-    id: "embedded-engineer",
-    title: "嵌入式軟件工程師",
-    location: "深圳 / 香港",
-    type: "全職",
-    image: "/images/about/career-embedded.jpg",
-    summary: "負責相機、控制器與產品設備底層通信和穩定性建設。",
-    tags: ["Embedded", "Device IO", "Industrial"],
-  },
-  {
     id: "market-product-manager",
     title: "市場產品經理",
     location: "香港 / 深圳",
@@ -50,13 +14,15 @@ export const careers: CareerItem[] = [
     featured: true,
   },
   {
-    id: "solution-engineer",
-    title: "行業解決方案專家",
-    location: "深圳 / 香港",
-    type: "全職",
+    id: "sales-assistant",
+    title: "銷售助理",
+    location: "香港 / 深圳",
+    type: "全職 / 實習",
+    href: "/about/careers/sales-assistant",
     image: "/images/about/career-solution.jpg",
-    summary: "面向汽車、新能源、3C 等場景設計可落地的視覺與機器人方案。",
-    tags: ["Solution", "Pre-sales", "Industrial"],
+    summary:
+      "協助銷售合同、回款、開票、發貨與銷售數據管理，保障商務流程高效落地。",
+    tags: ["Sales Operations", "Contract", "Finance Coordination"],
   },
 ];
 
@@ -112,6 +78,54 @@ export const careerDetails: CareerDetail[] = [
         title: "加分項",
         content:
           "1. 有 3D 視覺、工業相機、自動化設備等產品的市場推廣經驗，熟悉同類 3D 相機產品者優先。\n\n2. 有科研教育行業市場推廣經驗，具備相關行業資源者優先。\n\n3. 具備優秀的文案撰寫、視覺審美能力，能獨立完成精準的宣傳文案、物料策劃者優先。",
+      },
+    ],
+  },
+  {
+    slug: "sales-assistant",
+    title: "銷售助理",
+    department: "銷售部",
+    location: "香港 / 深圳",
+    type: "全職 / 實習",
+    workMode: "混合辦公",
+    experience: "在職或可連續實習 6 個月以上",
+    summary:
+      "協助銷售合同、回款、開票、發貨與銷售數據管理，保障商務流程清晰、高效、可追蹤。",
+    heroImage: "/images/about/careers/careers-hero-bg.png",
+    metrics: [
+      { label: "Team", value: "銷售部" },
+      { label: "Focus", value: "銷售運營 / 商務流程" },
+      { label: "Location", value: "香港 / 深圳" },
+    ],
+    responsibilities: [
+      "負責銷售合同整理、審核流程跟進及歸檔管理。",
+      "跟進客戶回款進度，維護回款台賬並協助應收賬款催收。",
+      "根據合同及回款情況對接財務完成開票。",
+      "協調倉儲、物流及銷售團隊，跟蹤發貨進度。",
+      "維護銷售數據及賬目清單，定期整理銷售報表。",
+    ],
+    requirements: [
+      "本科及以上學歷。",
+      "在職或實習均可；實習生需可連續實習 6 個月以上，每週工作不少於 4 天。",
+      "工作細心、非常細心，對數據高度敏感。",
+      "主動性強，能獨立推進工作。",
+      "具備良好的跨團隊溝通與協作能力。",
+      "熟練使用 Excel 等辦公軟件者優先。",
+    ],
+    bonuses: [],
+    process: ["簡歷篩選", "銷售部面試", "協作能力溝通", "Offer 溝通"],
+    applyHref: "/about/contact",
+    consultHref: "/about/contact",
+    detailSections: [
+      {
+        title: "崗位職責",
+        content:
+          "1. 合同管理：\n- 負責銷售合同的整理、審核流程跟進及歸檔管理；\n- 協助合同條款核對及內部流程流轉。\n\n2. 回款管理：\n- 跟進客戶回款進度，定期更新回款台賬；\n- 協助銷售做好應收賬款催收及異常情況反饋。\n\n3. 開票管理：\n- 根據合同及回款情況，對接財務完成發票開具及相關資料準備。\n\n4. 發貨管理：\n- 協調倉儲、物流及銷售團隊，確保按時發貨；\n- 跟蹤發貨進度，處理發貨異常情況。\n\n5. 賬目清單管理：\n- 維護銷售數據及賬目清單；\n- 定期整理銷售報表，確保數據準確、清晰。",
+      },
+      {
+        title: "任職要求",
+        content:
+          "1. 本科及以上學歷；\n\n2. 在職 / 實習均可，實習生需可連續實習 6 個月以上，每週工作不少於 4 天；\n\n3. 工作細心、非常細心，對數據高度敏感；\n\n4. 主動性強，能獨立推進工作；\n\n5. 具備良好的跨團隊溝通與協作能力；\n\n6. 熟練使用 Excel 等辦公軟件者優先。",
       },
     ],
   },

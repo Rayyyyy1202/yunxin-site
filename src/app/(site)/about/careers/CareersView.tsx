@@ -1,9 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { careers } from "@/data/careers";
+import { careerDetailSlugs, careers } from "@/data/careers";
+import type { CareerItem } from "@/lib/types";
 
-const categories = ["產品類", "全部職位"];
+const openCareers = careers.filter(
+  (career): career is CareerItem & { href: string } =>
+    Boolean(career.href && careerDetailSlugs.includes(career.id)),
+);
 
 export default function CareersView() {
   return (
@@ -64,23 +68,14 @@ export default function CareersView() {
               熱招職位
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              {categories.map((category) => (
-                <span
-                  key={category}
-                  className={`inline-flex h-11 min-w-[120px] items-center justify-center border px-8 text-sm font-semibold tracking-[0.1em] ${
-                    category === "全部職位"
-                      ? "border-purple-primary bg-purple-primary text-white"
-                      : "border-purple-light/38 bg-white/[0.03] text-white/74"
-                  }`}
-                >
-                  {category}
-                </span>
-              ))}
+              <span className="inline-flex h-11 min-w-[120px] items-center justify-center border border-purple-primary bg-purple-primary px-8 text-sm font-semibold tracking-[0.1em] text-white">
+                全部職位
+              </span>
             </div>
           </div>
 
           <div className="mt-12 overflow-hidden border-y border-purple-light/24">
-            {careers.map((career) => (
+            {openCareers.map((career) => (
               <article
                 key={career.id}
                 className="grid gap-4 border-b border-purple-light/18 px-0 py-5 last:border-b-0 md:grid-cols-[minmax(0,1fr)_160px_120px_150px] md:items-center md:gap-8 md:py-0"
@@ -98,22 +93,13 @@ export default function CareersView() {
                   {career.type}
                 </p>
                 <div className="pl-6 md:pl-0 md:text-right">
-                  {career.href ? (
-                    <Link
-                      href={career.href}
-                      className="inline-flex items-center gap-2 text-sm font-semibold tracking-[0.08em] text-purple-light transition-colors hover:text-white"
-                    >
-                      查看詳情
-                      <ArrowRight size={15} />
-                    </Link>
-                  ) : (
-                    <span
-                      aria-disabled="true"
-                      className="inline-flex cursor-not-allowed items-center text-sm font-semibold tracking-[0.08em] text-white/32"
-                    >
-                      資料待補
-                    </span>
-                  )}
+                  <Link
+                    href={career.href}
+                    className="inline-flex items-center gap-2 text-sm font-semibold tracking-[0.08em] text-purple-light transition-colors hover:text-white"
+                  >
+                    查看詳情
+                    <ArrowRight size={15} />
+                  </Link>
                 </div>
               </article>
             ))}
