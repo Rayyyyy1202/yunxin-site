@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
-  DEFAULT_LOCALE,
   type Locale,
   localizeText,
   toLocalizedPath,
@@ -14,6 +13,7 @@ interface LocaleRuntimeProps {
 }
 
 const TEXT_ATTRIBUTE_NAMES = ["aria-label", "alt", "title"];
+const LOCALE_SWITCHER_SELECTOR = "[data-locale-switcher]";
 
 function shouldSkip(node: Node) {
   const parent = node.parentElement;
@@ -26,8 +26,6 @@ function shouldSkip(node: Node) {
 }
 
 function convertTextNodes(root: ParentNode, locale: Locale) {
-  if (locale !== DEFAULT_LOCALE) return;
-
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
   let node = walker.nextNode();
   while (node) {
@@ -40,7 +38,6 @@ function convertTextNodes(root: ParentNode, locale: Locale) {
 }
 
 function convertAttributes(root: ParentNode, locale: Locale) {
-  if (locale !== DEFAULT_LOCALE) return;
   const elements =
     root instanceof Element
       ? [root, ...Array.from(root.querySelectorAll("*"))]
@@ -65,6 +62,8 @@ function rewriteInternalLinks(root: ParentNode, locale: Locale) {
       : Array.from(root.querySelectorAll<HTMLAnchorElement>("a[href]"));
 
   for (const link of links) {
+    if (link.closest(LOCALE_SWITCHER_SELECTOR)) continue;
+
     const href = link.getAttribute("href");
     const localized = toLocalizedPath(locale, href ?? undefined);
     if (localized && localized !== href) {
@@ -139,6 +138,7 @@ export default function LocaleRuntime({ locale }: LocaleRuntimeProps) {
 
       const anchor = (event.target as Element | null)?.closest("a[href]");
       if (!(anchor instanceof HTMLAnchorElement)) return;
+      if (anchor.closest(LOCALE_SWITCHER_SELECTOR)) return;
 
       const href = anchor.getAttribute("href");
       const localized = toLocalizedPath(locale, href ?? undefined);

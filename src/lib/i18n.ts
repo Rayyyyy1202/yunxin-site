@@ -247,6 +247,7 @@ const traditionalToSimplified: Record<string, string> = {
 };
 
 const hkToSimplified = OpenCC.Converter({ from: "hk", to: "cn" });
+const simplifiedToHk = OpenCC.Converter({ from: "cn", to: "hk" });
 
 const PRESERVED_TERMS = [
   "AIeveR Robotics Limited",
@@ -278,8 +279,22 @@ function convertHongKongTraditionalToSimplified(value: string) {
   );
 }
 
+function convertSimplifiedToHongKongTraditional(value: string) {
+  const replacements: string[] = [];
+  const protectedValue = PRESERVED_TERMS.reduce((text, term, index) => {
+    if (!text.includes(term)) return text;
+    replacements[index] = term;
+    return text.replaceAll(term, `\uE000${index}\uE001`);
+  }, value);
+
+  return replacements.reduce(
+    (text, term, index) => text.replaceAll(`\uE000${index}\uE001`, term),
+    simplifiedToHk(protectedValue),
+  );
+}
+
 export function localizeText(value: string, locale: Locale): string {
-  if (locale === "zh-HK") return value;
+  if (locale === "zh-HK") return convertSimplifiedToHongKongTraditional(value);
 
   let next = value;
   for (const [from, to] of Object.entries(phraseMap)) {

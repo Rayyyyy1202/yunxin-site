@@ -36,6 +36,8 @@ export default function LanguageSwitcher({
 
   return (
     <div
+      data-locale-switcher
+      data-no-localize
       className={cn(
         "inline-flex items-center overflow-hidden rounded-sm border border-border-subtle bg-bg-card/60 text-xs",
         className,
