@@ -64,7 +64,7 @@ export default function TechSpecsTable({ data }: TechSpecsTableProps) {
                         <SiteImg
                           src={m.thumb}
                           alt={`${m.label} 產品圖`}
-                          className="h-[84px] w-[112px] max-w-none object-contain md:h-[120px] md:w-[150px]"
+                          className="series-tech-spec-thumb h-[84px] w-[112px] max-w-none object-contain md:h-[120px] md:w-[150px]"
                           loading="lazy"
                         />
                       ) : hasModelThumbs ? (

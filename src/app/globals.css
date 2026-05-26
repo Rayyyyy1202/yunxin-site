@@ -104,6 +104,12 @@ body {
   object-position: center center;
 }
 
+.series-tech-spec-thumb {
+  filter:
+    drop-shadow(0 15px 25px rgba(73, 46, 141, 0.92))
+    drop-shadow(0 0 12px rgba(196, 179, 255, 0.24));
+}
+
 @media (min-width: 1024px) {
   .home-hero-image {
     object-position: 66% center;
