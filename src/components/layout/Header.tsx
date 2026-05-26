@@ -14,6 +14,15 @@ interface HeaderProps {
   locale: Locale;
 }
 
+const dropdownPanelClass =
+  "border border-white/10 bg-[#090a12]/75 shadow-[0_24px_80px_rgba(0,0,0,0.56),0_0_48px_rgba(112,82,255,0.22)] backdrop-blur-2xl";
+
+const dropdownItemClass =
+  "text-text-primary/72 transition-colors hover:text-text-primary focus-visible:text-text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-light";
+
+const dropdownDisabledClass =
+  "cursor-not-allowed text-text-primary/38";
+
 export default function Header({ locale }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -83,8 +92,10 @@ export default function Header({ locale }: HeaderProps) {
                   )}
 
                   {item.megaMenu && activeDropdown === item.label && (
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6">
-                      <div className="grid min-h-[175px] w-[956px] max-w-[calc(100vw-80px)] grid-cols-[1.24fr_1.24fr_1fr_1fr] gap-10 bg-[#5f5f61] px-7 py-8 shadow-2xl">
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-5">
+                      <div
+                        className={`${dropdownPanelClass} grid min-h-[175px] w-[956px] max-w-[calc(100vw-80px)] grid-cols-[1.24fr_1.24fr_1fr_1fr] gap-10 overflow-hidden px-12 py-8`}
+                      >
                         {item.megaMenu.map((group) => (
                           <div key={group.label} className="min-w-0">
                             {group.href ? (
@@ -105,7 +116,7 @@ export default function Header({ locale }: HeaderProps) {
                                   <Link
                                     key={megaItem.label}
                                     href={megaItem.href}
-                                    className="block text-sm text-text-primary/70 transition-colors hover:text-text-primary"
+                                    className={`block text-sm ${dropdownItemClass}`}
                                   >
                                     {megaItem.label}
                                   </Link>
@@ -113,7 +124,7 @@ export default function Header({ locale }: HeaderProps) {
                                   <span
                                     key={megaItem.label}
                                     aria-disabled="true"
-                                    className="block cursor-not-allowed text-sm text-text-primary/45"
+                                    className={`block text-sm ${dropdownDisabledClass}`}
                                   >
                                     {megaItem.label}
                                   </span>
@@ -127,14 +138,16 @@ export default function Header({ locale }: HeaderProps) {
                   )}
 
                   {item.children && activeDropdown === item.label && (
-                    <div className="absolute top-full left-0 pt-2">
-                      <div className="bg-bg-secondary border border-border-subtle rounded-lg py-2 min-w-[180px] shadow-xl">
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-5">
+                      <div
+                        className={`${dropdownPanelClass} min-w-[220px] overflow-hidden px-4 py-4`}
+                      >
                         {item.children.map((child) =>
                           child.href && !child.disabled ? (
                             <Link
                               key={`${child.href}-${child.label}`}
                               href={child.href}
-                              className="block px-4 py-2.5 text-sm text-text-secondary hover:text-text-primary hover:bg-bg-card transition-colors"
+                              className={`block whitespace-nowrap px-3 py-3 text-sm ${dropdownItemClass}`}
                             >
                               {child.label}
                             </Link>
@@ -142,7 +155,7 @@ export default function Header({ locale }: HeaderProps) {
                             <span
                               key={child.label}
                               aria-disabled="true"
-                              className="block cursor-not-allowed px-4 py-2.5 text-sm text-text-secondary/45"
+                              className={`block whitespace-nowrap px-3 py-3 text-sm ${dropdownDisabledClass}`}
                             >
                               {child.label}
                             </span>
