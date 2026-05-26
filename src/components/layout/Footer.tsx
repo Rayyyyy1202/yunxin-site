@@ -32,57 +32,46 @@ export default function Footer({ locale }: FooterProps) {
   ];
 
   return (
-    <footer className="relative isolate overflow-hidden border-t border-border-subtle bg-black">
-      <Image
-        src="/images/layout/footer-camera-sticker-purple-white.png"
-        alt=""
-        fill
-        sizes="100vw"
-        className="pointer-events-none absolute inset-0 -z-30 object-cover object-center opacity-25"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-20 bg-[linear-gradient(90deg,rgba(0,0,0,0.98)_0%,rgba(0,0,0,0.98)_50%,rgba(0,0,0,0.88)_100%)]"
-      />
-      <div className="relative mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-14">
-        <div className="grid gap-10 lg:grid-cols-[1.35fr_0.7fr_0.8fr_1.05fr] xl:gap-16">
+    <footer className="relative isolate overflow-hidden border-t border-[#272727] bg-black">
+      <div className="relative mx-auto max-w-[1280px] px-6 pb-10 pt-10 md:px-10">
+        <div className="grid gap-10 lg:min-h-[222px] lg:grid-cols-4 lg:gap-12">
           <div>
-            <h3 className="whitespace-nowrap text-2xl font-bold tracking-[-0.2px] text-text-primary md:text-[28px]">
+            <h3 className="font-['Space_Grotesk',var(--font-inter),sans-serif] text-[20px] font-bold leading-7 text-white">
               AIeveR Robotics Limited
             </h3>
-            <p className="mt-7 max-w-[430px] text-base font-semibold leading-8 text-text-primary/86">
+            <p className="mt-4 max-w-[278px] text-[12px] font-medium leading-[19.5px] text-white">
               {copy.companyDescription}
             </p>
-            <div className="mt-10 flex items-center gap-5">
+            <div className="mt-4 flex items-center gap-4">
               <Link
                 href={toLocalizedPath(locale, "/about/contact") ?? "/about/contact"}
                 aria-label={copy.contactPageLabel}
-                className="text-text-primary transition-colors hover:text-purple-light"
+                className="text-white transition-colors hover:text-purple-light"
               >
-                <Share2 size={25} strokeWidth={2.1} aria-hidden />
+                <Share2 size={20} strokeWidth={2} aria-hidden />
               </Link>
               <Link
                 href={toLocalizedPath(locale, "/") ?? "/"}
                 aria-label={localizeText("訪問官網首頁", locale)}
-                className="text-text-primary transition-colors hover:text-purple-light"
+                className="text-white transition-colors hover:text-purple-light"
               >
-                <Globe size={27} strokeWidth={2.1} aria-hidden />
+                <Globe size={20} strokeWidth={2} aria-hidden />
               </Link>
               <a
                 href="mailto:zcchen@aiever-robotics.com"
                 aria-label={copy.mailLabel}
-                className="text-text-primary transition-colors hover:text-purple-light"
+                className="text-white transition-colors hover:text-purple-light"
               >
-                <Mail size={27} strokeWidth={2.1} aria-hidden />
+                <Mail size={20} strokeWidth={2} aria-hidden />
               </a>
             </div>
           </div>
 
           <nav aria-label={copy.quickLinks}>
-            <h4 className="text-base font-semibold text-purple-light">
+            <h4 className="text-[12px] font-medium uppercase leading-4 tracking-[1.2px] text-purple-light">
               {copy.quickLinks}
             </h4>
-            <ul className="mt-7 space-y-5">
+            <ul className="mt-6 space-y-4 text-[12px] font-medium leading-4 text-white">
               {quickLinks.map((item) => {
                 const href =
                   item.external || item.href.startsWith("http")
@@ -94,7 +83,7 @@ export default function Footer({ locale }: FooterProps) {
                       href={href}
                       target={item.external ? "_blank" : undefined}
                       rel={item.external ? "noreferrer" : undefined}
-                      className="text-base font-semibold text-text-primary/84 transition-colors hover:text-purple-light"
+                      className="block transition-colors hover:text-purple-light"
                     >
                       {localizeText(item.label, locale)}
                     </Link>
@@ -105,10 +94,10 @@ export default function Footer({ locale }: FooterProps) {
           </nav>
 
           <div>
-            <h4 className="text-base font-semibold text-purple-light">
+            <h4 className="text-[12px] font-medium uppercase leading-4 tracking-[1.2px] text-purple-light">
               {copy.contactUs}
             </h4>
-            <div className="mt-7 space-y-5 text-base font-semibold text-text-primary/84">
+            <div className="mt-6 space-y-4 text-[12px] font-medium leading-4 text-white">
               <p>{localizeText("郵箱：", locale)}</p>
               <p>{localizeText("電話：", locale)}</p>
               <p>{localizeText("地址：", locale)}</p>
@@ -116,30 +105,30 @@ export default function Footer({ locale }: FooterProps) {
           </div>
 
           <div>
-            <h4 className="text-base font-semibold text-purple-light">
+            <h4 className="text-[12px] font-medium uppercase leading-4 tracking-[1.2px] text-purple-light">
               {copy.subscribe}
             </h4>
-            <div className="mt-7 flex flex-col gap-5">
+            <div className="mt-6 flex flex-col gap-5">
               <Link
                 href={toLocalizedPath(locale, "/products/depthsight/line") ?? "/products/depthsight/line"}
-                className="flex min-h-[58px] items-center justify-center border border-white/22 bg-white/[0.08] px-6 text-sm font-semibold text-text-primary transition-colors hover:border-purple-light hover:text-purple-light"
+                className="flex min-h-[48px] items-center justify-center border border-[#47484a] bg-[#181a1c] px-6 text-[10px] font-normal text-white transition-colors hover:border-purple-light hover:text-purple-light"
               >
                 <span className="flex w-full items-center justify-center gap-6">
                   {copy.exploreProducts}
-                  <ArrowRight size={18} className="text-purple-light" />
+                  <ArrowRight size={12} className="text-purple-light" />
                 </span>
               </Link>
               <Link
                 href={shopUrl}
                 target={isExternalShopUrl ? "_blank" : undefined}
                 rel={isExternalShopUrl ? "noreferrer" : undefined}
-                className="flex min-h-[58px] items-center justify-center bg-purple-primary px-6 text-sm font-semibold tracking-[2px] text-white transition-colors hover:bg-purple-primary/85"
+                className="flex min-h-[48px] items-center justify-center bg-purple-primary px-6 text-[10px] font-medium uppercase leading-[15px] tracking-[2px] text-white transition-colors hover:bg-purple-primary/85"
               >
                 {copy.mallPending}
               </Link>
               <Link
                 href={toLocalizedPath(locale, "/about/contact") ?? "/about/contact"}
-                className="flex min-h-[58px] items-center justify-center border border-purple-primary px-6 text-sm font-semibold text-purple-light transition-colors hover:bg-purple-primary/10"
+                className="flex min-h-[49px] items-center justify-center border border-purple-primary px-6 text-[10px] font-medium uppercase leading-[15px] tracking-[2px] text-purple-light transition-colors hover:bg-purple-primary/10"
               >
                 {copy.contactUs}
               </Link>
@@ -147,36 +136,28 @@ export default function Footer({ locale }: FooterProps) {
           </div>
         </div>
 
-        <p className="mt-10 max-w-[820px] text-sm font-semibold leading-7 text-text-primary/84 md:text-base">
+        <p className="mt-10 max-w-[489px] text-[12px] font-medium leading-[19.5px] text-white lg:mt-[75px]">
           {address}
         </p>
 
-        <div className="mt-12 flex flex-col gap-5 border-t border-white/12 pt-8 md:mt-14 md:flex-row md:items-center md:justify-between">
-          <p className="text-xs font-medium tracking-wide text-text-primary/62">
+        <div className="mt-6 flex flex-col gap-5 border-t border-[#181a1c] pt-8 md:flex-row md:items-center md:justify-between lg:mt-[25px] lg:pt-10">
+          <p className="text-[10px] font-normal uppercase leading-[15px] tracking-[1px] text-white">
             {copy.copyright}
           </p>
-          <div className="flex flex-wrap items-center gap-8 text-xs font-semibold uppercase tracking-[2.4px] text-text-primary/78">
+          <div className="flex flex-wrap items-center gap-8 text-[10px] font-normal uppercase leading-[15px] tracking-[1px] text-white">
             <span aria-disabled="true">LEGAL STATEMENT</span>
             <span aria-disabled="true">PRIVACY POLICY</span>
           </div>
         </div>
 
-        <div className="pointer-events-none absolute bottom-[118px] right-10 hidden text-right leading-none md:block">
-          <p className="font-mono text-[13px] font-semibold tracking-[2px] text-purple-primary/80">
-            Designed in
-          </p>
-          <p className="font-mono text-[13px] font-semibold tracking-[2px] text-purple-primary/80">
-            Originated from
-          </p>
-          <p className="font-mono text-[13px] font-semibold tracking-[2px] text-purple-primary/80">
-            The Chinese University of
-          </p>
-          <p className="mt-1 text-4xl font-bold tracking-wider text-text-primary">
-            HONG
-            <br />
-            KONG
-          </p>
-        </div>
+        <Image
+          src="/images/layout/footer-hong-kong-sticker.png"
+          alt=""
+          width={237}
+          height={58}
+          aria-hidden
+          className="pointer-events-none absolute right-10 top-[299px] hidden h-auto w-[237px] select-none lg:block"
+        />
       </div>
     </footer>
   );

@@ -15,7 +15,7 @@ interface HeaderProps {
 }
 
 const dropdownPanelClass =
-  "border border-white/10 bg-[#090a12]/75 shadow-[0_24px_80px_rgba(0,0,0,0.56),0_0_48px_rgba(112,82,255,0.22)] backdrop-blur-2xl";
+  "bg-[rgba(13,14,16,0.6)] shadow-[0_8px_32px_rgba(0,0,0,0.8)] backdrop-blur-[24px]";
 
 const dropdownItemClass =
   "text-text-primary/72 transition-colors hover:text-text-primary focus-visible:text-text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-light";
