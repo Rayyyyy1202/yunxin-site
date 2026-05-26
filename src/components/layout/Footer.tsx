@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Globe, Mail } from "lucide-react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Globe, Mail, Share2 } from "lucide-react";
 import {
   getFooterCopy,
   type Locale,
@@ -15,126 +14,132 @@ interface FooterProps {
   locale: Locale;
 }
 
+const address =
+  "Unit 20-21, 15/F, Building 19W, Hong Kong Science Park, Pak Shek Kok, N.T., HK";
+
 export default function Footer({ locale }: FooterProps) {
   const copy = getFooterCopy(locale);
+  const shopUrl = process.env.NEXT_PUBLIC_SHOP_URL || "http://localhost:8080";
+  const isExternalShopUrl = /^https?:\/\//.test(shopUrl);
+
+  const quickLinks = [
+    { label: "首頁", href: "/" },
+    { label: "產品中心", href: "/products/depthsight/line" },
+    { label: "行業應用", href: "/applications" },
+    { label: "資源中心", href: "/support" },
+    { label: "商城", href: shopUrl, external: isExternalShopUrl },
+    { label: "關於我們", href: "/about" },
+  ];
 
   return (
-    <footer className="relative isolate overflow-hidden bg-bg-secondary border-t border-border-subtle">
+    <footer className="relative isolate overflow-hidden border-t border-border-subtle bg-black">
       <Image
         src="/images/layout/footer-camera-sticker-purple-white.png"
         alt=""
         fill
         sizes="100vw"
-        className="absolute inset-0 -z-20 object-cover object-center pointer-events-none opacity-80"
+        className="pointer-events-none absolute inset-0 -z-30 object-cover object-center opacity-25"
       />
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(13,14,16,0.96)_0%,rgba(13,14,16,0.92)_36%,rgba(13,14,16,0.72)_68%,rgba(13,14,16,0.56)_100%)]"
+        className="absolute inset-0 -z-20 bg-[linear-gradient(90deg,rgba(0,0,0,0.98)_0%,rgba(0,0,0,0.98)_50%,rgba(0,0,0,0.88)_100%)]"
       />
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_80%_at_80%_55%,rgba(73,46,141,0.22),transparent_70%)]"
-      />
-      <div className="relative max-w-[1440px] mx-auto px-6 md:px-10 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Column 1: Company info */}
+      <div className="relative mx-auto max-w-[1440px] px-6 py-12 md:px-10 md:py-14">
+        <div className="grid gap-10 lg:grid-cols-[1.35fr_0.7fr_0.8fr_1.05fr] xl:gap-16">
           <div>
-            <Image
-              src="/images/logo-mark.png"
-              alt="AIeveR Robotics"
-              width={48}
-              height={48}
-              className="h-10 w-auto mb-4"
-            />
-            <h3 className="text-text-primary font-bold text-lg mb-3">
+            <h3 className="whitespace-nowrap text-2xl font-bold tracking-[-0.2px] text-text-primary md:text-[28px]">
               AIeveR Robotics Limited
             </h3>
-            <p className="text-text-secondary text-sm mb-4">
+            <p className="mt-7 max-w-[430px] text-base font-semibold leading-8 text-text-primary/86">
               {copy.companyDescription}
             </p>
-            <div className="flex items-center gap-3 mt-4">
+            <div className="mt-10 flex items-center gap-5">
               <Link
                 href={toLocalizedPath(locale, "/about/contact") ?? "/about/contact"}
                 aria-label={copy.contactPageLabel}
-                className="text-text-secondary hover:text-text-primary transition-colors"
+                className="text-text-primary transition-colors hover:text-purple-light"
               >
-                <Globe size={18} aria-hidden />
+                <Share2 size={25} strokeWidth={2.1} aria-hidden />
+              </Link>
+              <Link
+                href={toLocalizedPath(locale, "/") ?? "/"}
+                aria-label={localizeText("訪問官網首頁", locale)}
+                className="text-text-primary transition-colors hover:text-purple-light"
+              >
+                <Globe size={27} strokeWidth={2.1} aria-hidden />
               </Link>
               <a
                 href="mailto:zcchen@aiever-robotics.com"
                 aria-label={copy.mailLabel}
-                className="text-text-secondary hover:text-text-primary transition-colors"
+                className="text-text-primary transition-colors hover:text-purple-light"
               >
-                <Mail size={18} aria-hidden />
+                <Mail size={27} strokeWidth={2.1} aria-hidden />
               </a>
             </div>
           </div>
 
-          {/* Column 2: Quick links */}
-          <div>
-            <h4 className="text-purple-light font-medium text-sm mb-6">
+          <nav aria-label={copy.quickLinks}>
+            <h4 className="text-base font-semibold text-purple-light">
               {copy.quickLinks}
             </h4>
-            <ul className="space-y-3">
-              <li>
-                <Link href={toLocalizedPath(locale, "/support/docs") ?? "/support/docs"} className="text-text-secondary text-sm hover:text-text-primary transition-colors">
-                  {copy.exploreProducts}
-                </Link>
-              </li>
-              <li>
-                <Link href={toLocalizedPath(locale, "/support/guides") ?? "/support/guides"} className="text-text-secondary text-sm hover:text-text-primary transition-colors">
-                  {copy.industrySolutions}
-                </Link>
-              </li>
+            <ul className="mt-7 space-y-5">
+              {quickLinks.map((item) => {
+                const href =
+                  item.external || item.href.startsWith("http")
+                    ? item.href
+                    : (toLocalizedPath(locale, item.href) ?? item.href);
+                return (
+                  <li key={item.label}>
+                    <Link
+                      href={href}
+                      target={item.external ? "_blank" : undefined}
+                      rel={item.external ? "noreferrer" : undefined}
+                      className="text-base font-semibold text-text-primary/84 transition-colors hover:text-purple-light"
+                    >
+                      {localizeText(item.label, locale)}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
-          </div>
+          </nav>
 
-          {/* Column 3: Service & Support */}
           <div>
-            <h4 className="text-purple-light font-medium text-sm mb-6">
-              {copy.serviceSupport}
+            <h4 className="text-base font-semibold text-purple-light">
+              {copy.contactUs}
             </h4>
-            <ul className="space-y-3">
-              <li>
-                <Link href={toLocalizedPath(locale, "/support/docs") ?? "/support/docs"} className="text-text-secondary text-sm hover:text-text-primary transition-colors">
-                  {copy.afterSales}
-                </Link>
-              </li>
-              <li>
-                <Link href={toLocalizedPath(locale, "/support/guides") ?? "/support/guides"} className="text-text-secondary text-sm hover:text-text-primary transition-colors">
-                  {copy.trainingPlatform}
-                </Link>
-              </li>
-              <li>
-                <Link href={toLocalizedPath(locale, "/about/contact") ?? "/about/contact"} className="text-text-secondary text-sm hover:text-text-primary transition-colors">
-                  {copy.partnerPlan}
-                </Link>
-              </li>
-            </ul>
+            <div className="mt-7 space-y-5 text-base font-semibold text-text-primary/84">
+              <p>{localizeText("郵箱：", locale)}</p>
+              <p>{localizeText("電話：", locale)}</p>
+              <p>{localizeText("地址：", locale)}</p>
+            </div>
           </div>
 
-          {/* Column 4: Subscribe */}
           <div>
-            <h4 className="text-purple-light font-medium text-sm mb-6">
+            <h4 className="text-base font-semibold text-purple-light">
               {copy.subscribe}
             </h4>
-            <div className="flex flex-col gap-3">
+            <div className="mt-7 flex flex-col gap-5">
               <Link
-                href={toLocalizedPath(locale, "/support/docs") ?? "/support/docs"}
-                className="flex items-center justify-between border border-border-color text-text-primary px-5 py-3 text-sm hover:border-purple-light transition-colors"
+                href={toLocalizedPath(locale, "/products/depthsight/line") ?? "/products/depthsight/line"}
+                className="flex min-h-[58px] items-center justify-center border border-white/22 bg-white/[0.08] px-6 text-sm font-semibold text-text-primary transition-colors hover:border-purple-light hover:text-purple-light"
               >
-                {copy.exploreProducts}
-                <ArrowRight size={14} />
+                <span className="flex w-full items-center justify-center gap-6">
+                  {copy.exploreProducts}
+                  <ArrowRight size={18} className="text-purple-light" />
+                </span>
               </Link>
-              <span
-                aria-disabled="true"
-                className="flex items-center justify-center bg-purple-primary/40 text-white/70 px-5 py-3 text-sm cursor-not-allowed select-none"
+              <Link
+                href={shopUrl}
+                target={isExternalShopUrl ? "_blank" : undefined}
+                rel={isExternalShopUrl ? "noreferrer" : undefined}
+                className="flex min-h-[58px] items-center justify-center bg-purple-primary px-6 text-sm font-semibold tracking-[2px] text-white transition-colors hover:bg-purple-primary/85"
               >
                 {copy.mallPending}
-              </span>
+              </Link>
               <Link
                 href={toLocalizedPath(locale, "/about/contact") ?? "/about/contact"}
-                className="flex items-center justify-center border border-border-color text-text-primary px-5 py-3 text-sm hover:border-purple-light transition-colors"
+                className="flex min-h-[58px] items-center justify-center border border-purple-primary px-6 text-sm font-semibold text-purple-light transition-colors hover:bg-purple-primary/10"
               >
                 {copy.contactUs}
               </Link>
@@ -142,43 +147,35 @@ export default function Footer({ locale }: FooterProps) {
           </div>
         </div>
 
-        {/* Address + HONG KONG badge */}
-        <div className="mt-10 pt-6 border-t border-border-subtle flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
-          <p className="text-text-secondary text-xs">
-            Unit 20-21, 15/F, Building 19W, Hong Kong Science Park, Pak Shek
-            Kok, N.T., HK
+        <p className="mt-10 max-w-[820px] text-sm font-semibold leading-7 text-text-primary/84 md:text-base">
+          {address}
+        </p>
+
+        <div className="mt-12 flex flex-col gap-5 border-t border-white/12 pt-8 md:mt-14 md:flex-row md:items-center md:justify-between">
+          <p className="text-xs font-medium tracking-wide text-text-primary/62">
+            {copy.copyright}
           </p>
-          <div className="text-right leading-tight">
-            <p className="text-purple-light text-[10px] font-mono">
-              {localizeText("Designed in", locale)}
-            </p>
-            <p className="text-purple-light text-[10px] font-mono">
-              {localizeText("Originated from", locale)}
-            </p>
-            <p className="text-purple-light text-[10px] font-mono">
-              The Chinese University of
-            </p>
-            <p className="text-text-primary text-2xl font-bold tracking-wider leading-none mt-1">
-              HONG
-              <br />
-              KONG
-            </p>
+          <div className="flex flex-wrap items-center gap-8 text-xs font-semibold uppercase tracking-[2.4px] text-text-primary/78">
+            <span aria-disabled="true">LEGAL STATEMENT</span>
+            <span aria-disabled="true">PRIVACY POLICY</span>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-text-secondary text-xs">
-            {copy.copyright}
+        <div className="pointer-events-none absolute bottom-[118px] right-10 hidden text-right leading-none md:block">
+          <p className="font-mono text-[13px] font-semibold tracking-[2px] text-purple-primary/80">
+            Designed in
           </p>
-          <div className="flex items-center gap-8">
-            <a
-              href="mailto:zcchen@aiever-robotics.com"
-              className="text-text-secondary text-xs hover:text-text-primary transition-colors"
-            >
-              CONTACT
-            </a>
-          </div>
+          <p className="font-mono text-[13px] font-semibold tracking-[2px] text-purple-primary/80">
+            Originated from
+          </p>
+          <p className="font-mono text-[13px] font-semibold tracking-[2px] text-purple-primary/80">
+            The Chinese University of
+          </p>
+          <p className="mt-1 text-4xl font-bold tracking-wider text-text-primary">
+            HONG
+            <br />
+            KONG
+          </p>
         </div>
       </div>
     </footer>
