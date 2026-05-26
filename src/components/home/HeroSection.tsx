@@ -15,14 +15,14 @@ export default function HeroSection() {
   const heroSrc = useSiteImage("/images/home/group-243/industrial-robot-arm-b.png");
 
   return (
-    <section className="relative isolate min-h-[700px] overflow-hidden bg-bg-primary">
+    <section className="relative isolate min-h-[clamp(640px,72vh,780px)] overflow-hidden bg-bg-primary">
       <Image
         src={heroSrc}
         alt="AIeveR Robotics 工業機械臂與 3D 視覺場景"
         fill
         priority
         sizes="100vw"
-        className="object-cover object-[65%_center]"
+        className="home-hero-image object-cover"
       />
       <div
         className="absolute inset-0"
@@ -41,8 +41,8 @@ export default function HeroSection() {
         }}
       />
 
-      <div className="relative z-10 mx-auto flex min-h-[700px] w-full max-w-[1440px] items-center px-6 py-24 md:px-10">
-        <div className="max-w-[720px]">
+      <div className="relative z-10 mx-auto flex min-h-[clamp(640px,72vh,780px)] w-full max-w-[1440px] items-center px-6 py-24 md:px-10">
+        <div className="max-w-[900px]">
           <motion.span
             {...fadeUp}
             transition={{ duration: 0.55 }}
@@ -55,10 +55,10 @@ export default function HeroSection() {
           <motion.h1
             {...fadeUp}
             transition={{ duration: 0.65, delay: 0.12 }}
-            className="mt-8 text-5xl font-semibold leading-[1.08] text-text-primary md:text-7xl"
+            className="mt-8 text-[clamp(3rem,4.4vw,5.25rem)] font-semibold leading-[1.05] text-text-primary"
           >
-            <span className="block">AIeveR Robotics Limited</span>
-            <span className="mt-3 block text-purple-light">雲芯機器人</span>
+            <span className="block lg:whitespace-nowrap">AIeveR Robotics Limited</span>
+            <span className="mt-3 block whitespace-nowrap text-purple-light">雲芯機器人</span>
           </motion.h1>
 
           <motion.p

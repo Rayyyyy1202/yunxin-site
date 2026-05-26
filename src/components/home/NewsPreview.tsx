@@ -19,7 +19,7 @@ export default function NewsPreview() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          新聞輪播動態
+          新聞動態
         </motion.h2>
 
         <motion.div

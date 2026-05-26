@@ -34,11 +34,11 @@ export default function ApplicationsGrid() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <div>
+          <div className="min-w-0">
             <span className="text-[10px] font-bold uppercase tracking-[3px] text-purple-light">
               Industry Solutions
             </span>
-            <h2 className="mt-4 text-3xl font-bold leading-tight text-text-primary md:text-4xl lg:text-5xl">
+            <h2 className="mt-4 text-[clamp(2rem,3vw,3rem)] font-bold leading-[1.12] text-text-primary lg:whitespace-nowrap">
               深耕行業 · 落地有聲
             </h2>
           </div>
@@ -65,7 +65,7 @@ export default function ApplicationsGrid() {
           {applications.map((item) => (
             <div
               key={item.id}
-              className="min-w-0 flex-[0_0_82%] px-3 sm:flex-[0_0_72%] md:flex-[0_0_63.5%] lg:flex-[0_0_812px]"
+              className="min-w-0 flex-[0_0_84%] px-3 sm:flex-[0_0_76%] md:flex-[0_0_70%] xl:flex-[0_0_64%] 2xl:flex-[0_0_58%]"
             >
               <AppCard item={item} />
             </div>
@@ -98,16 +98,16 @@ export default function ApplicationsGrid() {
 function AppCard({ item }: { item: ApplicationItem }) {
   const src = useSiteImage(item.imageSrc);
   const content = (
-    <div className="group relative aspect-[812/612] overflow-hidden bg-black">
+    <div className="group relative aspect-video overflow-hidden bg-black">
       <Image
         src={src}
         alt={item.title}
         fill
-        sizes="(max-width: 640px) 82vw, (max-width: 1024px) 72vw, 812px"
-        className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+        sizes="(max-width: 640px) 84vw, (max-width: 1024px) 70vw, 64vw"
+        className="home-carousel-image object-cover transition-transform duration-700 group-hover:scale-[1.03]"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
-      <h3 className="absolute bottom-8 left-8 text-3xl font-bold text-white md:text-4xl">
+      <h3 className="absolute bottom-6 left-6 whitespace-nowrap text-3xl font-bold text-white md:bottom-8 md:left-8 md:text-4xl">
         {item.title}
       </h3>
     </div>

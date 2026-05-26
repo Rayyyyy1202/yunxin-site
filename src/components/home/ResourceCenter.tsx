@@ -53,11 +53,11 @@ export default function ResourceCenter() {
           <p className="max-w-xl text-sm leading-7 text-text-secondary">
             從新能源汽車到3C電子，AIeveR Robotics方案已服務多個智能製造一線場景。
           </p>
-          <div className="text-left md:text-right">
+          <div className="min-w-0 text-left md:text-right">
             <span className="text-[10px] font-bold uppercase tracking-[3px] text-purple-light">
               Industry Solutions
             </span>
-            <h2 className="mt-4 text-3xl font-bold leading-tight text-text-primary md:text-4xl lg:text-5xl">
+            <h2 className="mt-4 text-[clamp(2rem,3vw,3rem)] font-bold leading-[1.12] text-text-primary lg:whitespace-nowrap">
               眼見為實 · 資源中心
             </h2>
           </div>
@@ -81,7 +81,7 @@ export default function ResourceCenter() {
           {resources.map((item) => (
             <div
               key={item.id}
-              className="min-w-0 flex-[0_0_82%] px-3 sm:flex-[0_0_72%] md:flex-[0_0_63.5%] lg:flex-[0_0_812px]"
+              className="min-w-0 flex-[0_0_84%] px-3 sm:flex-[0_0_76%] md:flex-[0_0_70%] xl:flex-[0_0_64%] 2xl:flex-[0_0_58%]"
             >
               <ResourceCard item={item} />
             </div>
@@ -126,13 +126,13 @@ function ResourceCard({
 
   return (
     <Link href={item.href} className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-light">
-      <div className="relative aspect-[812/612] overflow-hidden bg-black">
+      <div className="relative aspect-video overflow-hidden bg-black">
         <Image
           src={src}
           alt={item.title}
           fill
-          sizes="(max-width: 640px) 82vw, (max-width: 1024px) 72vw, 812px"
-          className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+          sizes="(max-width: 640px) 84vw, (max-width: 1024px) 70vw, 64vw"
+          className="home-carousel-image object-cover transition-transform duration-700 group-hover:scale-[1.03]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/5 to-transparent" />
       </div>

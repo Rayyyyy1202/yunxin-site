@@ -18,6 +18,8 @@ export default function Header({ locale }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const mainNavigation = getMainNavigation(locale);
+  const shopUrl = process.env.NEXT_PUBLIC_SHOP_URL || "http://localhost:8080";
+  const isExternalShopUrl = /^https?:\/\//.test(shopUrl);
 
   const closeDropdownOnBlur = (event: FocusEvent<HTMLDivElement>) => {
     const nextFocus = event.relatedTarget as Node | null;
@@ -174,7 +176,9 @@ export default function Header({ locale }: HeaderProps) {
             </Link>
 
             <Link
-              href="#"
+              href={shopUrl}
+              target={isExternalShopUrl ? "_blank" : undefined}
+              rel={isExternalShopUrl ? "noreferrer" : undefined}
               className="inline-flex items-center justify-center border border-border-color text-text-primary px-5 py-2 text-sm font-medium tracking-wide hover:border-purple-light hover:text-purple-light transition-colors rounded-sm"
             >
               {localizeText("商城", locale)}

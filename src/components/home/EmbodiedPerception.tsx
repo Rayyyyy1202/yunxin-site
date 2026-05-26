@@ -14,7 +14,7 @@ export default function EmbodiedPerception() {
     <section
       ref={ref}
       id="perception"
-      className="relative isolate flex min-h-[560px] items-center overflow-hidden bg-bg-primary py-20 md:min-h-[640px]"
+      className="relative isolate flex min-h-[560px] items-center overflow-hidden bg-bg-primary py-20 md:min-h-[640px] xl:min-h-[700px]"
     >
       {/* Background image */}
       <Image
@@ -22,7 +22,7 @@ export default function EmbodiedPerception() {
         alt=""
         fill
         sizes="100vw"
-        className="object-cover object-right md:object-[78%_center]"
+        className="home-perception-image object-cover"
         priority
       />
       {/* Left-to-right gradient overlay */}
@@ -36,7 +36,7 @@ export default function EmbodiedPerception() {
 
       {/* Text content — left side */}
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 md:px-10">
-        <div className="max-w-[540px]">
+        <div className="max-w-[900px]">
           <motion.span
             className="text-purple-light text-[11px] uppercase tracking-[5px] font-medium"
             initial={{ opacity: 0, y: 16 }}
@@ -47,19 +47,19 @@ export default function EmbodiedPerception() {
           </motion.span>
 
           <motion.h2
-            className="mt-8 text-4xl font-semibold leading-tight text-text-primary md:text-5xl"
+            className="mt-8 text-[clamp(2.5rem,3.2vw,3.45rem)] font-semibold leading-[1.12] text-text-primary"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            具身感知
-            <span className="mt-2 block text-purple-light">
+            <span className="block whitespace-nowrap">具身感知</span>
+            <span className="mt-2 block text-purple-light lg:whitespace-nowrap">
               機器&quot;慧眼&quot;，破解複雜視覺難題
             </span>
           </motion.h2>
 
           <motion.p
-            className="mt-9 max-w-[493px] text-base leading-[1.9] text-text-secondary md:text-lg"
+            className="mt-9 max-w-[560px] text-base leading-[1.9] text-text-secondary md:text-lg"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}

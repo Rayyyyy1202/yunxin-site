@@ -90,3 +90,46 @@ body {
 .is-gateway-locked body {
   overflow: hidden;
 }
+
+/* Homepage Group 243 responsive art direction. */
+.home-hero-image {
+  object-position: 62% center;
+}
+
+.home-perception-image {
+  object-position: 68% 32%;
+}
+
+.home-carousel-image {
+  object-position: center center;
+}
+
+@media (min-width: 1024px) {
+  .home-hero-image {
+    object-position: 66% center;
+  }
+
+  .home-perception-image {
+    object-position: 72% 28%;
+  }
+}
+
+@media (min-aspect-ratio: 16 / 9) {
+  .home-hero-image {
+    object-position: 70% center;
+  }
+
+  .home-perception-image {
+    object-position: 76% 24%;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-hero-image {
+    object-position: 72% center;
+  }
+
+  .home-perception-image {
+    object-position: 70% 30%;
+  }
+}

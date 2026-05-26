@@ -21,11 +21,11 @@ export default function ProductShowcase() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <div>
+          <div className="min-w-0">
             <span className="text-purple-light text-xs uppercase tracking-[4px] font-bold">
               Full-Stack Independent R&D · Multi-Dimensional Intelligent Visual Product Suite
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary mt-4 leading-tight">
+            <h2 className="mt-4 text-[clamp(2rem,3vw,3rem)] font-bold leading-[1.12] text-text-primary lg:whitespace-nowrap">
               全棧自研 · 多維智能視覺產品集群
             </h2>
           </div>
