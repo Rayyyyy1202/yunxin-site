@@ -70,6 +70,7 @@ export default async function SeriesPage({ params }: SeriesPageProps) {
       <CoreAdvantages
         items={data.coreAdvantages}
         background={data.coreAdvantagesBackground}
+        variant={data.coreAdvantagesVariant}
       />
       <TechSpecsTable data={data.techSpecs} />
       <ApplicationCases items={data.applicationCases} />

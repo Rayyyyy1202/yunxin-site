@@ -24,16 +24,23 @@ export type SeriesIconKey =
   | "Box"
   | "Activity"
   | "LayoutGrid"
+  | "Globe2"
   | "CheckCircle2"
   | "Layers"
   | "Wrench"
-  | "Package";
+  | "Package"
+  | "Puzzle";
 
 export type SeriesSlug =
   | "line"
   | "advanced"
   | "standard"
   | "embodied-intelligence";
+
+export type CoreAdvantagesVariant =
+  | "default"
+  | "standard-showcase"
+  | "advanced-showcase";
 
 /* ------------------------------------------------------------------ */
 /*  Section-level types                                                */
@@ -70,6 +77,7 @@ export interface SeriesAdvantage {
 
 export interface TechSpecsTable {
   headerLabel?: string;
+  productImage?: { src: string; alt: string };
   models: { id: string; label: string; thumb?: string }[];
   rows: { label: string; values: string[] }[];
 }
@@ -121,6 +129,7 @@ export interface SeriesData {
   coreAdvantages?: SeriesAdvantage[];
   /** Optional bg behind the Core Advantages section. */
   coreAdvantagesBackground?: string;
+  coreAdvantagesVariant?: CoreAdvantagesVariant;
   techSpecs?: TechSpecsTable;
   applicationCases?: ApplicationCase[];
   fovCalculator?: FOVCalculatorConfig;
@@ -135,37 +144,6 @@ export interface SeriesData {
 const TOP_LABEL = "DEPTHSIGHT · 高性能 3D 視覺感測器產品線";
 const CONTACT_HREF = "/about/contact";
 const DOWNLOADS_HREF = "/support/downloads";
-
-/**
- * Shared 4-card Core Features set — appears verbatim on Line / Advanced /
- * EI in Figma. Defined once and reused.
- */
-const sharedCoreFeatures: CoreFeatureCard[] = [
-  {
-    icon: "CheckCircle2",
-    title: "無懼強光 又快又準",
-    description:
-      "光皆不影響成像。即使在強干擾環境下，依然能保持高精度與高幀率，輕鬆應對無序抓取、拆垛及碼垛等複雜的機械人引導任務。",
-  },
-  {
-    icon: "Layers",
-    title: "複雜材質 一網打盡",
-    description:
-      "無論是反光件、深色件還是結構複雜的工件，皆能呈現細節豐富、邊界清晰的 3D 點雲。傳統視覺技術無法處理的材質難題，交給它即可迎刃而解。",
-  },
-  {
-    icon: "Wrench",
-    title: "全場景覆蓋 毋須妥協",
-    description:
-      "從遠距離大視野到近距離高精度，從高速採集到緊湊安裝，全系列產品均可覆蓋，毋須為了單一場景而犧牲其他效能。",
-  },
-  {
-    icon: "Package",
-    title: "即裝即用 改造無憂",
-    description:
-      "機身小巧緊湊，安裝方式靈活，能適配主流的機械人和工業設備，大幅節省現場改造與調試的成本和時間。",
-  },
-];
 
 const sharedCTA: SeriesCTA = {
   title: "開啟工業具身智能 新紀元",
@@ -348,6 +326,37 @@ const lineSeries: SeriesData = {
 /*  Advanced 系列                                                       */
 /* ------------------------------------------------------------------ */
 
+const advancedCoreAdvantages: SeriesAdvantage[] = [
+  {
+    icon: "Crosshair",
+    iconImage: "/images/series/advanced/advantage-strong-light-visual.png",
+    title: "無懼強光 又快又準",
+    description:
+      "在自研結構光技術的加持下，車間燈光或工件反光皆不影響成像。即使在強干擾環境下，依然能保持高精度與高幀率，輕鬆應對無序抓取、拆垛及碼垛等複雜的機械人引導任務。",
+  },
+  {
+    icon: "Box",
+    iconImage: "/images/series/advanced/advantage-complex-material-visual.png",
+    title: "複雜材質 一網打盡",
+    description:
+      "無論是反光件、深色件還是結構複雜的工件，皆能呈現細節豐富、邊界清晰的 3D 點雲。傳統視覺技術無法處理的材質難題，交給它即可迎刃而解。",
+  },
+  {
+    icon: "Globe2",
+    iconImage: "/images/series/advanced/advantage-coverage-visual.png",
+    title: "全場景覆蓋 毋須妥協",
+    description:
+      "從遠距離大視野到近距離高精度，從高速採集到緊湊安裝，全系列產品均可覆蓋，毋須為了單一場景而犧牲其他效能。",
+  },
+  {
+    icon: "Puzzle",
+    iconImage: "/images/series/advanced/advantage-install-visual.png",
+    title: "即裝即用 改造無憂",
+    description:
+      "機身小巧緊湊，安裝方式靈活，能適配主流的機械人和工業設備，大幅節省現場改造與調試的成本和時間。",
+  },
+];
+
 const advancedSeries: SeriesData = {
   slug: "advanced",
   metaTitle: "Advanced 系列 | DepthSight 產品線",
@@ -365,10 +374,11 @@ const advancedSeries: SeriesData = {
     productImageDefault: "/images/series/advanced/hero-product.png",
     backgroundDefault: "/images/series/advanced/hero-bg.png",
   },
-  // Advanced 系列在 Figma 中只有「核心優勢」一段（即 sharedCoreFeatures 那 4 张
-  // 「无懼強光 / 複雜材質 / 全場景覆蓋 / 即裝即用」卡），不再单独区分核心特性。
-  coreAdvantages: sharedCoreFeatures,
+  // Advanced 系列在 Figma 中只有「核心優勢」一段，
+  // 不再單獨區分核心特性。
+  coreAdvantages: advancedCoreAdvantages,
   coreAdvantagesBackground: "/images/series/advanced/section-bg.png",
+  coreAdvantagesVariant: "advanced-showcase",
   techSpecs: {
     models: [
       { id: "A10400", label: "A10400", thumb: "/images/series/advanced/specs/a10400.png" },
@@ -445,31 +455,36 @@ const standardSeries: SeriesData = {
   },
   coreAdvantages: [
     {
-      icon: "CheckCircle2",
+      icon: "Activity",
+      iconImage: "/images/series/standard/advantage-performance-visual.png",
       title: "極致性價比",
       description:
         "保證工業級 3D 成像，大幅降低自動化升級的初始投入。",
     },
     {
-      icon: "Package",
+      icon: "Box",
+      iconImage: "/images/series/standard/advantage-install-visual.png",
       title: "輕巧易安裝",
       description:
         "超緊湊機身，輕鬆適配狹小工位，毋須複雜的工裝改造。",
     },
     {
-      icon: "Plug",
+      icon: "Zap",
+      iconImage: "/images/series/standard/advantage-delivery-visual.png",
       title: "高效速落地",
       description:
         "兼容主流開發環境，整合門檻低，加速項目交付。",
     },
     {
       icon: "LayoutGrid",
+      iconImage: "/images/series/standard/advantage-scenario-visual.png",
       title: "靈活多場景",
       description:
         "完美契合小批量、多場景的自動化改造需求。",
     },
   ],
   coreAdvantagesBackground: "/images/series/ei/advantages-bg.png",
+  coreAdvantagesVariant: "standard-showcase",
   techSpecs: {
     models: [
       { id: "nano-plus", label: "Nano Plus", thumb: "/images/series/standard/specs/nano-plus.png" },
@@ -530,6 +545,10 @@ const standardSeries: SeriesData = {
 
 const nanoTechSpecs: TechSpecsTable = {
   headerLabel: "型号",
+  productImage: {
+    src: "/images/series/ei/specs/nano-technical-visual.png",
+    alt: "Nano 技術參數產品圖",
+  },
   models: [{ id: "nano-plus", label: "Nano（視覺魔方）" }],
   rows: [
     { label: "推薦工作距離（mm）", values: ["300~700"] },

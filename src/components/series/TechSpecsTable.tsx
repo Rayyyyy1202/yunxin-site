@@ -16,6 +16,7 @@ export default function TechSpecsTable({ data }: TechSpecsTableProps) {
   const tableWidthClass = isSingleTextModelTable
     ? "min-w-[640px] md:min-w-0"
     : "min-w-[900px] md:min-w-[1080px]";
+  const headingSpacingClass = data.productImage ? "mb-0" : "mb-12 md:mb-16";
 
   return (
     <section className="relative bg-bg-secondary py-20 md:py-28">
@@ -25,7 +26,7 @@ export default function TechSpecsTable({ data }: TechSpecsTableProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.5 }}
-          className="mb-12 md:mb-16 flex items-end gap-4 flex-wrap"
+          className={`${headingSpacingClass} flex items-end gap-4 flex-wrap`}
         >
           <h2 className="text-text-primary text-2xl md:text-3xl font-bold">
             技術參數
@@ -34,6 +35,23 @@ export default function TechSpecsTable({ data }: TechSpecsTableProps) {
             / Technical Specifications
           </span>
         </motion.div>
+
+        {data.productImage ? (
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
+            className="relative h-[132px] md:h-[167px]"
+          >
+            <SiteImg
+              src={data.productImage.src}
+              alt={data.productImage.alt}
+              className="series-tech-spec-thumb absolute left-1/2 top-6 h-[110px] w-[110px] max-w-none -translate-x-1/2 object-contain md:left-[62%] md:top-[55px] md:h-[150px] md:w-[150px]"
+              loading="lazy"
+            />
+          </motion.div>
+        ) : null}
 
         <motion.div
           initial={{ opacity: 0, y: 24 }}
