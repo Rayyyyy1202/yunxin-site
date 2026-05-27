@@ -605,8 +605,6 @@ function UseCasesSection() {
     <WorkstationUseCasesSection
       title="AIR Vision Pro Station應用案例"
       cases={airVisionProCases}
-      imageSrc={`${AIR_VISION_PRO_ROOT}/use-cases.png`}
-      imageAlt="AIR Vision Pro Station應用案例"
       className="pb-0 md:pb-0"
     />
   );

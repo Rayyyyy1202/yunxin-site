@@ -482,8 +482,6 @@ function UseCaseSection() {
       id="robot-scan-use-cases"
       title="RobotScan Station應用案例"
       cases={useCases}
-      imageSrc={`${IMAGE_ROOT}/use-cases.png`}
-      imageAlt="RobotScan Station應用案例"
       className="scroll-mt-20 border-b border-white/10 md:scroll-mt-24"
     />
   );

@@ -648,8 +648,6 @@ function CasesSection() {
     <WorkstationUseCasesSection
       title="AIR Picking Station應用案例"
       cases={applicationCases}
-      imageSrc={`${IMAGE_ROOT}/group138-cases.png`}
-      imageAlt="AIR Picking Station應用案例"
     />
   );
 }
