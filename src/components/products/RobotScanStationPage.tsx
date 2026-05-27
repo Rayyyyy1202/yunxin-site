@@ -2,26 +2,18 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import {
-  ArrowRight,
   BarChart3,
   Boxes,
-  CheckCircle2,
   Clock3,
   Crosshair,
-  Database,
-  FileText,
   Gauge,
-  Hexagon,
   Layers3,
-  PenTool,
   Play,
-  ScanLine,
   Sparkles,
   Target,
-  XCircle,
-  type LucideIcon,
 } from "lucide-react";
 import SeriesCTA from "@/components/series/SeriesCTA";
+import WorkstationUseCasesSection from "@/components/products/WorkstationUseCasesSection";
 
 const IMAGE_ROOT = "/images/products/robot-scan-station";
 const LAYER_ROOT = `${IMAGE_ROOT}/layers`;
@@ -31,14 +23,12 @@ type MetricItem = {
   value: string;
   detail?: string;
   image?: string;
-  icon?: LucideIcon;
 };
 
 type WorkflowStep = {
   number: string;
   title: string;
   description: string;
-  icon: LucideIcon;
 };
 
 type CapabilityItem = {
@@ -48,7 +38,6 @@ type CapabilityItem = {
   pain: string;
   solutionTitle: string;
   solution: string;
-  icon: LucideIcon;
   metrics?: Array<{ label: string; value: string }>;
 };
 
@@ -83,37 +72,31 @@ const workflowSteps: WorkflowStep[] = [
     number: "01",
     title: "基準匯入",
     description: "將零部件的 CAD 模型輸入系統，作為後續分析的基準。",
-    icon: Database,
   },
   {
     number: "02",
     title: "智能規劃",
     description: "根據 CAD 模型自動生成最優掃描視點，大幅提升效率。",
-    icon: Sparkles,
   },
   {
     number: "03",
     title: "主動採集",
     description: "機械臂按規劃路徑主動掃描，精準採集三維數據。",
-    icon: ScanLine,
   },
   {
     number: "04",
     title: "三維重建",
     description: "對掃描數據快速處理，生成精確的三維模型。",
-    icon: Hexagon,
   },
   {
     number: "05",
     title: "AI檢測與分析",
     description: "利用 AI 演算法對重建模型進行品質檢測與特徵識別。",
-    icon: Crosshair,
   },
   {
     number: "06",
     title: "報告與工藝輸出",
     description: "輸出報告、偏差色譜圖與工藝路徑，形成工藝參數。",
-    icon: FileText,
   },
 ];
 
@@ -133,7 +116,6 @@ const capabilities: CapabilityItem[] = [
     solutionTitle: "我們的方案",
     solution:
       "主動式掃描，機械臂提供靈活視野，完美適應任意工件尺寸與曲面。",
-    icon: ScanLine,
   },
   {
     number: "02",
@@ -143,7 +125,6 @@ const capabilities: CapabilityItem[] = [
     solutionTitle: "我們的方案",
     solution:
       "ViewPlanner 智能視點規劃演算法根據 CAD 模型自動規劃視點並避障，作業效率提升 40 倍。",
-    icon: Sparkles,
     metrics: [
       { value: "2小時→3分鐘", label: "視點規劃" },
       { value: "40x", label: "效率提升" },
@@ -159,7 +140,6 @@ const capabilities: CapabilityItem[] = [
     solutionTitle: "我們的方案",
     solution:
       "DepthSight 感測器與雲芯自研拼接演算法，實現微米級精度與低精度損失。",
-    icon: Gauge,
     metrics: [
       { value: "DepthSight", label: "感測器" },
       { value: "無需 Marker", label: "拼接" },
@@ -174,7 +154,6 @@ const capabilities: CapabilityItem[] = [
     solutionTitle: "我們的方案",
     solution:
       "自動定位、缺陷檢測與路徑生成能力，快速形成打磨、塗膠、裁剪等工藝引導路徑。",
-    icon: PenTool,
     metrics: [
       { value: "自動定位", label: "識別" },
       { value: "缺陷檢測", label: "分析" },
@@ -356,15 +335,30 @@ function WorkflowSection() {
   return (
     <section
       id="robot-scan-workflow"
-      className="relative scroll-mt-20 overflow-hidden border-b border-white/10 bg-black py-16 md:scroll-mt-24 md:py-20"
+      className="relative scroll-mt-20 overflow-hidden border-b border-white/10 bg-black py-16 md:scroll-mt-24 md:py-0"
     >
       <GridGlow />
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10">
-        <TechTitle>
+      <div className="mx-auto max-w-[1280px] px-6 md:px-0">
+        <div className="md:hidden">
+          <TechTitle>
+            從數據採集到工藝引導{" "}
+            <span className="text-[#6e4dff]">全流程自動化</span>
+          </TechTitle>
+        </div>
+        <h2 className="sr-only">
           從數據採集到工藝引導{" "}
-          <span className="text-[#6e4dff]">全流程自動化</span>
-        </TechTitle>
-        <div className="mt-11 grid gap-2 lg:grid-cols-6">
+          全流程自動化
+        </h2>
+        <div className="relative mx-auto hidden aspect-[1280/645] w-full md:block">
+          <Image
+            src={`${LAYER_ROOT}/group195-workflow-bg.png`}
+            alt=""
+            fill
+            sizes="1280px"
+            className="object-contain"
+          />
+        </div>
+        <div className="mt-10 grid gap-4 md:hidden">
           {workflowSteps.map((step) => (
             <WorkflowCard key={step.number} step={step} />
           ))}
@@ -378,42 +372,74 @@ function ImpactSection() {
   return (
     <section
       id="robot-scan-impact"
-      className="relative isolate scroll-mt-20 overflow-hidden border-b border-white/10 bg-black py-16 md:scroll-mt-24"
+      className="relative isolate scroll-mt-20 overflow-hidden border-b border-white/10 bg-black py-12 md:scroll-mt-24 md:py-0"
     >
       <GridGlow />
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10">
-        <div className="relative overflow-hidden border border-cyan-400/25 bg-[#03040a] px-5 py-12 text-center shadow-[0_0_40px_rgba(88,70,255,0.14)]">
-          <div className="absolute inset-0 opacity-35">
-            <Image
-              src={`${LAYER_ROOT}/transition-bg.png`}
-              alt=""
-              fill
-              sizes="100vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="relative">
-            <h2 className="text-3xl font-bold leading-tight md:text-[42px]">
+      <div className="mx-auto max-w-[1280px] px-6 md:px-0">
+        <div className="relative min-h-[260px] overflow-hidden border border-purple-light/25 bg-[#03040a] md:aspect-[1280/183] md:min-h-0 md:border-0">
+          <Image
+            src={`${LAYER_ROOT}/impact-banner-bg.png`}
+            alt=""
+            fill
+            sizes="1280px"
+            className="object-cover"
+          />
+          <div className="relative flex min-h-[260px] flex-col items-center justify-center px-5 py-8 text-center md:absolute md:inset-0 md:min-h-0 md:justify-start md:px-0 md:py-0">
+            <h2 className="text-3xl font-bold leading-tight md:mt-[31px] md:text-[42px]">
               顛覆傳統&nbsp;&nbsp;重新定義智能測量與引導
             </h2>
-            <div className="mx-auto mt-8 grid max-w-[860px] gap-3 md:grid-cols-4">
+            <div className="mt-8 grid w-full max-w-[836px] gap-3 sm:grid-cols-2 md:hidden">
               {impactStats.map((stat) => {
                 const Icon = stat.icon;
+
                 return (
                   <div
                     key={stat.label}
-                    className="flex min-h-[72px] items-center gap-4 border border-purple-light/35 bg-[#090a18]/88 px-5 text-left"
+                    className="flex min-h-[63px] items-center justify-center gap-4 rounded-[9px] border border-purple-light/35 bg-[#090a18]/86 px-5 text-left shadow-[inset_0_0_24px_rgba(123,102,255,0.18)]"
                   >
-                    <Icon size={30} className="shrink-0 text-purple-light" />
+                    <Icon
+                      size={28}
+                      strokeWidth={1.7}
+                      className="shrink-0 text-purple-light"
+                    />
                     <div>
-                      <p className="text-2xl font-bold text-purple-light">
+                      <p className="bg-[linear-gradient(90deg,#7b66ff,#bf81ff)] bg-clip-text text-2xl font-bold leading-none text-transparent">
                         {stat.value}
                       </p>
-                      <p className="text-xs text-white/72">{stat.label}</p>
+                      <p className="mt-1 text-[10px] font-medium leading-[15px] text-white">
+                        {stat.label}
+                      </p>
                     </div>
                   </div>
                 );
               })}
+            </div>
+            <div className="hidden md:absolute md:left-1/2 md:top-[110px] md:grid md:h-[63px] md:w-[836px] md:-translate-x-1/2 md:grid-cols-4 md:gap-[10px]">
+              {impactStats.map((stat, index) => (
+                <div
+                  key={stat.label}
+                  className={`flex h-[63px] items-center text-left ${
+                    index === 0
+                      ? "pl-[92px]"
+                      : index === 3
+                        ? "pl-[82px]"
+                        : "pl-[108px]"
+                  }`}
+                >
+                  <div className="min-w-0">
+                    <p
+                      className={`bg-[linear-gradient(90deg,#7b66ff,#bf81ff)] bg-clip-text font-bold leading-none text-transparent ${
+                        index === 3 ? "text-[18px]" : "text-[22px]"
+                      }`}
+                    >
+                      {stat.value}
+                    </p>
+                    <p className="mt-1 text-[10px] font-medium leading-[15px] text-white">
+                      {stat.label}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -426,79 +452,24 @@ function CapabilitySection() {
   return (
     <section
       id="robot-scan-advantages"
-      className="relative scroll-mt-20 overflow-hidden border-b border-white/10 bg-black py-16 md:scroll-mt-24 md:py-20"
+      className="relative scroll-mt-20 overflow-hidden border-b border-white/10 bg-black py-16 md:scroll-mt-24 md:py-0"
     >
       <GridGlow />
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10">
-        <div className="grid gap-6">
-          {capabilities.map((item) => {
-            const Icon = item.icon;
-            return (
-              <article
-                key={item.number}
-                className="relative overflow-hidden border border-purple-light/30 bg-[#050611] p-5 shadow-[0_0_38px_rgba(123,102,255,0.12)] md:p-7"
-              >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_28%,rgba(123,102,255,0.18),transparent_34%)]" />
-                <div className="relative">
-                  <div className="mb-5 flex flex-wrap items-center gap-4">
-                    <span className="inline-flex h-12 w-12 items-center justify-center bg-[#5636c8] text-lg font-bold">
-                      {item.number}
-                    </span>
-                    <h2 className="text-2xl font-bold text-white md:text-3xl">
-                      {item.title}
-                    </h2>
-                  </div>
-                  <div className="grid gap-4 lg:grid-cols-[0.48fr_0.08fr_0.44fr] lg:items-stretch">
-                    <div className="border border-white/10 bg-black/30 p-5">
-                      <p className="flex items-center gap-3 text-lg font-semibold">
-                        <XCircle size={24} className="text-purple-light" />
-                        {item.painTitle}
-                      </p>
-                      <p className="mt-4 min-h-[72px] text-base leading-8 text-white/72">
-                        {item.pain}
-                      </p>
-                    </div>
-                    <div className="hidden items-center justify-center text-purple-light lg:flex">
-                      <ArrowRight size={34} strokeWidth={1.5} />
-                    </div>
-                    <div className="border border-purple-light/25 bg-[#0a0b18] p-5">
-                      <p className="flex items-center gap-3 text-lg font-semibold">
-                        <CheckCircle2 size={24} className="text-purple-light" />
-                        {item.solutionTitle}
-                      </p>
-                      <div className="mt-4 flex flex-col gap-5 md:flex-row md:items-center">
-                        <div className="flex h-28 w-28 shrink-0 items-center justify-center border border-purple-light/35 bg-purple-primary/15 text-purple-light">
-                          <Icon size={50} strokeWidth={1.4} />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <p className="text-base leading-8 text-white/76">
-                            {item.solution}
-                          </p>
-                          {item.metrics ? (
-                            <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                              {item.metrics.map((metric) => (
-                                <div
-                                  key={`${item.number}-${metric.label}`}
-                                  className="border border-purple-light/20 bg-black/45 px-3 py-3 text-center"
-                                >
-                                  <p className="text-lg font-bold text-purple-light">
-                                    {metric.value}
-                                  </p>
-                                  <p className="mt-1 text-xs text-white/58">
-                                    {metric.label}
-                                  </p>
-                                </div>
-                              ))}
-                            </div>
-                          ) : null}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
+      <div className="mx-auto max-w-[1281px] px-6 md:px-0">
+        <h2 className="sr-only">RobotScan 核心能力</h2>
+        <div className="relative mx-auto hidden aspect-[1281/1797] w-full md:block">
+          <Image
+            src={`${LAYER_ROOT}/group214-capabilities-bg.png`}
+            alt=""
+            fill
+            sizes="1281px"
+            className="object-contain"
+          />
+        </div>
+        <div className="grid gap-5 md:hidden">
+          {capabilities.map((item) => (
+            <CapabilityMobileCard key={item.number} item={item} />
+          ))}
         </div>
       </div>
     </section>
@@ -507,43 +478,75 @@ function CapabilitySection() {
 
 function UseCaseSection() {
   return (
-    <section
+    <WorkstationUseCasesSection
       id="robot-scan-use-cases"
-      className="relative scroll-mt-20 overflow-hidden border-b border-white/10 bg-black py-16 md:scroll-mt-24 md:py-20"
-    >
-      <GridGlow />
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10">
-        <TechTitle>RobotScan Station應用案例</TechTitle>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {useCases.map((item) => (
-            <article key={item} className="text-center">
-              <div className="aspect-[386/257] border border-purple-light/45 bg-black shadow-[inset_0_0_32px_rgba(123,102,255,0.08),0_0_24px_rgba(123,102,255,0.08)]" />
-              <h3 className="mt-6 text-2xl font-bold leading-9 text-white">
-                {item}
-              </h3>
-            </article>
-          ))}
-        </div>
-        <div className="mx-auto mt-14 h-px max-w-[1160px] bg-[linear-gradient(90deg,transparent,rgba(123,102,255,0.72),transparent)]" />
-      </div>
-    </section>
+      title="RobotScan Station應用案例"
+      cases={useCases}
+      imageSrc={`${IMAGE_ROOT}/use-cases.png`}
+      imageAlt="RobotScan Station應用案例"
+      className="scroll-mt-20 border-b border-white/10 md:scroll-mt-24"
+    />
   );
 }
 
 function WorkflowCard({ step }: { step: WorkflowStep }) {
-  const Icon = step.icon;
-
   return (
-    <article className="relative min-h-[300px] overflow-hidden border border-purple-light/35 bg-[linear-gradient(180deg,rgba(16,17,37,0.95),rgba(3,3,9,0.98))] p-4 shadow-[inset_0_0_26px_rgba(123,102,255,0.16)]">
+    <article className="relative overflow-hidden border border-purple-light/35 bg-[linear-gradient(180deg,rgba(16,17,37,0.95),rgba(3,3,9,0.98))] p-5 shadow-[inset_0_0_26px_rgba(123,102,255,0.16)]">
       <div className="absolute left-0 top-0 flex h-11 min-w-12 items-center justify-center bg-[#5f43d5] px-2 text-xl font-bold">
         {step.number}
       </div>
       <div className="pt-8">
         <h3 className="text-xl font-bold text-white">{step.title}</h3>
-        <div className="my-7 flex h-28 items-center justify-center text-purple-light">
-          <Icon size={62} strokeWidth={1.2} />
+        <p className="mt-5 text-sm leading-7 text-white/74">
+          {step.description}
+        </p>
+      </div>
+    </article>
+  );
+}
+
+function CapabilityMobileCard({ item }: { item: CapabilityItem }) {
+  return (
+    <article className="relative overflow-hidden border border-purple-light/30 bg-[#050611] p-5 shadow-[0_0_38px_rgba(123,102,255,0.12)]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_28%,rgba(123,102,255,0.18),transparent_34%)]" />
+      <div className="relative">
+        <div className="mb-5 flex items-center gap-4">
+          <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center bg-[#5636c8] text-lg font-bold">
+            {item.number}
+          </span>
+          <h3 className="text-2xl font-bold text-white">{item.title}</h3>
         </div>
-        <p className="text-sm leading-7 text-white/74">{step.description}</p>
+        <div className="grid gap-4">
+          <div className="border border-white/10 bg-black/35 p-4">
+            <p className="text-lg font-semibold text-white">{item.painTitle}</p>
+            <p className="mt-3 text-sm leading-7 text-white/70">{item.pain}</p>
+          </div>
+          <div className="border border-purple-light/25 bg-[#0a0b18] p-4">
+            <p className="text-lg font-semibold text-white">
+              {item.solutionTitle}
+            </p>
+            <p className="mt-3 text-sm leading-7 text-white/76">
+              {item.solution}
+            </p>
+            {item.metrics ? (
+              <div className="mt-4 grid grid-cols-2 gap-3">
+                {item.metrics.map((metric) => (
+                  <div
+                    key={`${item.number}-${metric.label}`}
+                    className="border border-purple-light/20 bg-black/45 px-3 py-3 text-center"
+                  >
+                    <p className="text-base font-bold text-purple-light">
+                      {metric.value}
+                    </p>
+                    <p className="mt-1 text-xs text-white/58">
+                      {metric.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ) : null}
+          </div>
+        </div>
       </div>
     </article>
   );
