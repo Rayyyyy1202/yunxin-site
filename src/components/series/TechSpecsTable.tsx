@@ -12,6 +12,10 @@ export default function TechSpecsTable({ data }: TechSpecsTableProps) {
   if (!data) return null;
 
   const hasModelThumbs = data.models.some((model) => Boolean(model.thumb));
+  const isSingleTextModelTable = data.models.length === 1 && !hasModelThumbs;
+  const tableWidthClass = isSingleTextModelTable
+    ? "min-w-[640px] md:min-w-0"
+    : "min-w-[900px] md:min-w-[1080px]";
 
   return (
     <section className="relative bg-bg-secondary py-20 md:py-28">
@@ -38,20 +42,22 @@ export default function TechSpecsTable({ data }: TechSpecsTableProps) {
           transition={{ duration: 0.5 }}
           className="overflow-x-auto rounded-xl border border-border-subtle bg-bg-primary/40 backdrop-blur-sm"
         >
-          <table className="w-full min-w-[900px] text-sm md:min-w-[1080px]">
+          <table className={`w-full text-sm ${tableWidthClass}`}>
             <thead>
               <tr className="border-b border-border-subtle">
                 <th
                   scope="col"
                   className="sticky left-0 z-20 w-[180px] bg-bg-primary px-5 py-4 text-left text-xs font-semibold uppercase tracking-[2px] text-text-secondary md:w-[220px]"
                 >
-                  {hasModelThumbs ? "型號" : "參數"}
+                  {data.headerLabel ?? (hasModelThumbs ? "型號" : "參數")}
                 </th>
                 {data.models.map((m) => (
                   <th
                     key={m.id}
                     scope="col"
-                    className="min-w-[144px] px-4 py-5 text-center align-bottom text-xs font-bold uppercase tracking-[2px] text-purple-light md:min-w-[170px] md:px-5 md:py-6 md:text-sm"
+                    className={`min-w-[144px] px-4 text-center align-bottom text-xs font-bold uppercase tracking-[2px] text-purple-light md:min-w-[170px] md:px-5 md:text-sm ${
+                      isSingleTextModelTable ? "py-6 md:py-6" : "py-5 md:py-6"
+                    }`}
                   >
                     <div
                       className={
@@ -84,14 +90,18 @@ export default function TechSpecsTable({ data }: TechSpecsTableProps) {
                 >
                   <th
                     scope="row"
-                    className="sticky left-0 z-10 bg-bg-secondary text-left text-text-primary font-medium px-5 py-3.5"
+                    className={`sticky left-0 z-10 bg-bg-secondary px-5 text-left font-medium text-text-primary ${
+                      isSingleTextModelTable ? "py-6" : "py-3.5"
+                    }`}
                   >
                     {row.label}
                   </th>
                   {row.values.map((v, j) => (
                     <td
                       key={j}
-                      className="px-5 py-3.5 text-text-secondary whitespace-nowrap"
+                      className={`px-5 text-text-secondary whitespace-nowrap ${
+                        isSingleTextModelTable ? "py-6 text-center" : "py-3.5"
+                      }`}
                     >
                       {v}
                     </td>

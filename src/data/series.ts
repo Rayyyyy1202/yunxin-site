@@ -69,6 +69,7 @@ export interface SeriesAdvantage {
 }
 
 export interface TechSpecsTable {
+  headerLabel?: string;
   models: { id: string; label: string; thumb?: string }[];
   rows: { label: string; values: string[] }[];
 }
@@ -527,6 +528,27 @@ const standardSeries: SeriesData = {
 /*  Embodied Intelligence 系列                                          */
 /* ------------------------------------------------------------------ */
 
+const nanoTechSpecs: TechSpecsTable = {
+  headerLabel: "型号",
+  models: [{ id: "nano-plus", label: "Nano（視覺魔方）" }],
+  rows: [
+    { label: "推薦工作距離（mm）", values: ["300~700"] },
+    { label: "解析度（MP）", values: ["1280x1024"] },
+    { label: "近視野（FOV）(mm)", values: ["189x178@300mm"] },
+    { label: "遠視野（FOV）(mm)", values: ["494x434@700mm"] },
+    { label: "XY方向解析度（mm）", values: ["0.15@300mm"] },
+    { label: "是否配RGB相機", values: ["是"] },
+    { label: "典型採集時間（s）", values: ["0.5"] },
+    { label: "2D典型採集速率", values: ["20fps"] },
+    { label: "Z向單點重複精度", values: ["＜0.05%@700mm"] },
+    { label: "尺寸（mm）", values: ["126x56x29"] },
+    { label: "重量", values: ["261.7g"] },
+    { label: "光源", values: ["藍光LED"] },
+    { label: "數據介面", values: ["GigE"] },
+    { label: "外殼防護等級", values: ["IP65"] },
+  ],
+};
+
 const eiSeries: SeriesData = {
   slug: "embodied-intelligence",
   metaTitle: "Nano | Embodied Intelligence 產品線",
@@ -578,7 +600,7 @@ const eiSeries: SeriesData = {
       description: "無懼透明及複雜環境，穩定輸出可靠數據。",
     },
   ],
-  techSpecs: standardSeries.techSpecs,
+  techSpecs: nanoTechSpecs,
   applicationCases: standardSeries.applicationCases,
   fovCalculator: standardSeries.fovCalculator,
   caseGallery: standardSeries.caseGallery,
