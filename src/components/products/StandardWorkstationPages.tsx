@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import {
-  Boxes,
   Gauge,
   Layers3,
   ShieldCheck,
@@ -11,6 +10,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import SeriesCTA from "@/components/series/SeriesCTA";
+import WorkstationUseCasesSection from "@/components/products/WorkstationUseCasesSection";
 
 type HeroStat = {
   title: string;
@@ -46,6 +46,7 @@ type Capability = {
 };
 
 const AIR_VISION_PRO_ROOT = "/images/products/air-vision-pro-station";
+const CORE_ADVANTAGES_COMPLETE_IMAGE = `${AIR_VISION_PRO_ROOT}/core-advantages-complete.png`;
 
 const airVisionProHeroStats: HeroStat[] = [
   { title: "極致精準", detail: "重複精度 ±0.05mm", icon: Sparkles },
@@ -115,6 +116,31 @@ const airVisionProWorkflow: WorkflowStep[] = [
   },
 ];
 
+const workflowTimingLabels = [
+  { label: "1s", x: 166, y: 628, size: "small" },
+  { label: "1s", x: 472, y: 628, size: "small" },
+  { label: "3s", x: 785, y: 628, size: "small" },
+  { label: "5s", x: 1098, y: 628, size: "small" },
+  { label: "10s", x: 640, y: 735, size: "total" },
+] as const;
+
+const workflowJudgementLabels = [
+  {
+    tone: "ok",
+    title: "OK 產品：",
+    description: "亮綠燈並自動記錄存檔",
+    x: 1060,
+    y: 291,
+  },
+  {
+    tone: "ng",
+    title: "NG 產品：",
+    description: "亮紅燈並觸發蜂鳴器報警",
+    x: 1060,
+    y: 398,
+  },
+] as const;
+
 const airVisionProSpecs: SpecRow[] = [
   {
     label: "掃描視野範圍",
@@ -174,8 +200,8 @@ function StationShell({ children }: { children: ReactNode }) {
 
 function AirVisionProHero() {
   return (
-    <section className="bg-black">
-      <div className="relative mx-auto hidden max-w-[1280px] overflow-hidden md:block md:aspect-[1280/530]">
+    <section className="bg-black pt-16 md:pt-20">
+      <div className="relative mx-auto hidden max-w-[1280px] overflow-hidden md:block md:aspect-[1280/550]">
         <Image
           src={`${AIR_VISION_PRO_ROOT}/hero-visual.png`}
           alt="AIR Vision Pro 3D 線掃平整度檢測專機"
@@ -183,11 +209,11 @@ function AirVisionProHero() {
           height={550}
           priority
           sizes="(min-width: 1280px) 1280px, 100vw"
-          className="absolute left-0 top-[12.264%] h-[103.774%] w-full max-w-none object-fill"
+          className="absolute inset-0 h-full w-full max-w-none object-fill"
         />
         <div
           className="absolute z-10 flex flex-col items-start"
-          style={figmaLayerStyle(40, 105, 604, 412, 1280, 530)}
+          style={figmaLayerStyle(40, 45, 604, 412, 1280, 550)}
         >
           <p className="whitespace-nowrap bg-[linear-gradient(90deg,#492e8d_0%,#7b66ff_100%)] bg-clip-text font-bold leading-none tracking-[2.4px] text-transparent text-[clamp(28px,2.8125vw,36px)]">
             3D線掃平整度檢測專機
@@ -232,15 +258,16 @@ function AirVisionProHero() {
           className="object-cover object-[68%_center]"
         />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.92)_0%,rgba(0,0,0,0.68)_56%,rgba(0,0,0,0.18)_100%)]" />
-        <div className="relative z-10 flex min-h-[680px] flex-col justify-start px-6 pb-16 pt-28">
+        <div className="relative z-10 flex min-h-[680px] flex-col justify-start px-6 pb-16 pt-14">
           <p className="bg-[linear-gradient(90deg,#492e8d_0%,#7b66ff_100%)] bg-clip-text text-3xl font-bold leading-9 tracking-[2.4px] text-transparent">
             3D線掃平整度檢測專機
           </p>
-          <h1 className="mt-5 text-6xl font-bold leading-none text-[#7b66ff]">
+          <h1 className="mt-5 w-full min-w-0 break-words text-[40px] font-bold leading-none text-[#7b66ff] sm:text-6xl">
             AIR Vision Pro
           </h1>
-          <p className="mt-7 max-w-[606px] text-xl font-semibold leading-9 text-white">
-            專為金屬產品設計的高精度平整度與高度測量解決方案
+          <p className="mt-7 w-full min-w-0 max-w-[606px] text-xl font-semibold leading-9 text-white">
+            <span className="block">專為金屬產品設計的高精度</span>
+            <span className="block">平整度與高度測量解決方案</span>
           </p>
           <div className="mt-7 grid max-w-[321px] gap-2">
             {airVisionProHeroStats.map((stat) => (
@@ -272,79 +299,24 @@ function CoreAdvantagesSection() {
     <section id="core-content" className="bg-black">
       <CoreAdvantagesTitle />
       <div className="mx-auto hidden max-w-[1280px] md:block">
-        <div className="relative aspect-[1280/851]">
+        <div className="relative aspect-[1536/1024]">
           <Image
-            src={`${AIR_VISION_PRO_ROOT}/core-visuals-hd.png`}
+            src={CORE_ADVANTAGES_COMPLETE_IMAGE}
             alt="AIR Vision Pro 核心優勢視覺"
             fill
             unoptimized
             sizes="1280px"
             className="object-cover"
           />
-          <CoreBadge id="01" left={24} top={30.37} />
-          <CoreLayerText left={94} top={47} width={264} className="core-layer-title">
-            强大的檢測能力
-          </CoreLayerText>
-          <CoreLayerText left={124} top={118} width={264} className="core-layer-label">
-            正面檢測：
-          </CoreLayerText>
-          <CoreLayerText left={124} top={146} width={166} className="core-layer-body">
-            TP 面 / 內框面平整度檢測。
-          </CoreLayerText>
-          <CoreLayerText left={124} top={246} width={264} className="core-layer-label">
-            背面檢測：
-          </CoreLayerText>
-          <CoreLayerText left={124} top={274} width={166} className="core-layer-body">
-            底面 / 螺柱台階面測量
-          </CoreLayerText>
-
-          <CoreBadge id="02" left={662} top={30.37} />
-          <CoreLayerText left={732} top={47} width={264} className="core-layer-title">
-            無限制的測量點位
-          </CoreLayerText>
-          <CoreLayerText left={690} top={101} width={373} className="core-layer-body">
-            支援直接匯入 CAD 圖紙，測量點位數量完全無限制。
-          </CoreLayerText>
-          <CoreLayerText left={691} top={253} width={68} className="core-layer-cad">
-            CAD
-          </CoreLayerText>
-
-          <CoreBadge id="03" left={24} top={439} />
-          <CoreLayerText left={94} top={455.63} width={264} className="core-layer-title">
-            科學的檢測演算法
-          </CoreLayerText>
-          <CoreLayerText left={39} top={516} width={502} className="core-layer-body">
-            系統自動選取平整區域擬合基準平面，精準提取所有測量點的高度差，自動計算峰值與谷值差值。
-          </CoreLayerText>
-
-          <CoreBadge id="04" left={662} top={439} />
-          <CoreLayerText left={732} top={455.63} width={264} className="core-layer-title">
-            完善的數據追溯
-          </CoreLayerText>
-          <CoreExcelBadge />
-          <CoreLayerText left={690} top={516} width={528} className="core-layer-body">
-            內建資料庫管理系統，檢測結果自動存檔並可輸出為 EXCEL 表格，實現品質數據完全可追溯。
-          </CoreLayerText>
-          {["數據採集", "自動分析", "結果存檔", "報表輸出", "追溯查詢"].map((label, index) => (
-            <CoreLayerText
-              key={label}
-              left={[712, 826, 936, 1044, 1154][index]}
-              top={792}
-              width={64}
-              className="core-layer-stage"
-            >
-              {label}
-            </CoreLayerText>
-          ))}
         </div>
       </div>
       <div className="px-6 py-12 md:hidden">
         <div className="mx-auto max-w-[520px] overflow-hidden rounded-lg border border-purple-light/20 bg-[#05050b]">
           <Image
-            src={`${AIR_VISION_PRO_ROOT}/core-visuals-hd.png`}
+            src={CORE_ADVANTAGES_COMPLETE_IMAGE}
             alt="AIR Vision Pro 核心優勢視覺"
-            width={1538}
-            height={1023}
+            width={1536}
+            height={1024}
             unoptimized
             sizes="100vw"
             className="h-auto w-full"
@@ -416,14 +388,6 @@ function CoreAdvantagesTitle() {
   );
 }
 
-function CoreBadge({ id, left, top }: { id: string; left: number; top: number }) {
-  return (
-    <div className="absolute" style={figmaLayerStyle(left, top, 70.189, 70.189)}>
-      <NumberBadge id={id} className="size-full" />
-    </div>
-  );
-}
-
 function NumberBadge({ id, className = "size-[54px]" }: { id: string; className?: string }) {
   return (
     <div
@@ -434,56 +398,6 @@ function NumberBadge({ id, className = "size-[54px]" }: { id: string; className?
       }}
     >
       {id}
-    </div>
-  );
-}
-
-function CoreLayerText({
-  left,
-  top,
-  width,
-  className,
-  children,
-}: {
-  left: number;
-  top: number;
-  width: number;
-  className: string;
-  children: ReactNode;
-}) {
-  const layerClasses: Record<string, string> = {
-    "core-layer-title":
-      "bg-[linear-gradient(90deg,#ffffff_0%,#7b66ff_100%)] bg-clip-text text-[clamp(20px,2.1875vw,28px)] font-black leading-[1.72] text-transparent",
-    "core-layer-label":
-      "text-[clamp(14px,1.5625vw,20px)] font-black leading-[1.5] text-white",
-    "core-layer-body":
-      "text-[clamp(12px,1.25vw,16px)] font-normal leading-[1.5] text-white",
-    "core-layer-cad":
-      "text-center text-[clamp(16px,1.875vw,24px)] font-semibold leading-none text-white",
-    "core-layer-stage":
-      "text-center text-[clamp(11px,1.25vw,16px)] font-normal leading-[1.5] text-white",
-  };
-
-  return (
-    <p
-      className={`absolute uppercase ${layerClasses[className] ?? className}`}
-      style={figmaLayerStyle(left, top, width)}
-    >
-      {children}
-    </p>
-  );
-}
-
-function CoreExcelBadge() {
-  return (
-    <div
-      className="absolute flex items-center gap-2 rounded-[4px] border border-[#2c6b37]/70 bg-black/30 px-2 py-1 text-[clamp(10px,0.9375vw,12px)] font-medium text-white"
-      style={figmaLayerStyle(1113, 452, 82, 28)}
-    >
-      <span className="flex size-[18px] items-center justify-center rounded-[2px] bg-[#1d7f38] text-[10px] font-bold">
-        X
-      </span>
-      <span>Excel</span>
     </div>
   );
 }
@@ -501,6 +415,18 @@ function figmaLayerStyle(
     top: `${(top / baseHeight) * 100}%`,
     width: `${(width / baseWidth) * 100}%`,
     ...(height === undefined ? {} : { height: `${(height / baseHeight) * 100}%` }),
+  };
+}
+
+function figmaPointStyle(
+  x: number,
+  y: number,
+  baseWidth = 1280,
+  baseHeight = 852,
+): CSSProperties {
+  return {
+    left: `${(x / baseWidth) * 100}%`,
+    top: `${(y / baseHeight) * 100}%`,
   };
 }
 
@@ -524,16 +450,22 @@ function WorkflowSection() {
                 <WorkflowOverlay key={step.id} step={step} />
               ))}
             </div>
-            <div className="absolute inset-x-[6%] bottom-[10%] grid grid-cols-4 gap-4 text-center">
-              {airVisionProWorkflow.map((step) => (
-                <p key={step.id} className="text-2xl font-bold text-purple-light md:text-4xl">
-                  {step.meta}
-                </p>
-              ))}
-            </div>
-            <p className="absolute bottom-[3.5%] left-1/2 -translate-x-1/2 text-3xl font-bold text-[#7b66ff] md:text-5xl">
-              10s
-            </p>
+            {workflowJudgementLabels.map((item) => (
+              <WorkflowJudgementLabel key={item.tone} item={item} />
+            ))}
+            {workflowTimingLabels.map((item) => (
+              <p
+                key={`${item.label}-${item.x}`}
+                className={`absolute hidden -translate-x-1/2 -translate-y-1/2 font-bold leading-none md:block ${
+                  item.size === "total"
+                    ? "text-3xl text-[#7b66ff] md:text-5xl"
+                    : "text-2xl text-purple-light md:text-4xl"
+                }`}
+                style={figmaPointStyle(item.x, item.y)}
+              >
+                {item.label}
+              </p>
+            ))}
           </div>
         </div>
       </div>
@@ -550,25 +482,31 @@ function WorkflowSection() {
 
 function WorkflowOverlay({ step }: { step: WorkflowStep }) {
   return (
-    <article className="min-h-[154px] rounded-lg border border-purple-light/25 bg-black/42 p-4 text-white backdrop-blur-[2px]">
+    <article className="h-[154px] overflow-hidden rounded-lg border border-purple-light/25 bg-black/42 p-4 text-white backdrop-blur-[2px]">
       <p className="inline-flex h-8 min-w-12 items-center justify-center rounded-lg border border-purple-light/45 bg-purple-primary/35 text-sm font-bold text-white">
         {step.id}
       </p>
       <h3 className="mt-4 text-lg font-semibold leading-7">{step.title}</h3>
       <p className="mt-2 text-sm leading-6 text-white/76">{step.description}</p>
-      {step.result ? (
-        <div className="mt-3 grid gap-2 text-xs leading-5">
-          {step.result.map((item) => (
-            <p
-              key={item.label}
-              className={item.tone === "ok" ? "text-[#67f26f]" : "text-[#ff6961]"}
-            >
-              {item.label}
-            </p>
-          ))}
-        </div>
-      ) : null}
     </article>
+  );
+}
+
+function WorkflowJudgementLabel({
+  item,
+}: {
+  item: (typeof workflowJudgementLabels)[number];
+}) {
+  return (
+    <div
+      className={`absolute hidden w-[190px] text-sm font-semibold leading-5 md:block ${
+        item.tone === "ok" ? "text-[#67f26f]" : "text-[#ff6961]"
+      }`}
+      style={figmaPointStyle(item.x, item.y)}
+    >
+      <p>{item.title}</p>
+      <p className="mt-1 text-white/88">{item.description}</p>
+    </div>
   );
 }
 
@@ -664,23 +602,13 @@ function SpecsSection() {
 
 function UseCasesSection() {
   return (
-    <section className="bg-black pb-16">
-      <SectionBandTitle title="AIR Vision Pro Station應用案例" />
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10">
-        <div className="grid gap-5 md:grid-cols-3">
-          {airVisionProCases.map((item) => (
-            <article key={item} className="rounded-lg border border-purple-light/25 bg-black p-3">
-              <div className="flex aspect-[386/257] items-center justify-center rounded-lg border border-purple-light/16 bg-black">
-                <Boxes className="text-purple-light/35" size={34} strokeWidth={1.4} />
-              </div>
-              <h3 className="px-6 py-6 text-center text-base font-semibold leading-7 text-white">
-                {item}
-              </h3>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
+    <WorkstationUseCasesSection
+      title="AIR Vision Pro Station應用案例"
+      cases={airVisionProCases}
+      imageSrc={`${AIR_VISION_PRO_ROOT}/use-cases.png`}
+      imageAlt="AIR Vision Pro Station應用案例"
+      className="pb-0 md:pb-0"
+    />
   );
 }
 
