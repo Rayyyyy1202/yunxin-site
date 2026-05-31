@@ -11,6 +11,8 @@
   --text-secondary: #ababad;
   --border-color: #47484a;
   --border-subtle: rgba(71, 72, 74, 0.5);
+  --font-inter: "Inter", "Segoe UI", Arial, sans-serif;
+  --font-noto-sans-sc: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "Source Han Sans SC", sans-serif;
 }
 
 @theme inline {

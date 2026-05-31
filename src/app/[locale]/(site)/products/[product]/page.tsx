@@ -7,7 +7,7 @@ import AirPlannerEnginePage from "@/components/products/AirPlannerEnginePage";
 import RobotScanStationPage from "@/components/products/RobotScanStationPage";
 import { AirVisionProStationPage } from "@/components/products/StandardWorkstationPages";
 import { productPageSlugs } from "@/data/productPages";
-import { LOCALES } from "@/lib/i18n";
+import { LOCALES, normalizeLocale } from "@/lib/i18n";
 import { getManagedProductPage } from "@/lib/managed-content.server";
 
 interface LocaleProductPageProps {
@@ -35,7 +35,7 @@ export async function generateMetadata({
 export default async function LocaleProductPage({
   params,
 }: LocaleProductPageProps) {
-  const { product } = await params;
+  const { locale, product } = await params;
   const data = await getManagedProductPage(product);
 
   if (!data) notFound();
@@ -45,7 +45,7 @@ export default async function LocaleProductPage({
   }
 
   if (data.slug === "air-calibrator-engine") {
-    return <AirCalibratorEnginePage />;
+    return <AirCalibratorEnginePage locale={normalizeLocale(locale)} />;
   }
 
   if (data.slug === "air-planner-engine") {

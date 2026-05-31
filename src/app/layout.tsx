@@ -1,23 +1,9 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { Inter, Noto_Sans_SC } from "next/font/google";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
 import { DEFAULT_LOCALE, isLocale } from "@/lib/i18n";
 import MotionProvider from "@/components/MotionProvider";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const notoSansSC = Noto_Sans_SC({
-  variable: "--font-noto-sans-sc",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -69,10 +55,7 @@ export default async function RootLayout({
   const locale = isLocale(requestedLocale) ? requestedLocale : DEFAULT_LOCALE;
 
   return (
-    <html
-      lang={locale}
-      className={`${inter.variable} ${notoSansSC.variable} h-full antialiased`}
-    >
+    <html lang={locale} className="h-full antialiased">
       <body className="min-h-full flex flex-col bg-bg-primary text-text-primary">
         <MotionProvider>{children}</MotionProvider>
       </body>
