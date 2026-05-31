@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CareerDetailPage from "@/components/about/CareerDetailPage";
-import { careerDetailSlugs, getCareerDetail } from "@/data/careers";
+import { careerDetailSlugs } from "@/data/careers";
+import { getManagedCareerDetail } from "@/lib/managed-content.server";
 
 interface CareerPageProps {
   params: Promise<{ slug: string }>;
@@ -15,7 +16,7 @@ export async function generateMetadata({
   params,
 }: CareerPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const career = getCareerDetail(slug);
+  const career = await getManagedCareerDetail(slug);
   if (!career) return { title: "職位未找到" };
 
   return {
@@ -26,7 +27,7 @@ export async function generateMetadata({
 
 export default async function CareerPage({ params }: CareerPageProps) {
   const { slug } = await params;
-  const career = getCareerDetail(slug);
+  const career = await getManagedCareerDetail(slug);
 
   if (!career) {
     notFound();

@@ -5,11 +5,13 @@ import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { useSiteCopy } from "@/components/SiteImageProvider";
 import { news } from "@/data/news";
+import { useManagedNews } from "@/hooks/useManagedContent";
 
 export default function NewsPreview() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
-  const items = news.slice(0, 3);
+  const managedNews = useManagedNews(news);
+  const items = managedNews.slice(0, 3);
   const title = useSiteCopy("home-news-title", "新聞動態");
 
   return (

@@ -4,7 +4,7 @@ export type CopyManifest = Record<string, string>;
 
 export const COPY_MANIFEST_PATH = "public/uploads/copy-manifest.json";
 
-export const COPY_MANIFEST_URL = "/uploads/copy-manifest.json";
+export const COPY_MANIFEST_URL = "/api/managed-content?scope=copy";
 
 export function resolveCopyValue(
   slotId: string,

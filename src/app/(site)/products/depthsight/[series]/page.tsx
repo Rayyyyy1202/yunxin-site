@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getSeries, seriesList, seriesSlugs } from "@/data/series";
+import { seriesSlugs } from "@/data/series";
+import { getManagedSeries, getManagedSeriesList } from "@/lib/managed-content.server";
 import SeriesHeroSection from "@/components/series/SeriesHero";
 import CoreFeatures from "@/components/series/CoreFeatures";
 import CoreAdvantages from "@/components/series/CoreAdvantages";
@@ -25,7 +26,7 @@ export async function generateMetadata({
   params,
 }: SeriesPageProps): Promise<Metadata> {
   const { series } = await params;
-  const data = getSeries(series);
+  const data = await getManagedSeries(series);
   if (!data) return { title: "系列未找到" };
   return {
     title: data.metaTitle,
@@ -35,15 +36,16 @@ export async function generateMetadata({
 
 export default async function SeriesPage({ params }: SeriesPageProps) {
   const { series } = await params;
-  const data = getSeries(series);
+  const data = await getManagedSeries(series);
 
   if (!data) notFound();
 
-  const currentIndex = seriesList.findIndex((s) => s.slug === data.slug);
-  const prev = currentIndex > 0 ? seriesList[currentIndex - 1] : null;
+  const managedSeriesList = await getManagedSeriesList();
+  const currentIndex = managedSeriesList.findIndex((s) => s.slug === data.slug);
+  const prev = currentIndex > 0 ? managedSeriesList[currentIndex - 1] : null;
   const next =
-    currentIndex !== -1 && currentIndex < seriesList.length - 1
-      ? seriesList[currentIndex + 1]
+    currentIndex !== -1 && currentIndex < managedSeriesList.length - 1
+      ? managedSeriesList[currentIndex + 1]
       : null;
 
   if (data.slug === "embodied-intelligence") {

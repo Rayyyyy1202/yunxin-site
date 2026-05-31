@@ -6,15 +6,17 @@ import NewsCarousel from "@/components/about/NewsCarousel";
 import NewsListItem from "@/components/about/NewsListItem";
 import Pagination from "@/components/ui/Pagination";
 import { news } from "@/data/news";
+import { useManagedNews } from "@/hooks/useManagedContent";
 
 const PAGE_SIZE = 5;
 const FEATURED_COUNT = 3;
 
 export default function NewsView() {
   const [page, setPage] = useState(1);
+  const managedNews = useManagedNews(news);
 
-  const featured = news.slice(0, FEATURED_COUNT);
-  const rest = news.slice(FEATURED_COUNT);
+  const featured = managedNews.slice(0, FEATURED_COUNT);
+  const rest = managedNews.slice(FEATURED_COUNT);
   const totalPages = Math.max(1, Math.ceil(rest.length / PAGE_SIZE));
   const start = (page - 1) * PAGE_SIZE;
   const visible = rest.slice(start, start + PAGE_SIZE);

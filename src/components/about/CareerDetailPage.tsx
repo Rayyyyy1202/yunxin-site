@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import SiteImg from "@/components/ui/SiteImg";
 import type { CareerDetail } from "@/lib/types";
 
 interface CareerDetailPageProps {
@@ -20,13 +20,10 @@ export default function CareerDetailPage({ career }: CareerDetailPageProps) {
     <div className="overflow-hidden bg-[#050509] text-white">
       <section className="bg-[#050509] pt-16 md:pt-20">
         <div className="relative mx-auto h-[403px] max-w-[1280px] overflow-hidden">
-          <Image
+          <SiteImg
             src={career.heroImage}
             alt=""
-            fill
-            priority
-            sizes="(max-width: 1280px) 100vw, 1280px"
-            className="object-cover object-center"
+            className="absolute inset-0 h-full w-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/18 via-black/5 to-black/0" />
           <div className="absolute left-6 top-16 max-w-[700px] md:left-[74px] md:top-[86px]">
@@ -87,11 +84,9 @@ export default function CareerDetailPage({ career }: CareerDetailPageProps) {
 
         {career.qrImage ? (
           <div className="mt-10 flex justify-center md:justify-end">
-            <Image
+            <SiteImg
               src={career.qrImage}
               alt="職位咨詢二維碼"
-              width={153}
-              height={162}
               className="h-auto w-[132px] md:w-[153px]"
             />
           </div>

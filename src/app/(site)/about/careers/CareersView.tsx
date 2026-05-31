@@ -1,15 +1,22 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { careerDetailSlugs, careers } from "@/data/careers";
+import { careerDetails, careers } from "@/data/careers";
+import { useManagedCareers } from "@/hooks/useManagedContent";
 import type { CareerItem } from "@/lib/types";
 
-const openCareers = careers.filter(
-  (career): career is CareerItem & { href: string } =>
-    Boolean(career.href && careerDetailSlugs.includes(career.id)),
-);
-
 export default function CareersView() {
+  const managed = useManagedCareers(careers, careerDetails);
+  const managedCareerSlugs = new Set(
+    managed.details.map((career) => career.slug),
+  );
+  const openCareers = managed.careers.filter(
+    (career): career is CareerItem & { href: string } =>
+      Boolean(career.href && managedCareerSlugs.has(career.id)),
+  );
+
   return (
     <div className="overflow-hidden bg-[#050509] text-white">
       <section className="bg-[#050509] pt-16 md:pt-20">

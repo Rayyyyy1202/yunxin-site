@@ -409,6 +409,104 @@ export const siteCopySections: CopySection[] = [
       },
     ],
   },
+  {
+    title: "关于我们 — 公司介绍",
+    slots: [
+      {
+        id: "about-company-intro-title",
+        label: "公司介绍标题",
+        defaultValue: "雲芯機械人有限公司",
+        maxLength: 120,
+      },
+      {
+        id: "about-company-intro-paragraph-01",
+        label: "公司介绍正文 01",
+        defaultValue:
+          "雲芯機械人有限公司（AleveR Robotics Limited）於香港成立，為InnoHK香港物流機械人中心之孵化企業，由世界頂尖機械人專家、香港工程院院士劉雲輝教授領銜，深耕具身智能領域，致力為機械人提供通用具身操作智能技術及產品，推動機械人技術由「感知」至「操作」再至「移動」之全維度突破。",
+        inputType: "textarea",
+        maxLength: 1200,
+      },
+      {
+        id: "about-company-intro-paragraph-02",
+        label: "公司介绍正文 02",
+        defaultValue:
+          "公司構建由晶片、嵌入式模組至感知演算法、AI模型，再至機械人本體之全棧自研體系，以3D視覺感測器、智能軟件及機械人本體為核心，系統性攻克高反光、黑色吸光、透明物件等工業視覺難題，實現機械人於複雜環境中之「精準感知、智能決策、柔順執行」，形成具身感知、具身操作、具身移動三大範疇協同發展之核心格局。",
+        inputType: "textarea",
+        maxLength: 1200,
+      },
+      {
+        id: "about-company-intro-paragraph-03",
+        label: "公司介绍正文 03",
+        defaultValue:
+          "公司匯聚香港中文大學、浙江大學、哈爾濱工業大學、武漢大學、電子科技大學等頂尖院校之博士精英團隊，於AI、機械視覺、運動控制、機械人本體設計等領域擁有深厚技術積累，核心成員均具備多年行業研發及應用經驗。憑藉自研底層技術及核心部件構建高壁壘之競爭優勢，已獲香港特區政府RAISe+資助、香港科學園科創培育計劃支持，並完成由聯想創投領投之天使輪融資，榮獲日內瓦國際發明展金獎，彰顯公司於具身智能領域之技術實力及業界認可度。",
+        inputType: "textarea",
+        maxLength: 1400,
+      },
+      {
+        id: "about-mission-eyebrow",
+        label: "使命愿景小标题",
+        defaultValue: "◇ Embodied Intelligence v2.0",
+        maxLength: 120,
+      },
+      {
+        id: "about-mission-title",
+        label: "使命愿景标题",
+        defaultValue: "使命與願景",
+        maxLength: 120,
+      },
+      {
+        id: "about-mission-label",
+        label: "使命标签",
+        defaultValue: "使命",
+        maxLength: 40,
+      },
+      {
+        id: "about-mission-body",
+        label: "使命正文",
+        defaultValue:
+          "通過多維視覺與人工智慧的融合，賦能合作夥伴集群，將精準、可靠、智能的感知能力，轉化為各行各業超額價值的生產力。",
+        inputType: "textarea",
+        maxLength: 600,
+      },
+      {
+        id: "about-vision-label",
+        label: "愿景标签",
+        defaultValue: "願景",
+        maxLength: 40,
+      },
+      {
+        id: "about-vision-body",
+        label: "愿景正文",
+        defaultValue: "成為全球多維視覺通用具身操作智能的領導者。",
+        inputType: "textarea",
+        maxLength: 400,
+      },
+      {
+        id: "about-patents-title-zh",
+        label: "专利荣誉中文标题",
+        defaultValue: "專利與榮譽",
+        maxLength: 80,
+      },
+      {
+        id: "about-patents-title-en",
+        label: "专利荣誉英文标题",
+        defaultValue: "PATENTS AND AWARDS",
+        maxLength: 100,
+      },
+      {
+        id: "about-patent-geneva-caption",
+        label: "日内瓦金奖说明",
+        defaultValue: "48屆國際日內瓦發明展金獎",
+        maxLength: 120,
+      },
+      {
+        id: "about-patent-count-caption",
+        label: "专利数量说明",
+        defaultValue: "20+篇專利",
+        maxLength: 120,
+      },
+    ],
+  },
 ];
 
 export const allCopySlots: CopySlot[] = siteCopySections.flatMap(

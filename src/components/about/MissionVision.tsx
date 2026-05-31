@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { useSiteImage } from "@/components/SiteImageProvider";
+import { useSiteCopy, useSiteImage } from "@/components/SiteImageProvider";
 import { aboutContent, type MissionVisionItem } from "@/data/about-content";
 
 export default function MissionVision() {
@@ -12,6 +12,18 @@ export default function MissionVision() {
 
   const { missionVision } = aboutContent;
   const bg = useSiteImage(missionVision.backgroundSrc);
+  const eyebrow = useSiteCopy("about-mission-eyebrow", missionVision.eyebrow);
+  const title = useSiteCopy("about-mission-title", missionVision.title);
+  const mission = {
+    ...missionVision.mission,
+    label: useSiteCopy("about-mission-label", missionVision.mission.label),
+    body: useSiteCopy("about-mission-body", missionVision.mission.body),
+  };
+  const vision = {
+    ...missionVision.vision,
+    label: useSiteCopy("about-vision-label", missionVision.vision.label),
+    body: useSiteCopy("about-vision-body", missionVision.vision.body),
+  };
 
   return (
     <section
@@ -44,10 +56,10 @@ export default function MissionVision() {
         >
           <span className="inline-flex items-center gap-2 border border-purple-primary/40 bg-purple-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[4px] text-purple-light">
             <span className="size-1.5 rounded-full bg-purple-primary" />
-            {missionVision.eyebrow.replace(/^◇\s*/, "")}
+            {eyebrow.replace(/^◇\s*/, "")}
           </span>
           <h2 className="mt-8 text-4xl font-medium leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
-            {missionVision.title}
+            {title}
           </h2>
         </motion.div>
 
@@ -59,7 +71,7 @@ export default function MissionVision() {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <MissionVisionCard
-              item={missionVision.mission}
+              item={mission}
               lineSrc="/images/about/mission-line-figma.svg"
               tone="light"
             />
@@ -72,7 +84,7 @@ export default function MissionVision() {
             transition={{ duration: 0.6, delay: 0.25 }}
           >
             <MissionVisionCard
-              item={missionVision.vision}
+              item={vision}
               lineSrc="/images/about/vision-line-figma.svg"
               tone="dark"
             />

@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { useSiteImage } from "@/components/SiteImageProvider";
+import { useSiteCopy, useSiteImage } from "@/components/SiteImageProvider";
 import { aboutContent } from "@/data/about-content";
 
 export default function CompanyBody() {
@@ -12,6 +12,21 @@ export default function CompanyBody() {
 
   const { companyIntro } = aboutContent;
   const bg = useSiteImage(companyIntro.backgroundSrc);
+  const title = useSiteCopy("about-company-intro-title", companyIntro.title);
+  const paragraphs = [
+    useSiteCopy(
+      "about-company-intro-paragraph-01",
+      companyIntro.paragraphs[0] ?? "",
+    ),
+    useSiteCopy(
+      "about-company-intro-paragraph-02",
+      companyIntro.paragraphs[1] ?? "",
+    ),
+    useSiteCopy(
+      "about-company-intro-paragraph-03",
+      companyIntro.paragraphs[2] ?? "",
+    ),
+  ].filter(Boolean);
 
   return (
     <section
@@ -42,7 +57,7 @@ export default function CompanyBody() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          {companyIntro.title}
+          {title}
         </motion.h2>
 
         <motion.div
@@ -51,7 +66,7 @@ export default function CompanyBody() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          {companyIntro.paragraphs.map((paragraph, idx) => (
+          {paragraphs.map((paragraph, idx) => (
             <p
               key={idx}
               className="text-base font-medium leading-8 text-white md:text-xl md:leading-[1.625]"

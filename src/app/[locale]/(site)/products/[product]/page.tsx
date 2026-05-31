@@ -6,8 +6,9 @@ import AirPickingStationPage from "@/components/products/AirPickingStationPage";
 import AirPlannerEnginePage from "@/components/products/AirPlannerEnginePage";
 import RobotScanStationPage from "@/components/products/RobotScanStationPage";
 import { AirVisionProStationPage } from "@/components/products/StandardWorkstationPages";
-import { getProductPage, productPageSlugs } from "@/data/productPages";
+import { productPageSlugs } from "@/data/productPages";
 import { LOCALES } from "@/lib/i18n";
+import { getManagedProductPage } from "@/lib/managed-content.server";
 
 interface LocaleProductPageProps {
   params: Promise<{ locale: string; product: string }>;
@@ -23,7 +24,7 @@ export async function generateMetadata({
   params,
 }: LocaleProductPageProps): Promise<Metadata> {
   const { product } = await params;
-  const data = getProductPage(product);
+  const data = await getManagedProductPage(product);
   if (!data) return { title: "產品未找到" };
   return {
     title: data.metaTitle,
@@ -35,7 +36,7 @@ export default async function LocaleProductPage({
   params,
 }: LocaleProductPageProps) {
   const { product } = await params;
-  const data = getProductPage(product);
+  const data = await getManagedProductPage(product);
 
   if (!data) notFound();
 

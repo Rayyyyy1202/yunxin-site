@@ -10,11 +10,11 @@ import AirPlannerEnginePage from "@/components/products/AirPlannerEnginePage";
 import RobotScanStationPage from "@/components/products/RobotScanStationPage";
 import { AirVisionProStationPage } from "@/components/products/StandardWorkstationPages";
 import SeriesCTA from "@/components/series/SeriesCTA";
+import { productPageSlugs } from "@/data/productPages";
 import {
-  getProductPage,
-  productPages,
-  productPageSlugs,
-} from "@/data/productPages";
+  getManagedProductPage,
+  getManagedProductPages,
+} from "@/lib/managed-content.server";
 
 interface ProductPageProps {
   params: Promise<{ product: string }>;
@@ -28,7 +28,7 @@ export async function generateMetadata({
   params,
 }: ProductPageProps): Promise<Metadata> {
   const { product } = await params;
-  const data = getProductPage(product);
+  const data = await getManagedProductPage(product);
   if (!data) return { title: "產品未找到" };
   return {
     title: data.metaTitle,
@@ -38,7 +38,7 @@ export async function generateMetadata({
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { product } = await params;
-  const data = getProductPage(product);
+  const data = await getManagedProductPage(product);
 
   if (!data) notFound();
 
@@ -66,11 +66,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
     return <AirVisionProStationPage />;
   }
 
-  const currentIndex = productPages.findIndex((page) => page.slug === data.slug);
-  const prev = currentIndex > 0 ? productPages[currentIndex - 1] : null;
+  const managedProductPages = await getManagedProductPages();
+  const currentIndex = managedProductPages.findIndex(
+    (page) => page.slug === data.slug,
+  );
+  const prev = currentIndex > 0 ? managedProductPages[currentIndex - 1] : null;
   const next =
-    currentIndex !== -1 && currentIndex < productPages.length - 1
-      ? productPages[currentIndex + 1]
+    currentIndex !== -1 && currentIndex < managedProductPages.length - 1
+      ? managedProductPages[currentIndex + 1]
       : null;
 
   return (

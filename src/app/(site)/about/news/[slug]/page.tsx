@@ -3,7 +3,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, ChevronLeft, ChevronRight, Tag } from "lucide-react";
 import SiteImg from "@/components/ui/SiteImg";
-import { news, getNewsBySlug } from "@/data/news";
+import { news } from "@/data/news";
+import {
+  getManagedNews,
+  getManagedNewsBySlug,
+} from "@/lib/managed-content.server";
 import { formatDate } from "@/lib/utils";
 
 interface NewsDetailPageProps {
@@ -20,7 +24,7 @@ export async function generateMetadata({
   params,
 }: NewsDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const item = getNewsBySlug(slug);
+  const item = await getManagedNewsBySlug(slug);
   if (!item) return { title: "新闻未找到" };
   return {
     title: item.title,
@@ -30,17 +34,18 @@ export async function generateMetadata({
 
 export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
   const { slug } = await params;
-  const item = getNewsBySlug(slug);
+  const item = await getManagedNewsBySlug(slug);
 
   if (!item) {
     notFound();
   }
 
-  const currentIndex = news.findIndex((n) => n.slug === slug);
-  const prev = currentIndex > 0 ? news[currentIndex - 1] : null;
+  const managedNews = await getManagedNews();
+  const currentIndex = managedNews.findIndex((n) => n.slug === slug);
+  const prev = currentIndex > 0 ? managedNews[currentIndex - 1] : null;
   const next =
-    currentIndex !== -1 && currentIndex < news.length - 1
-      ? news[currentIndex + 1]
+    currentIndex !== -1 && currentIndex < managedNews.length - 1
+      ? managedNews[currentIndex + 1]
       : null;
 
   return (

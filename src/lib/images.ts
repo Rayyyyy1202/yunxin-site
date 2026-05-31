@@ -16,7 +16,7 @@ export type ImageManifest = Record<string, string>;
 export const MANIFEST_PATH = "public/uploads/manifest.json";
 
 /** Public URL the client fetches. */
-export const MANIFEST_URL = "/uploads/manifest.json";
+export const MANIFEST_URL = "/api/managed-content?scope=images";
 
 /**
  * Resolve the current image source for a given slot.

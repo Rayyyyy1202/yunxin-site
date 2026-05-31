@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import SiteImg from "@/components/ui/SiteImg";
 import { news } from "@/data/news";
+import { useManagedNews } from "@/hooks/useManagedContent";
 import { cn } from "@/lib/utils";
 
 const PAGE_SIZE = 4;
@@ -12,10 +13,11 @@ const HERO_IMAGE = "/images/about/news-hero.png";
 
 export default function NewsView() {
   const [page, setPage] = useState(1);
+  const managedNews = useManagedNews(news);
 
-  const totalPages = Math.max(1, Math.ceil(news.length / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(managedNews.length / PAGE_SIZE));
   const start = (page - 1) * PAGE_SIZE;
-  const visible = news.slice(start, start + PAGE_SIZE);
+  const visible = managedNews.slice(start, start + PAGE_SIZE);
 
   const goToPage = (nextPage: number) => {
     setPage(Math.min(totalPages, Math.max(1, nextPage)));

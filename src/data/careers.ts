@@ -7,7 +7,7 @@ export const careers: CareerItem[] = [
     location: "香港 / 深圳",
     type: "全職",
     href: "/about/careers/market-product-manager",
-    image: "/images/about/career-product.jpg",
+    image: "/images/about/careers/careers-hero-bg.png",
     summary:
       "連接產品、行業方案與市場敘事，推動 AIeveR 產品被準確理解和採用。",
     tags: ["Product Marketing", "Go-to-market", "Industry Insight"],
@@ -19,7 +19,7 @@ export const careers: CareerItem[] = [
     location: "香港 / 深圳",
     type: "全職 / 實習",
     href: "/about/careers/sales-assistant",
-    image: "/images/about/career-solution.jpg",
+    image: "/images/about/careers/careers-hero-bg.png",
     summary:
       "協助銷售合同、回款、開票、發貨與銷售數據管理，保障商務流程高效落地。",
     tags: ["Sales Operations", "Contract", "Finance Coordination"],
