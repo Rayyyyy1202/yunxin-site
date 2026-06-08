@@ -38,6 +38,7 @@ export default function DocumentCard({
   const { icon: Icon, ctaLabel } = VARIANT_CONFIG[variant];
   const isDownloadLike = variant === "download" || variant === "software";
   const href = item.fileUrl ?? "#";
+  const available = Boolean(item.fileUrl && !item.fileUrl.includes("example.com"));
 
   return (
     <motion.article
@@ -97,21 +98,32 @@ export default function DocumentCard({
       </div>
 
       {/* CTA */}
-      <a
-        href={href}
-        target={isDownloadLike ? undefined : "_blank"}
-        rel={isDownloadLike ? undefined : "noopener noreferrer"}
-        download={isDownloadLike || undefined}
-        className={cn(
-          "inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm tracking-wide transition-colors",
-          isDownloadLike
-            ? "bg-purple-primary text-white hover:bg-purple-light/90"
-            : "border border-border-color text-text-primary hover:border-purple-light hover:text-purple-light",
-        )}
-      >
-        {ctaLabel}
-        {isDownloadLike ? <Download size={14} /> : <ArrowUpRight size={14} />}
-      </a>
+      {available ? (
+        <a
+          href={href}
+          target={isDownloadLike ? undefined : "_blank"}
+          rel={isDownloadLike ? undefined : "noopener noreferrer"}
+          download={isDownloadLike || undefined}
+          className={cn(
+            "inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm tracking-wide transition-colors",
+            isDownloadLike
+              ? "bg-purple-primary text-white hover:bg-purple-light/90"
+              : "border border-border-color text-text-primary hover:border-purple-light hover:text-purple-light",
+          )}
+        >
+          {ctaLabel}
+          {isDownloadLike ? <Download size={14} /> : <ArrowUpRight size={14} />}
+        </a>
+      ) : (
+        <button
+          type="button"
+          disabled
+          className="inline-flex cursor-not-allowed items-center justify-center gap-2 rounded-lg border border-border-subtle px-4 py-2.5 text-sm tracking-wide text-text-secondary/55"
+        >
+          待外部存儲確認
+          {isDownloadLike ? <Download size={14} /> : <ArrowUpRight size={14} />}
+        </button>
+      )}
     </motion.article>
   );
 }

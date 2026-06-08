@@ -12,8 +12,10 @@ import {
   Cloud,
   Cpu,
   Crosshair,
+  Globe2,
   LayoutGrid,
   Plug,
+  Puzzle,
   ScanEye,
   ShieldCheck,
   Sparkles,
@@ -35,10 +37,12 @@ const ICON_MAP: Record<SeriesIconKey, LucideIcon> = {
   Box,
   Activity,
   LayoutGrid,
+  Globe2,
   CheckCircle2,
   Layers,
   Wrench,
   Package,
+  Puzzle,
 };
 
 interface CoreFeaturesProps {

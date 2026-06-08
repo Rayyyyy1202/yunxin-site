@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ApplicationFullImageHero from "@/components/applications/ApplicationFullImageHero";
 import ApplicationsHero from "@/components/applications/ApplicationsHero";
-import CaseCard from "@/components/applications/CaseCard";
-import CasePagination from "@/components/applications/CasePagination";
-import { getTopic, topicSlugs } from "@/data/applications";
+import TopicCaseFilterPanel from "@/components/applications/TopicCaseFilterPanel";
+import {
+  applicationIndustryFilters,
+  getTopic,
+  topicSlugs,
+} from "@/data/applications";
 
 interface TopicPageProps {
   params: Promise<{ topic: string }>;
@@ -31,41 +35,46 @@ export default async function TopicPage({ params }: TopicPageProps) {
   const data = getTopic(topic);
   if (!data) notFound();
 
+  const fullImageHero = data.heroVariant === "full-image";
+
   return (
     <>
-      {/* Breadcrumb */}
-      <div className="bg-bg-primary border-b border-border-subtle">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-10 py-4 flex items-center gap-2 text-xs text-text-secondary">
-          <Link href="/" className="hover:text-text-primary transition-colors">
-            首頁
-          </Link>
-          <span className="opacity-50">/</span>
-          <Link
-            href="/applications"
-            className="hover:text-text-primary transition-colors"
-          >
-            行業中心
-          </Link>
-          <span className="opacity-50">/</span>
-          <span className="text-text-primary">{data.title}</span>
+      {!fullImageHero && (
+        <div className="bg-bg-primary border-b border-border-subtle">
+          <div className="max-w-[1280px] mx-auto px-6 md:px-10 py-4 flex items-center gap-2 text-xs text-text-secondary">
+            <Link href="/" className="hover:text-text-primary transition-colors">
+              首頁
+            </Link>
+            <span className="opacity-50">/</span>
+            <Link
+              href="/applications"
+              className="hover:text-text-primary transition-colors"
+            >
+              行業中心
+            </Link>
+            <span className="opacity-50">/</span>
+            <span className="text-text-primary">{data.title}</span>
+          </div>
         </div>
-      </div>
+      )}
 
-      <ApplicationsHero
-        title={data.title}
-        eyebrow={data.eyebrow}
-        background={data.heroBackground}
-        activeTopicSlug={data.slug}
-      />
+      {fullImageHero ? (
+        <ApplicationFullImageHero src={data.heroBackground} alt={data.title} />
+      ) : (
+        <ApplicationsHero
+          title={data.title}
+          eyebrow={data.eyebrow}
+          background={data.heroBackground}
+        />
+      )}
 
       <section className="bg-bg-secondary py-12 md:py-20">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-10 flex flex-col gap-8 md:gap-10">
-          {data.cases.map((c) => (
-            <CaseCard key={c.slug} topicSlug={data.slug} data={c} />
-          ))}
-
-          <CasePagination activeTopicSlug={data.slug} />
-        </div>
+        <TopicCaseFilterPanel
+          topicSlug={data.slug}
+          cases={data.cases}
+          filters={applicationIndustryFilters}
+          caseListVariant={data.caseListVariant}
+        />
       </section>
     </>
   );

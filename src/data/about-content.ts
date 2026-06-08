@@ -12,7 +12,9 @@
 export interface AboutHeroContent {
   eyebrow: string;
   title: string;
+  titleLines?: string[][];
   description: string;
+  descriptionLines?: string[];
   /** Background network/map image slot. */
   backgroundSrc: string;
 }
@@ -63,9 +65,14 @@ export const aboutContent: AboutPageContent = {
   hero: {
     eyebrow: "◇ Embodied Intelligence v2.0",
     title: "源自香港，智連大陸，視達全球",
+    titleLines: [["源自香港，"], ["智連大陸，", "視達全球"]],
     description:
       "以香港為窗口吸納全球前沿技術，以內地市場為根基深度賦能中國智造，以國際化視野服務全球客戶。",
-    backgroundSrc: "/images/about/global-network.png",
+    descriptionLines: [
+      "以香港為窗口吸納全球前沿技術，以內地市場為根基",
+      "深度賦能中國智造，以國際化視野服務全球客戶。",
+    ],
+    backgroundSrc: "/images/about/company-hero-image76.png",
   },
 
   companyIntro: {
@@ -75,13 +82,13 @@ export const aboutContent: AboutPageContent = {
       "公司構建由晶片、嵌入式模組至感知演算法、AI模型，再至機械人本體之全棧自研體系，以3D視覺感測器、智能軟件及機械人本體為核心，系統性攻克高反光、黑色吸光、透明物件等工業視覺難題，實現機械人於複雜環境中之「精準感知、智能決策、柔順執行」，形成具身感知、具身操作、具身移動三大範疇協同發展之核心格局。",
       "公司匯聚香港中文大學、浙江大學、哈爾濱工業大學、武漢大學、電子科技大學等頂尖院校之博士精英團隊，於AI、機械視覺、運動控制、機械人本體設計等領域擁有深厚技術積累，核心成員均具備多年行業研發及應用經驗。憑藉自研底層技術及核心部件構建高壁壘之競爭優勢，已獲香港特區政府RAISe+資助、香港科學園科創培育計劃支持，並完成由聯想創投領投之天使輪融資，榮獲日內瓦國際發明展金獎，彰顯公司於具身智能領域之技術實力及業界認可度。",
     ],
-    backgroundSrc: "/images/about/hk-science-park.png",
+    backgroundSrc: "/images/about/company-intro-bg-figma.png",
   },
 
   missionVision: {
     eyebrow: "◇ Embodied Intelligence v2.0",
     title: "使命與願景",
-    backgroundSrc: "/images/about/mountain-landscape.jpg",
+    backgroundSrc: "/images/about/mission-vision-bg-figma.png",
     mission: {
       index: "01",
       label: "使命",

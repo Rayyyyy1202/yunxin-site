@@ -1,102 +1,149 @@
 "use client";
 
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import { useSiteImage } from "@/components/SiteImageProvider";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import useEmblaCarousel from "embla-carousel-react";
+import { useSiteCopy, useSiteImage } from "@/components/SiteImageProvider";
 
-const resourceSlots = [
-  { id: "resource-1", defaultSrc: "/images/home/resource-1.jpg" },
-  { id: "resource-2", defaultSrc: "/images/home/resource-2.jpg" },
-  { id: "resource-3", defaultSrc: "/images/home/resource-3.jpg" },
-  { id: "resource-4", defaultSrc: "/images/home/resource-4.jpg" },
+const resources = [
+  {
+    id: "resource-factory",
+    title: "智能製造現場",
+    image: "/images/home/group-243/resource-01.png",
+    href: "/support/guides",
+  },
+  {
+    id: "resource-vision",
+    title: "3D視覺應用資料",
+    image: "/images/home/group-243/resource-02.png",
+    href: "/support/docs",
+  },
+  {
+    id: "resource-demo",
+    title: "應用案例與演示",
+    image: "/images/home/group-243/resource-03.png",
+    href: "/support/downloads",
+  },
 ];
 
 export default function ResourceCenter() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "center",
+    loop: true,
+    containScroll: false,
+  });
+  const description = useSiteCopy(
+    "home-resources-description",
+    "從新能源汽車到3C電子，AIeveR Robotics方案已服務多個智能製造一線場景。",
+  );
+  const eyebrow = useSiteCopy("home-resources-eyebrow", "Industry Solutions");
+  const title = useSiteCopy("home-resources-title", "眼見為實 · 資源中心");
+  const allLink = useSiteCopy("home-resources-all-link", "查看全部資源");
+
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   return (
-    <section ref={ref} className="relative bg-bg-primary py-20 md:py-28">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10">
-        {/* Heading */}
+    <section ref={ref} className="relative overflow-hidden bg-bg-primary py-20 md:py-28">
+      <div className="mx-auto max-w-[1440px] px-6 md:px-10">
         <motion.div
-          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16"
+          className="mb-12 grid gap-6 md:mb-16 md:grid-cols-[1fr_1.1fr] md:items-end"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <div>
-            <span className="text-purple-light text-[10px] uppercase tracking-[3px] font-bold">
-              Resources
+          <p className="max-w-xl text-sm leading-7 text-text-secondary">
+            {description}
+          </p>
+          <div className="min-w-0 text-left md:text-right">
+            <span className="text-[10px] font-bold uppercase tracking-[3px] text-purple-light">
+              {eyebrow}
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary mt-4 leading-tight">
-              眼見為實·資源中心
+            <h2 className="mt-4 text-[clamp(2rem,3vw,3rem)] font-bold leading-[1.12] text-text-primary lg:whitespace-nowrap">
+              {title}
             </h2>
           </div>
-          <Link
-            href="/support/docs"
-            className="text-purple-light text-sm hover:underline"
-          >
-            查看全部資源 →
-          </Link>
         </motion.div>
+      </div>
 
-        {/* 4-card grid — placeholder slots for admin upload */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {resourceSlots.map((slot, idx) => (
-            <motion.div
-              key={slot.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 + idx * 0.08 }}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, delay: 0.1 }}
+        ref={emblaRef}
+        className="overflow-hidden"
+        style={{
+          maskImage:
+            "linear-gradient(to right, transparent 0, black 9%, black 91%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent 0, black 9%, black 91%, transparent 100%)",
+        }}
+      >
+        <div className="flex touch-pan-y">
+          {resources.map((item) => (
+            <div
+              key={item.id}
+              className="min-w-0 flex-[0_0_84%] px-3 sm:flex-[0_0_76%] md:flex-[0_0_70%] xl:flex-[0_0_64%] 2xl:flex-[0_0_58%]"
             >
-              <ResourceCard defaultSrc={slot.defaultSrc} />
-            </motion.div>
+              <ResourceCard item={item} />
+            </div>
           ))}
         </div>
+      </motion.div>
+
+      <div className="mt-8 flex items-center justify-center gap-4">
+        <button
+          type="button"
+          onClick={scrollPrev}
+          className="flex size-10 items-center justify-center border border-border-color text-text-secondary transition-colors hover:border-purple-light hover:text-purple-light"
+          aria-label="上一個資源"
+        >
+          <ChevronLeft size={18} />
+        </button>
+        <Link
+          href="/support/docs"
+          className="text-sm font-medium tracking-[2px] text-purple-light hover:underline"
+        >
+          {allLink}
+        </Link>
+        <button
+          type="button"
+          onClick={scrollNext}
+          className="flex size-10 items-center justify-center border border-border-color text-text-secondary transition-colors hover:border-purple-light hover:text-purple-light"
+          aria-label="下一個資源"
+        >
+          <ChevronRight size={18} />
+        </button>
       </div>
     </section>
   );
 }
 
-function ResourceCard({ defaultSrc }: { defaultSrc: string }) {
-  const src = useSiteImage(defaultSrc);
-  const hasImage = src !== defaultSrc;
-
-  if (hasImage) {
-    return (
-      <div className="group relative aspect-[16/10] rounded-xl overflow-hidden">
-        <Image
-          src={src}
-          alt="資源展示"
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-      </div>
-    );
-  }
+function ResourceCard({
+  item,
+}: {
+  item: { id: string; title: string; image: string; href: string };
+}) {
+  const src = useSiteImage(item.image);
+  const title = useSiteCopy(`home-resources-card-${item.id}-title`, item.title);
 
   return (
-    <div className="relative aspect-[16/10] rounded-xl overflow-hidden border border-dashed border-border-subtle bg-bg-secondary/50 flex items-center justify-center">
-      <div className="text-center text-text-secondary/40">
-        <svg
-          className="mx-auto mb-2 w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M12 4v16m8-8H4"
-          />
-        </svg>
-        <span className="text-xs">上傳素材</span>
+    <Link href={item.href} className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-light">
+      <div className="relative aspect-video overflow-hidden bg-black">
+        <Image
+          src={src}
+          alt={title}
+          fill
+          sizes="(max-width: 640px) 84vw, (max-width: 1024px) 70vw, 64vw"
+          className="home-carousel-image object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/5 to-transparent" />
       </div>
-    </div>
+    </Link>
   );
 }

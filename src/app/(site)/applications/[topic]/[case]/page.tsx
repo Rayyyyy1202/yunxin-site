@@ -4,7 +4,7 @@ import { ChevronLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import ApplicationsHero from "@/components/applications/ApplicationsHero";
 import CaseDetailLayout from "@/components/applications/CaseDetailLayout";
-import { allCaseParams, getCase } from "@/data/applications";
+import { allCaseParams, caseHasDetail, getCase } from "@/data/applications";
 
 interface CasePageProps {
   params: Promise<{ topic: string; case: string }>;
@@ -19,7 +19,7 @@ export async function generateMetadata({
 }: CasePageProps): Promise<Metadata> {
   const { topic, case: caseSlug } = await params;
   const found = getCase(topic, caseSlug);
-  if (!found) return { title: "案例未找到" };
+  if (!found || !caseHasDetail(found.case)) return { title: "案例未找到" };
   return {
     title: `${found.case.title} — ${found.topic.title}`,
     description: found.case.cardDescription,
@@ -29,14 +29,18 @@ export async function generateMetadata({
 export default async function CaseDetailPage({ params }: CasePageProps) {
   const { topic, case: caseSlug } = await params;
   const found = getCase(topic, caseSlug);
-  if (!found) notFound();
+  if (!found || !caseHasDetail(found.case)) notFound();
 
   const { topic: topicData, case: caseData } = found;
+  const heroBackground =
+    caseData.detailHeroBackground ??
+    topicData.detailHeroBackground ??
+    topicData.heroBackground;
 
   return (
     <>
       {/* Breadcrumb */}
-      <div className="bg-bg-primary border-b border-border-subtle">
+      <div hidden className="bg-bg-primary border-b border-border-subtle">
         <div className="max-w-[1280px] mx-auto px-6 md:px-10 py-4 flex items-center gap-2 text-xs text-text-secondary">
           <Link href="/" className="hover:text-text-primary transition-colors">
             首頁
@@ -63,10 +67,10 @@ export default async function CaseDetailPage({ params }: CasePageProps) {
       <ApplicationsHero
         title={caseData.title}
         eyebrow={topicData.eyebrow}
-        background={topicData.heroBackground}
+        background={heroBackground}
         productImage={caseData.productImage}
         productLabel={caseData.productLabel}
-        activeTopicSlug={topicData.slug}
+        variant="detail"
       />
 
       <CaseDetailLayout data={caseData} />

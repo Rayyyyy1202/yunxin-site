@@ -8,6 +8,8 @@ import {
   type ReactNode,
 } from "react";
 import { allImageSlots } from "@/data/site-images";
+import type { CopyManifest } from "@/lib/copy";
+import { COPY_MANIFEST_URL } from "@/lib/copy";
 import type { ImageManifest } from "@/lib/images";
 import { MANIFEST_URL } from "@/lib/images";
 
@@ -21,9 +23,11 @@ for (const slot of allImageSlots) {
 }
 
 const ManifestContext = createContext<ImageManifest>({});
+const CopyManifestContext = createContext<CopyManifest>({});
 
 export function SiteImageProvider({ children }: { children: ReactNode }) {
   const [manifest, setManifest] = useState<ImageManifest>({});
+  const [copyManifest, setCopyManifest] = useState<CopyManifest>({});
 
   useEffect(() => {
     fetch(MANIFEST_URL, { cache: "no-cache" })
@@ -32,11 +36,20 @@ export function SiteImageProvider({ children }: { children: ReactNode }) {
       .catch(() => {
         /* manifest unavailable — use defaults */
       });
+
+    fetch(COPY_MANIFEST_URL, { cache: "no-cache" })
+      .then((r) => (r.ok ? (r.json() as Promise<CopyManifest>) : {}))
+      .then((data) => setCopyManifest(data))
+      .catch(() => {
+        /* copy manifest unavailable — use defaults */
+      });
   }, []);
 
   return (
     <ManifestContext.Provider value={manifest}>
-      {children}
+      <CopyManifestContext.Provider value={copyManifest}>
+        {children}
+      </CopyManifestContext.Provider>
     </ManifestContext.Provider>
   );
 }
@@ -55,4 +68,9 @@ export function useSiteImage(defaultSrc: string): string {
     return manifest[slotId];
   }
   return defaultSrc;
+}
+
+export function useSiteCopy(slotId: string, defaultValue: string): string {
+  const manifest = useContext(CopyManifestContext);
+  return manifest[slotId] ?? defaultValue;
 }

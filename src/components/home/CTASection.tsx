@@ -4,12 +4,22 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import Button from "@/components/ui/Button";
-import { useSiteImage } from "@/components/SiteImageProvider";
+import { useSiteCopy, useSiteImage } from "@/components/SiteImageProvider";
 
 export default function CTASection() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   const bg = useSiteImage("/images/home/cta-bg.jpg");
+  const title = useSiteCopy(
+    "home-cta-title",
+    "多維視覺驅動具身智能無限可能",
+  );
+  const description = useSiteCopy(
+    "home-cta-description",
+    "探索全棧自研3D視覺感測器與AI引擎，看AIeveR Robotics如何賦能汽車、新能源、3C等行業。",
+  );
+  const primary = useSiteCopy("home-cta-primary", "聯繫我們");
+  const secondary = useSiteCopy("home-cta-secondary", "技術文檔");
 
   return (
     <section ref={ref} className="relative isolate bg-bg-primary py-28 md:py-36 overflow-hidden">
@@ -30,17 +40,17 @@ export default function CTASection() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-5xl font-bold text-text-primary leading-tight">
-            多維視覺驅動具身智能無限可能
+            {title}
           </h2>
           <p className="text-text-secondary text-base md:text-lg mt-6 max-w-xl mx-auto">
-            探索全棧自研3D視覺感測器與AI引擎，看AIeveR Robotics如何賦能汽車、新能源、3C等行業
+            {description}
           </p>
           <div className="flex items-center justify-center gap-4 mt-10">
             <Button href="/about/contact" size="lg">
-              聯繫我們
+              {primary}
             </Button>
             <Button href="/support/docs" variant="secondary" size="lg">
-              技術文檔
+              {secondary}
             </Button>
           </div>
         </motion.div>

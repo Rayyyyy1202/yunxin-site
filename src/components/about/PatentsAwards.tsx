@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { useSiteImage } from "@/components/SiteImageProvider";
+import { useSiteCopy, useSiteImage } from "@/components/SiteImageProvider";
 import { aboutContent, type PatentAwardItem } from "@/data/about-content";
 
 export default function PatentsAwards() {
@@ -11,6 +11,26 @@ export default function PatentsAwards() {
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   const { patentsAwards } = aboutContent;
+  const titleZh = useSiteCopy(
+    "about-patents-title-zh",
+    patentsAwards.titleZh,
+  );
+  const titleEn = useSiteCopy(
+    "about-patents-title-en",
+    patentsAwards.titleEn,
+  );
+  const genevaCaption = useSiteCopy(
+    "about-patent-geneva-caption",
+    patentsAwards.items[0]?.caption ?? "",
+  );
+  const patentCountCaption = useSiteCopy(
+    "about-patent-count-caption",
+    patentsAwards.items[1]?.caption ?? "",
+  );
+  const items = patentsAwards.items.map((item, index) => ({
+    ...item,
+    caption: index === 0 ? genevaCaption : patentCountCaption,
+  }));
 
   return (
     <section ref={ref} className="bg-bg-primary py-20 md:py-28">
@@ -21,12 +41,11 @@ export default function PatentsAwards() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          {patentsAwards.titleZh}{" "}
-          <span className="text-purple-light">/ {patentsAwards.titleEn}</span>
+          {titleZh} <span className="text-purple-light">/ {titleEn}</span>
         </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
-          {patentsAwards.items.map((item, idx) => (
+          {items.map((item, idx) => (
             <motion.div
               key={item.id}
               className="flex flex-col items-center text-center"

@@ -6,7 +6,7 @@
  * 每个系列页的 sub-section 都是可选字段（undefined / 空数组）；对应组件
  * 在数据为空时直接 return null，所以可以一边补全数据一边逐步上线。
  *
- * EI 系列在 Figma 中只画了 Hero + Core Features + Core Advantages 三段，
+ * EI 系列当前接入 Hero + Core Advantages + 共享 CTA；
  * 其余 section 字段保留 undefined，页面上自然不渲染。
  */
 
@@ -24,12 +24,23 @@ export type SeriesIconKey =
   | "Box"
   | "Activity"
   | "LayoutGrid"
+  | "Globe2"
   | "CheckCircle2"
   | "Layers"
   | "Wrench"
-  | "Package";
+  | "Package"
+  | "Puzzle";
 
-export type SeriesSlug = "line" | "advanced" | "embodied-intelligence";
+export type SeriesSlug =
+  | "line"
+  | "advanced"
+  | "standard"
+  | "embodied-intelligence";
+
+export type CoreAdvantagesVariant =
+  | "default"
+  | "standard-showcase"
+  | "advanced-showcase";
 
 /* ------------------------------------------------------------------ */
 /*  Section-level types                                                */
@@ -65,6 +76,8 @@ export interface SeriesAdvantage {
 }
 
 export interface TechSpecsTable {
+  headerLabel?: string;
+  productImage?: { src: string; alt: string };
   models: { id: string; label: string; thumb?: string }[];
   rows: { label: string; values: string[] }[];
 }
@@ -116,6 +129,7 @@ export interface SeriesData {
   coreAdvantages?: SeriesAdvantage[];
   /** Optional bg behind the Core Advantages section. */
   coreAdvantagesBackground?: string;
+  coreAdvantagesVariant?: CoreAdvantagesVariant;
   techSpecs?: TechSpecsTable;
   applicationCases?: ApplicationCase[];
   fovCalculator?: FOVCalculatorConfig;
@@ -131,44 +145,73 @@ const TOP_LABEL = "DEPTHSIGHT · 高性能 3D 視覺感測器產品線";
 const CONTACT_HREF = "/about/contact";
 const DOWNLOADS_HREF = "/support/downloads";
 
-/**
- * Shared 4-card Core Features set — appears verbatim on Line / Advanced /
- * EI in Figma. Defined once and reused.
- */
-const sharedCoreFeatures: CoreFeatureCard[] = [
-  {
-    icon: "CheckCircle2",
-    title: "無懼強光 又快又準",
-    description:
-      "光皆不影響成像。即使在強干擾環境下，依然能保持高精度與高幀率，輕鬆應對無序抓取、拆垛及碼垛等複雜的機械人引導任務。",
-  },
-  {
-    icon: "Layers",
-    title: "複雜材質 一網打盡",
-    description:
-      "無論是反光件、深色件還是結構複雜的工件，皆能呈現細節豐富、邊界清晰的 3D 點雲。傳統視覺技術無法處理的材質難題，交給它即可迎刃而解。",
-  },
-  {
-    icon: "Wrench",
-    title: "全場景覆蓋 毋須妥協",
-    description:
-      "從遠距離大視野到近距離高精度，從高速採集到緊湊安裝，全系列產品均可覆蓋，毋須為了單一場景而犧牲其他效能。",
-  },
-  {
-    icon: "Package",
-    title: "即裝即用 改造無憂",
-    description:
-      "機身小巧緊湊，安裝方式靈活，能適配主流的機械人和工業設備，大幅節省現場改造與調試的成本和時間。",
-  },
-];
-
 const sharedCTA: SeriesCTA = {
   title: "開啟工業具身智能 新紀元",
   subtitle:
     "我們的專家團隊已準備好為您量身定制工業智能解決方案。聯繫我們，獲取全方位的技術諮詢與報價建議。",
   primaryCta: { label: "獲取報價/諮詢", href: CONTACT_HREF },
   secondaryCta: { label: "預約線下演示", href: CONTACT_HREF },
+  backgroundDefault: "/images/series/shared/cta-overlay-border-blur.png",
 };
+
+const measurementScenarios: ApplicationCase[] = [
+  {
+    label: "BGA 焊點檢測",
+    scenarioImageSlot: "measurement-scenario-bga-solder-joint-scene",
+    scenarioImageDefault: "/images/series/measurement-scenarios/bga-solder-joint/measurement-scene.png",
+    pointCloudImageSlot: "measurement-scenario-bga-solder-joint-point-cloud",
+    pointCloudImageDefault: "/images/series/measurement-scenarios/bga-solder-joint/point-cloud.png",
+  },
+  {
+    label: "CNC 工件高度測量",
+    scenarioImageSlot: "measurement-scenario-cnc-height-scene",
+    scenarioImageDefault: "/images/series/measurement-scenarios/cnc-height/measurement-scene.png",
+    pointCloudImageSlot: "measurement-scenario-cnc-height-point-cloud",
+    pointCloudImageDefault: "/images/series/measurement-scenarios/cnc-height/point-cloud.png",
+  },
+  {
+    label: "PCB 板平整度測量",
+    scenarioImageSlot: "measurement-scenario-pcb-flatness-scene",
+    scenarioImageDefault: "/images/series/measurement-scenarios/pcb-flatness/measurement-scene.png",
+    pointCloudImageSlot: "measurement-scenario-pcb-flatness-point-cloud",
+    pointCloudImageDefault: "/images/series/measurement-scenarios/pcb-flatness/point-cloud.png",
+  },
+  {
+    label: "手機邊框輪廓測量",
+    scenarioImageSlot: "measurement-scenario-phone-frame-profile-scene",
+    scenarioImageDefault: "/images/series/measurement-scenarios/phone-frame-profile/measurement-scene.png",
+    pointCloudImageSlot: "measurement-scenario-phone-frame-profile-point-cloud",
+    pointCloudImageDefault: "/images/series/measurement-scenarios/phone-frame-profile/point-cloud.png",
+  },
+  {
+    label: "新能源電池尺寸測量",
+    scenarioImageSlot: "measurement-scenario-battery-size-scene",
+    scenarioImageDefault: "/images/series/measurement-scenarios/battery-size/measurement-scene.png",
+    pointCloudImageSlot: "measurement-scenario-battery-size-point-cloud",
+    pointCloudImageDefault: "/images/series/measurement-scenarios/battery-size/point-cloud.png",
+  },
+  {
+    label: "新能源電池平面度測量",
+    scenarioImageSlot: "measurement-scenario-battery-flatness-scene",
+    scenarioImageDefault: "/images/series/measurement-scenarios/battery-flatness/measurement-scene.png",
+    pointCloudImageSlot: "measurement-scenario-battery-flatness-point-cloud",
+    pointCloudImageDefault: "/images/series/measurement-scenarios/battery-flatness/point-cloud.png",
+  },
+  {
+    label: "鑄造件孔洞位置度檢測",
+    scenarioImageSlot: "measurement-scenario-casting-hole-position-scene",
+    scenarioImageDefault: "/images/series/measurement-scenarios/casting-hole-position/measurement-scene.png",
+    pointCloudImageSlot: "measurement-scenario-casting-hole-position-point-cloud",
+    pointCloudImageDefault: "/images/series/measurement-scenarios/casting-hole-position/point-cloud.png",
+  },
+  {
+    label: "顯示屏背板平整度測量",
+    scenarioImageSlot: "measurement-scenario-display-backplate-flatness-scene",
+    scenarioImageDefault: "/images/series/measurement-scenarios/display-backplate-flatness/measurement-scene.png",
+    pointCloudImageSlot: "measurement-scenario-display-backplate-flatness-point-cloud",
+    pointCloudImageDefault: "/images/series/measurement-scenarios/display-backplate-flatness/point-cloud.png",
+  },
+];
 
 /* ------------------------------------------------------------------ */
 /*  Line 系列                                                           */
@@ -226,10 +269,10 @@ const lineSeries: SeriesData = {
   coreAdvantagesBackground: "/images/series/line/advantages-bg.png",
   techSpecs: {
     models: [
-      { id: "L10050", label: "L10050" },
-      { id: "L10140", label: "L10140" },
-      { id: "L10400", label: "L10400" },
-      { id: "L11600", label: "L11600" },
+      { id: "L10050", label: "L10050", thumb: "/images/series/line/specs/l10050.png" },
+      { id: "L10140", label: "L10140", thumb: "/images/series/line/specs/l10140.png" },
+      { id: "L10400", label: "L10400", thumb: "/images/series/line/specs/l10400.png" },
+      { id: "L11600", label: "L11600", thumb: "/images/series/line/specs/l11600.png" },
     ],
     rows: [
       { label: "輪廓點數", values: ["3200", "3200", "3200", "3200"] },
@@ -249,15 +292,7 @@ const lineSeries: SeriesData = {
       { label: "外殼防護等級", values: ["IP67", "IP67", "IP67", "IP67"] },
     ],
   },
-  applicationCases: [
-    {
-      label: "PCB 板點雲（缺陷檢測）",
-      scenarioImageSlot: "series-line-scenario-pcb",
-      scenarioImageDefault: "",
-      pointCloudImageSlot: "series-line-pointcloud-pcb",
-      pointCloudImageDefault: "",
-    },
-  ],
+  applicationCases: measurementScenarios,
   fovCalculator: {
     defaultModel: "L10400",
     modelOptions: ["L10050", "L10140", "L10400", "L11600"],
@@ -291,6 +326,37 @@ const lineSeries: SeriesData = {
 /*  Advanced 系列                                                       */
 /* ------------------------------------------------------------------ */
 
+const advancedCoreAdvantages: SeriesAdvantage[] = [
+  {
+    icon: "Crosshair",
+    iconImage: "/images/series/advanced/advantage-strong-light-visual.png",
+    title: "無懼強光 又快又準",
+    description:
+      "在自研結構光技術的加持下，車間燈光或工件反光皆不影響成像。即使在強干擾環境下，依然能保持高精度與高幀率，輕鬆應對無序抓取、拆垛及碼垛等複雜的機械人引導任務。",
+  },
+  {
+    icon: "Box",
+    iconImage: "/images/series/advanced/advantage-complex-material-visual.png",
+    title: "複雜材質 一網打盡",
+    description:
+      "無論是反光件、深色件還是結構複雜的工件，皆能呈現細節豐富、邊界清晰的 3D 點雲。傳統視覺技術無法處理的材質難題，交給它即可迎刃而解。",
+  },
+  {
+    icon: "Globe2",
+    iconImage: "/images/series/advanced/advantage-coverage-visual.png",
+    title: "全場景覆蓋 毋須妥協",
+    description:
+      "從遠距離大視野到近距離高精度，從高速採集到緊湊安裝，全系列產品均可覆蓋，毋須為了單一場景而犧牲其他效能。",
+  },
+  {
+    icon: "Puzzle",
+    iconImage: "/images/series/advanced/advantage-install-visual.png",
+    title: "即裝即用 改造無憂",
+    description:
+      "機身小巧緊湊，安裝方式靈活，能適配主流的機械人和工業設備，大幅節省現場改造與調試的成本和時間。",
+  },
+];
+
 const advancedSeries: SeriesData = {
   slug: "advanced",
   metaTitle: "Advanced 系列 | DepthSight 產品線",
@@ -308,17 +374,18 @@ const advancedSeries: SeriesData = {
     productImageDefault: "/images/series/advanced/hero-product.png",
     backgroundDefault: "/images/series/advanced/hero-bg.png",
   },
-  // Advanced 系列在 Figma 中只有「核心優勢」一段（即 sharedCoreFeatures 那 4 张
-  // 「无懼強光 / 複雜材質 / 全場景覆蓋 / 即裝即用」卡），不再单独区分核心特性。
-  coreAdvantages: sharedCoreFeatures,
+  // Advanced 系列在 Figma 中只有「核心優勢」一段，
+  // 不再單獨區分核心特性。
+  coreAdvantages: advancedCoreAdvantages,
   coreAdvantagesBackground: "/images/series/advanced/section-bg.png",
+  coreAdvantagesVariant: "advanced-showcase",
   techSpecs: {
     models: [
-      { id: "A10400", label: "A10400" },
-      { id: "A10700", label: "A10700" },
-      { id: "A11100", label: "A11100" },
-      { id: "A11600", label: "A11600" },
-      { id: "A12500", label: "A12500" },
+      { id: "A10400", label: "A10400", thumb: "/images/series/advanced/specs/a10400.png" },
+      { id: "A10700", label: "A10700", thumb: "/images/series/advanced/specs/a10700.png" },
+      { id: "A11100", label: "A11100", thumb: "/images/series/advanced/specs/a11100.png" },
+      { id: "A11600", label: "A11600", thumb: "/images/series/advanced/specs/a11600.png" },
+      { id: "A12500", label: "A12500", thumb: "/images/series/advanced/specs/a12500.png" },
     ],
     rows: [
       { label: "推薦工作距離 (mm)", values: ["250~650", "500~1000", "······", "1000~2000", "2000~3000"] },
@@ -335,15 +402,7 @@ const advancedSeries: SeriesData = {
       { label: "外殼防護等級", values: ["IP67", "IP67", "······", "IP67", "IP67"] },
     ],
   },
-  applicationCases: [
-    {
-      label: "PCB 板點雲（缺陷檢測）",
-      scenarioImageSlot: "series-advanced-scenario-pcb",
-      scenarioImageDefault: "",
-      pointCloudImageSlot: "series-advanced-pointcloud-pcb",
-      pointCloudImageDefault: "",
-    },
-  ],
+  applicationCases: measurementScenarios,
   fovCalculator: {
     defaultModel: "A10400",
     modelOptions: ["A10400", "A10700", "A11100", "A11600", "A12500"],
@@ -370,73 +429,211 @@ const advancedSeries: SeriesData = {
       defaultSrc: "",
     },
   ],
-  cta: { ...sharedCTA, backgroundDefault: "/images/series/advanced/cta-bg.png" },
+  cta: sharedCTA,
+};
+
+/* ------------------------------------------------------------------ */
+/*  Standard 系列                                                       */
+/* ------------------------------------------------------------------ */
+
+const standardSeries: SeriesData = {
+  slug: "standard",
+  metaTitle: "Standard 系列 | DepthSight 產品線",
+  metaDescription:
+    "AIeveR Robotics DepthSight Standard 系列：專為追求高性價比、輕量化部署的客戶打造的標竿 3D 視覺感測產品。",
+  hero: {
+    topLabel: TOP_LABEL,
+    title: "Standard 系列",
+    description:
+      "專為追求高性價比、輕量化部署的客戶打造的標竿產品。",
+    primaryCta: { label: "立即諮詢", href: CONTACT_HREF },
+    secondaryCta: { label: "獲取產品資料", href: DOWNLOADS_HREF },
+    sideCards: ["高性價比", "輕量化部署"],
+    productImageSlot: "series-standard-hero",
+    productImageDefault: "/images/series/standard/hero-product.png",
+    backgroundDefault: "/images/series/standard/hero-bg.png",
+  },
+  coreAdvantages: [
+    {
+      icon: "Activity",
+      iconImage: "/images/series/standard/advantage-performance-visual.png",
+      title: "極致性價比",
+      description:
+        "保證工業級 3D 成像，大幅降低自動化升級的初始投入。",
+    },
+    {
+      icon: "Box",
+      iconImage: "/images/series/standard/advantage-install-visual.png",
+      title: "輕巧易安裝",
+      description:
+        "超緊湊機身，輕鬆適配狹小工位，毋須複雜的工裝改造。",
+    },
+    {
+      icon: "Zap",
+      iconImage: "/images/series/standard/advantage-delivery-visual.png",
+      title: "高效速落地",
+      description:
+        "兼容主流開發環境，整合門檻低，加速項目交付。",
+    },
+    {
+      icon: "LayoutGrid",
+      iconImage: "/images/series/standard/advantage-scenario-visual.png",
+      title: "靈活多場景",
+      description:
+        "完美契合小批量、多場景的自動化改造需求。",
+    },
+  ],
+  coreAdvantagesBackground: "/images/series/ei/advantages-bg.png",
+  coreAdvantagesVariant: "standard-showcase",
+  techSpecs: {
+    models: [
+      { id: "nano-plus", label: "Nano Plus", thumb: "/images/series/standard/specs/nano-plus.png" },
+      { id: "dp", label: "DP", thumb: "/images/series/standard/specs/dp.png" },
+      { id: "s", label: "S", thumb: "/images/series/standard/specs/s.png" },
+      { id: "m", label: "M", thumb: "/images/series/standard/specs/m.png" },
+      { id: "l", label: "L", thumb: "/images/series/standard/specs/l.png" },
+    ],
+    rows: [
+      { label: "推薦工作距離（mm）", values: ["380~1000", "1100-3500", "250-600", "500-1000", "1000-2000"] },
+      { label: "解析度（MP）", values: ["1280x1024", "1280x1024", "1928x1208", "1928x1208", "1928x1208"] },
+      { label: "近視野（FOV）(mm)", values: ["300x250@380mm", "1050x1000@1100mm", "180x110@250mm", "400x290@500mm", "830x580@1000mm"] },
+      { label: "遠視野（FOV）(mm)", values: ["650x640@1000mm", "3200x3100@3500mm", "420x260@600mm", "880x560@1000mm", "1800x1140@2000mm"] },
+      { label: "XY方向解析度（mm）", values: ["0.33@500mm", "1.2@1800", "0.091-0.23", "0.25-0.5", "0.5-1.0"] },
+      { label: "是否配RGB相機", values: ["是", "是", "可選", "可選", "可選"] },
+      { label: "典型採集時間（s）", values: ["0.7~1.1", "0.7~1.1", "1.0", "1.0", "1.0"] },
+      { label: "Z向單點重複精度", values: ["0.05mm@500", "1.8mm@1800mm", "0.06mm@400mm", "0.08mm@700mm", "0.2mm@1600mm"] },
+      { label: "尺寸（mm）", values: ["165x115x49", "250x115x49", "156x102x58", "314x106x52", "444x106x52"] },
+      { label: "重量", values: ["1.03kg", "1.45kg", "1.40kg", "1.80kg", "2.40kg"] },
+      { label: "光源", values: ["藍光Laser", "藍光Laser", "藍光LED", "藍光LED", "藍光LED"] },
+      { label: "數據介面", values: ["GigE", "GigE", "GigE", "GigE", "GigE"] },
+      { label: "外殼防護等級", values: ["IP65", "IP65", "IP65", "IP65", "IP65"] },
+    ],
+  },
+  applicationCases: measurementScenarios,
+  fovCalculator: {
+    defaultModel: "S",
+    modelOptions: ["Nano Plus", "DP", "S", "M", "L"],
+    parameters: [
+      { label: "產品型號" },
+      { label: "Distance", placeholder: "16", unit: "mm" },
+      { label: "工作距離", placeholder: "500", unit: "mm" },
+    ],
+  },
+  caseGallery: [
+    {
+      title: "新能源汽車，鋰電池蓋板測量",
+      imageSlot: "series-standard-gallery-battery-cap",
+      defaultSrc: "/images/series/standard/case-battery-cap.png",
+    },
+    {
+      title: "新能源汽車，電池盒下箱體檢測",
+      imageSlot: "series-standard-gallery-battery-housing",
+      defaultSrc: "/images/series/standard/case-battery-housing.png",
+    },
+    {
+      title: "新能源汽車，顯示屏背板測量",
+      imageSlot: "series-standard-gallery-display",
+      defaultSrc: "/images/series/standard/case-display-backplane.png",
+    },
+  ],
+  cta: sharedCTA,
 };
 
 /* ------------------------------------------------------------------ */
 /*  Embodied Intelligence 系列                                          */
 /* ------------------------------------------------------------------ */
 
+const nanoTechSpecs: TechSpecsTable = {
+  headerLabel: "型号",
+  productImage: {
+    src: "/images/series/ei/specs/nano-technical-visual.png",
+    alt: "Nano 技術參數產品圖",
+  },
+  models: [{ id: "nano-plus", label: "Nano（視覺魔方）" }],
+  rows: [
+    { label: "推薦工作距離（mm）", values: ["300~700"] },
+    { label: "解析度（MP）", values: ["1280x1024"] },
+    { label: "近視野（FOV）(mm)", values: ["189x178@300mm"] },
+    { label: "遠視野（FOV）(mm)", values: ["494x434@700mm"] },
+    { label: "XY方向解析度（mm）", values: ["0.15@300mm"] },
+    { label: "是否配RGB相機", values: ["是"] },
+    { label: "典型採集時間（s）", values: ["0.5"] },
+    { label: "2D典型採集速率", values: ["20fps"] },
+    { label: "Z向單點重複精度", values: ["＜0.05%@700mm"] },
+    { label: "尺寸（mm）", values: ["126x56x29"] },
+    { label: "重量", values: ["261.7g"] },
+    { label: "光源", values: ["藍光LED"] },
+    { label: "數據介面", values: ["GigE"] },
+    { label: "外殼防護等級", values: ["IP65"] },
+  ],
+};
+
 const eiSeries: SeriesData = {
   slug: "embodied-intelligence",
-  metaTitle: "Embodied Intelligence 系列 | DepthSight 產品線",
+  metaTitle: "Nano | Embodied Intelligence 產品線",
   metaDescription:
-    "AIeveR Robotics DepthSight Embodied Intelligence 系列：融合 3D 深度與 AI 技術，為具身智能機械人提供精準、穩定、實時的核心視覺。",
+    "AIeveR Robotics Nano：單雙融合面陣結構光 3D 相機，融合 3D 深度與 AI 技術，為具身智能機械人提供核心視覺支撐。",
   hero: {
-    topLabel: TOP_LABEL,
-    title: "Embodied Intelligence 系列",
+    topLabel: "EMBODIED INTELLIGENCE · 具身智能3D視覺感測器產品線",
+    title: "單雙融合面陣結構光3D相機",
     description:
       "融合 3D 深度與 AI 技術，精準感知環境與物件，為具身智能機械人提供核心視覺支撐。",
     primaryCta: { label: "立即諮詢", href: CONTACT_HREF },
     secondaryCta: { label: "獲取產品資料", href: DOWNLOADS_HREF },
-    sideCards: ["精準感知環境與物件", "為具身智能提供核心視覺"],
+    sideCards: ["精準感知環境與物件", "提供核心視覺支撐"],
     productImageSlot: "series-ei-hero",
-    productImageDefault: "/images/series/ei/hero-product.png",
-    backgroundDefault: "/images/series/ei/hero-bg.png",
+    productImageDefault: "/images/series/ei/group11-product.png",
+    backgroundDefault: "/images/series/ei/group11-hero-bg.png",
   },
-  // coreFeatures intentionally omitted — EI 页面不展示「核心特性」共享段，
-  // 直接进入 5 卡的「核心優勢」。
+  // coreFeatures intentionally omitted — Nano first uses the Group 11 hero,
+  // then the Figma image 92 core-advantages artwork.
   coreAdvantages: [
     {
       icon: "Crosshair",
-      iconImage: "/images/series/ei/advantage-1.png",
+      iconImage: "/images/series/ei/advantage-nano-precision.png",
       title: "極致高精",
-      description: "感知數據精準無誤，支撐機械人完成毫米級精度的抓取與裝配。",
-    },
-    {
-      icon: "Activity",
-      iconImage: "/images/series/ei/advantage-2.png",
-      title: "極速實時",
-      description: "毫秒級響應捕捉，實時輸出深度與語義信息，跟得上機械人決策節拍。",
+      description: "感知數據精準無誤。",
     },
     {
       icon: "ShieldCheck",
-      iconImage: "/images/series/ei/advantage-3.png",
+      iconImage: "/images/series/ei/advantage-nano-stability.png",
       title: "持久穩定",
-      description: "支援長期無故障運行，硬件級冗餘設計保障工業現場穩定性。",
+      description: "支援長期無故障運行。",
     },
     {
       icon: "Box",
-      iconImage: "/images/series/ei/advantage-4.png",
+      iconImage: "/images/series/ei/advantage-nano-compact.png",
       title: "緊湊易用",
-      description: "結構小巧，輕鬆整合至各類智能體，即裝即用無需大幅改造。",
+      description: "結構小巧，輕鬆整合至各類智能體。",
+    },
+    {
+      icon: "Activity",
+      iconImage: "/images/series/ei/advantage-nano-realtime.png",
+      title: "極速實時",
+      description: "實現毫秒級響應捕捉。",
     },
     {
       icon: "LayoutGrid",
-      iconImage: "/images/series/ei/advantage-5.png",
+      iconImage: "/images/series/ei/advantage-nano-adaptive.png",
       title: "全場景適應",
-      description:
-        "無懼透明、強反光及複雜光照環境，穩定輸出可靠的點雲與識別結果。",
+      description: "無懼透明及複雜環境，穩定輸出可靠數據。",
     },
   ],
-  coreAdvantagesBackground: "/images/series/ei/advantages-bg.png",
-  // techSpecs / applicationCases / fovCalculator / caseGallery / cta intentionally
-  // omitted — Figma 没有这些子 section，组件读到 undefined 后自动不渲染。
+  techSpecs: nanoTechSpecs,
+  applicationCases: standardSeries.applicationCases,
+  fovCalculator: standardSeries.fovCalculator,
+  caseGallery: standardSeries.caseGallery,
+  cta: sharedCTA,
 };
 
 /* ------------------------------------------------------------------ */
 
-export const seriesList: SeriesData[] = [lineSeries, advancedSeries, eiSeries];
+export const seriesList: SeriesData[] = [
+  lineSeries,
+  advancedSeries,
+  standardSeries,
+  eiSeries,
+];
 
 export const seriesSlugs: SeriesSlug[] = seriesList.map((s) => s.slug);
 
